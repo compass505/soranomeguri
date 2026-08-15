@@ -84,18 +84,26 @@ export const WEATHER_JA = {
   diamonddust: 'ダイヤモンドダスト', rainbow: 'にじ',
 };
 
+/** 雨上がりに虹が出られる猶予（秒）。降水が止まった瞬間から数える。 */
+export const AFTER_RAIN_WINDOW = 90;
+
 /**
  * レアな順に判定する。先に当たったものを採る。
- * @param prevPrecip 直前が降水だったか。虹はこれが無いと絶対に出ない。
+ * @param afterRain 降水が止まってから、まだ猶予の内側か。虹はこれが無いと絶対に出ない。
  */
-export function classify(dials, prevPrecip = false) {
+export function classify(dials, afterRain = false) {
   const { t, v } = dials;
   const { rh, u, cloud, precip } = derive(dials);
 
   if (t <= -15 && v <= 0.5 && rh >= 90) return 'diamonddust';
   // ★虹だけが点ではなく道。空間のどこにも虹の座標は無く、
   //   降水から晴れへ移動している最中にしか存在しない。
-  if (prevPrecip && !precip && cloud <= 4) return 'rainbow';
+  //
+  // ★ここは当初「1フレーム前が降水だったか」で見ていて、虹が一度も出なかった。
+  //   降水が止まる瞬間の雲量は7.0で、虹の条件（4以下）まで晴らす頃には
+  //   1フレームぶんのフラグはとっくに落ちている。
+  //   **「直後」は瞬間ではなく幅で持たないと表現できない。**
+  if (afterRain && !precip && cloud <= 4) return 'rainbow';
   if (precip && u >= 0.75 && t >= 0 && t <= 12) return 'hail';
   if (precip && u >= 0.70 && t >= 20 && rh >= 90) return 'thunder';
   if (precip && t < -1) return 'snow';

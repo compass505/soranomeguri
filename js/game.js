@@ -1,7 +1,7 @@
 // 本体。つまみ → 空 → 子 → 餌 のループを繋ぐ。
 // vault: 30_Projects/そらのめぐり/02_企画/骨格v2_空をつくる.md
 
-import { classify, reachable, WEATHER_JA, WEATHERS } from './weather.js';
+import { classify, reachable, AFTER_RAIN_WINDOW, WEATHER_JA, WEATHERS } from './weather.js';
 import { skyLook, drawClouds, Precip } from './sky.js';
 import { SpriteBank } from './sprites.js';
 import { Pet, bondLevel } from './garden.js';
@@ -27,7 +27,7 @@ let selected = null;           // 持ち物で選んでいる実り
 let time = 0;
 let stableFor = 0;             // いまの天気が続いている秒数
 let current = null;            // いまの天気
-let prevPrecip = false;
+let afterRain = 0;             // 降水が止まってからの残り猶予（秒）。虹の窓
 let sinceHarvest = 0;
 
 const precip = new Precip(1, 1);
@@ -330,7 +330,7 @@ function loop(now) {
   last = now;
   time += dt;
 
-  const kind = classify(st.dials, prevPrecip);
+  const kind = classify(st.dials, afterRain > 0);
   const look = skyLook(st.dials, kind);
 
   if (kind !== current) {
@@ -342,7 +342,13 @@ function loop(now) {
   } else {
     stableFor += dt;
   }
-  prevPrecip = look.precip;
+  // 降っている間は窓を満タンに保ち、止んだらそこから減る。
+  // ★1フレームのフラグでは虹が出せなかった（雲が晴れる前にフラグが落ちる）
+  // ★窓を開けるのは雨とひょうだけ。雪では開けない——
+  //   虹は水滴に光が屈折して出るものなので、雪上がりの虹は成立しない（01_調査/F 1-2）。
+  //   ここを precip 全部にしていたら、-6℃の雪のあとに虹が出た。
+  const wetPrecip = look.precipKind === 'rain' || look.precipKind === 'hail';
+  afterRain = wetPrecip ? AFTER_RAIN_WINDOW : Math.max(0, afterRain - dt);
 
   // ★空を保つこと自体が収穫。別の操作は要らない
   if (stableFor > 6) {
