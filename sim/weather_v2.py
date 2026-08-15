@@ -41,9 +41,30 @@ REACH_P = 40.0    # 気圧の可動域 ±（雷・ひょうに必要な上昇気
 REACH_V = 15.0    # 風は 0 〜 平常値+15
 
 
+def full_range(key: str) -> tuple[float, float]:
+    """つまみの物理的な全体の幅。季節によらず不変。"""
+    ranges = {
+        "t": (-20.0, 40.0),
+        "w": (0.0, 100.0),
+        "p": (960.0, 1040.0),
+        "v": (0.0, 35.0),
+    }
+    if key not in ranges:
+        raise ValueError(f"unknown dial: {key}")
+    return ranges[key]
+
+
 def reachable(i: int) -> tuple[tuple[float, float], tuple[float, float], tuple[float, float]]:
     t, p, v = baseline(i)
-    return (t - REACH_T, t + REACH_T), (p - REACH_P, p + REACH_P), (0.0, v + REACH_V)
+    def clamp_range(key: str, lo: float, hi: float) -> tuple[float, float]:
+        full_lo, full_hi = full_range(key)
+        return max(lo, full_lo), min(hi, full_hi)
+
+    return (
+        clamp_range("t", t - REACH_T, t + REACH_T),
+        clamp_range("p", p - REACH_P, p + REACH_P),
+        clamp_range("v", 0.0, v + REACH_V),
+    )
 
 
 # ---------------------------------------------------------------- 気象モデル

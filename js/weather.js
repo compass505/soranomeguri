@@ -15,6 +15,20 @@ export const SEKKI = [
 export const DAYS_PER_SEKKI = 3;          // 1年 = 72日
 export const DAYS_PER_YEAR = SEKKI.length * DAYS_PER_SEKKI;
 
+export const DIAL_KEYS = ['t', 'w', 'p', 'v'];
+
+/** つまみの物理的な全体の幅。季節によらず不変。 */
+export function fullRange(key) {
+  const ranges = {
+    t: [-20, 40],
+    w: [0, 100],
+    p: [960, 1040],
+    v: [0, 35],
+  };
+  if (!(key in ranges)) throw new RangeError(`unknown dial: ${key}`);
+  return [...ranges[key]];
+}
+
 // 可動域。平常値からこの距離までしかつまみが動かない。
 // ★レアリティはこの3つの数字からしか出ていない。確率もガチャも通貨も無い。
 export const REACH_T = 12.0;
@@ -36,11 +50,15 @@ export function baseline(sekkiIndex) {
 /** その日つまみが動ける範囲。UIはこの外側をグレーで止める。 */
 export function reachable(sekkiIndex) {
   const b = baseline(sekkiIndex);
+  const clampRange = (key, lo, hi) => {
+    const [fullLo, fullHi] = fullRange(key);
+    return [Math.max(lo, fullLo), Math.min(hi, fullHi)];
+  };
   return {
-    t: [b.t - REACH_T, b.t + REACH_T],
-    w: [0, 100],
-    p: [b.p - REACH_P, b.p + REACH_P],
-    v: [0, b.v + REACH_V],
+    t: clampRange('t', b.t - REACH_T, b.t + REACH_T),
+    w: clampRange('w', 0, 100),
+    p: clampRange('p', b.p - REACH_P, b.p + REACH_P),
+    v: clampRange('v', 0, b.v + REACH_V),
   };
 }
 

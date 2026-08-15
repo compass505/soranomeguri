@@ -1,7 +1,10 @@
 // 本体。つまみ → 空 → 子 → 餌 のループを繋ぐ。
 // vault: 30_Projects/そらのめぐり/02_企画/骨格v2_空をつくる.md
 
-import { classify, reachable, AFTER_RAIN_WINDOW, WEATHER_JA, WEATHERS } from './weather.js';
+import {
+  classify, reachable, fullRange, DIAL_KEYS,
+  AFTER_RAIN_WINDOW, WEATHER_JA, WEATHERS,
+} from './weather.js';
 import { skyLook, drawClouds, Precip } from './sky.js';
 import { SpriteBank } from './sprites.js';
 import { Pet, bondLevel } from './garden.js';
@@ -73,7 +76,7 @@ async function init() {
 
 // ---------------------------------------------------------------- つまみ
 
-const DIALS = ['t', 'w', 'p', 'v'];
+const DIALS = DIAL_KEYS;
 const FMT = {
   t: (x) => `${x.toFixed(1)}℃`,
   w: (x) => `${x.toFixed(0)}`,
@@ -81,14 +84,41 @@ const FMT = {
   v: (x) => `${x.toFixed(1)}m/s`,
 };
 
+const boundaryNoticeAt = Object.fromEntries(DIALS.map((k) => [k, -Infinity]));
+const boundaryWords = {
+  t: { low: '冷えない', high: '暑くならない' },
+  w: { low: '湿らない', high: '湿りすぎない' },
+  p: { low: '気圧が下がらない', high: '気圧が上がらない' },
+  v: { low: '風が弱まらない', high: '風が強くならない' },
+};
+
+function sayBoundary(k, side) {
+  const now = performance.now();
+  if (now - boundaryNoticeAt[k] < 3000) return;
+  boundaryNoticeAt[k] = now;
+  const sekki = S.gameCalendar(st).sekki;
+  say(`${sekki}の空は ここまでしか ${boundaryWords[k][side]}`);
+}
+
+function updateRangeVisual(k, reach) {
+  const [lo, hi] = fullRange(k);
+  const start = ((reach[0] - lo) / (hi - lo)) * 100;
+  const width = ((reach[1] - reach[0]) / (hi - lo)) * 100;
+  const band = el(`r-${k}`);
+  band.style.marginLeft = `${start}%`;
+  band.style.width = `${width}%`;
+}
+
 /** ★可動域は暦で動く。ここがレアリティの全て — 確率もガチャも無い。 */
 function applyRanges() {
   const cal = S.gameCalendar(st);
   const r = reachable(cal.sekkiIndex);
   for (const k of DIALS) {
     const input = el(`d-${k}`);
-    input.min = r[k][0];
-    input.max = r[k][1];
+    const [fullLo, fullHi] = fullRange(k);
+    input.min = fullLo;
+    input.max = fullHi;
+    updateRangeVisual(k, r[k]);
     // 季節が変わって範囲外になった値は、範囲の内側へ寄せる
     st.dials[k] = Math.max(r[k][0], Math.min(r[k][1], st.dials[k]));
     input.value = st.dials[k];
@@ -102,7 +132,13 @@ function setupDials() {
   applyRanges();
   for (const k of DIALS) {
     el(`d-${k}`).addEventListener('input', (e) => {
-      st.dials[k] = parseFloat(e.target.value);
+      const [lo, hi] = reachable(S.gameCalendar(st).sekkiIndex)[k];
+      const attempted = parseFloat(e.target.value);
+      const value = Math.max(lo, Math.min(hi, attempted));
+      if (attempted < lo) sayBoundary(k, 'low');
+      if (attempted > hi) sayBoundary(k, 'high');
+      st.dials[k] = value;
+      e.target.value = value;
       el(`v-${k}`).textContent = FMT[k](st.dials[k]);
       S.save(st);
     });
