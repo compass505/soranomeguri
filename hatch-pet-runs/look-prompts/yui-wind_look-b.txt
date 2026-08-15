@@ -4,13 +4,13 @@ this is a single image generation job.
 
 Pet: yui-wind
 Row id: look-b
-Output: save the selected image to /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/look-strips/yui-wind_look-b.png
+Output: save the selected image to ~/Documents/yui-game/hatch-pet-runs/look-strips/yui-wind_look-b.png
 
 Input images to attach (all of them):
-- /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-wind/references/canonical-base.png — canonical identity reference. The pet in every frame must be this exact
+- ~/Documents/yui-game/hatch-pet-runs/yui-wind/references/canonical-base.png — canonical identity reference. The pet in every frame must be this exact
   character: same species, face, eye design, markings, palette, materials, proportions
   and silhouette.
-- /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-wind/references/layout-guides/running-right.png — layout guide only. It defines 8 evenly spaced frame slots across the strip.
+- ~/Documents/yui-game/hatch-pet-runs/yui-wind/references/layout-guides/running-right.png — layout guide only. It defines 8 evenly spaced frame slots across the strip.
   Follow its frame count, spacing, centering and padding. Never draw the guide itself:
   no boxes, no borders, no centre marks, no labels, no guide colours, no guide background.
 
@@ -55,5 +55,5 @@ of them, the rotation actually progressing in one consistent direction, a flat g
 background, and no size or baseline jumps.
 
 Return exactly:
-selected_source=<absolute path of the image you saved to /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/look-strips/yui-wind_look-b.png>
+selected_source=<absolute path of the image you saved to ~/Documents/yui-game/hatch-pet-runs/look-strips/yui-wind_look-b.png>
 qa_note=<one sentence>

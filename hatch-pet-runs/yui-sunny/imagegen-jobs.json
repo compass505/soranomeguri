@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "created_at": "2026-08-15T08:52:50.254990+00:00",
-  "run_dir": "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-sunny",
+  "run_dir": "~/Documents/yui-game/hatch-pet-runs/yui-sunny",
   "primary_generation_skill": "$imagegen",
   "jobs": [
     {
@@ -20,7 +20,7 @@
       "generation_skill": "$imagegen",
       "requires_grounded_generation": true,
       "allow_prompt_only_generation": false,
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a0049f-e86c-7071-a49f-175c4ea1e400/exec-b945b18c-9002-4efa-8051-2e9aecce0f87.png",
+      "source_path": "~/.codex/generated_images/01a0049f-e86c-7071-a49f-175c4ea1e400/exec-b945b18c-9002-4efa-8051-2e9aecce0f87.png",
       "completed_at": "2026-08-15T08:54:24Z"
     },
     {
@@ -61,7 +61,7 @@
         "reason": "no deterministic derivation is configured for this state"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004a1-5acc-77b3-85c5-9dd1eca3ba4e/exec-5df910eb-417b-4a44-b740-29498b2a52b2.png",
+      "source_path": "~/.codex/generated_images/01a004a1-5acc-77b3-85c5-9dd1eca3ba4e/exec-5df910eb-417b-4a44-b740-29498b2a52b2.png",
       "completed_at": "2026-08-15T08:56:29Z"
     },
     {
@@ -102,7 +102,7 @@
         "reason": "no deterministic derivation is configured for this state"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004a1-5b0e-71f0-8c00-ac12aec0e91e/exec-0a88cb5b-0174-4f78-b106-a507f27c51e2.png",
+      "source_path": "~/.codex/generated_images/01a004a1-5b0e-71f0-8c00-ac12aec0e91e/exec-0a88cb5b-0174-4f78-b106-a507f27c51e2.png",
       "completed_at": "2026-08-15T08:56:29Z"
     },
     {
@@ -158,7 +158,7 @@
         "requires_explicit_approval": true,
         "fallback_generation_skill": "$imagegen"
       },
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004b6-6ef9-7d40-be25-1c6b626d4e25/exec-41781163-9e92-49b8-ade3-c634af69d923.png",
+      "source_path": "~/.codex/generated_images/01a004b6-6ef9-7d40-be25-1c6b626d4e25/exec-41781163-9e92-49b8-ade3-c634af69d923.png",
       "derived_from": "running-right",
       "completed_at": "2026-08-15T09:21:01Z",
       "metadata": {
@@ -213,7 +213,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004b6-6f37-74e2-bf33-a417bf7d0911/exec-1b331a25-bcd2-4009-9f09-66cd076b47b0.png",
+      "source_path": "~/.codex/generated_images/01a004b6-6f37-74e2-bf33-a417bf7d0911/exec-1b331a25-bcd2-4009-9f09-66cd076b47b0.png",
       "completed_at": "2026-08-15T09:21:01Z",
       "repair_attempt": 1
     },
@@ -255,7 +255,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004a3-50b3-7331-ad01-a5562bdb179d/exec-4f8ff9b5-13a5-4d19-8dab-67445316d229.png",
+      "source_path": "~/.codex/generated_images/01a004a3-50b3-7331-ad01-a5562bdb179d/exec-4f8ff9b5-13a5-4d19-8dab-67445316d229.png",
       "completed_at": "2026-08-15T08:58:23Z"
     },
     {
@@ -296,7 +296,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004b9-c171-7f10-93e4-925eac976e4f/exec-2192082f-782c-42d8-9339-0447256b5a6a.png",
+      "source_path": "~/.codex/generated_images/01a004b9-c171-7f10-93e4-925eac976e4f/exec-2192082f-782c-42d8-9339-0447256b5a6a.png",
       "completed_at": "2026-08-15T09:23:32Z",
       "repair_attempt": 2,
       "repair_note": "Removed detached second-creature fragment and all detached effects."
@@ -339,7 +339,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004a5-2c01-74b0-9d7f-68582ec2b9ab/exec-26077353-5b81-42aa-ab70-591612361c10.png",
+      "source_path": "~/.codex/generated_images/01a004a5-2c01-74b0-9d7f-68582ec2b9ab/exec-26077353-5b81-42aa-ab70-591612361c10.png",
       "completed_at": "2026-08-15T09:00:21Z"
     },
     {
@@ -380,7 +380,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004a6-c81d-7e11-82c1-0783d883eceb/exec-801271cc-4055-4ecc-941d-9731684e3216.png",
+      "source_path": "~/.codex/generated_images/01a004a6-c81d-7e11-82c1-0783d883eceb/exec-801271cc-4055-4ecc-941d-9731684e3216.png",
       "completed_at": "2026-08-15T09:03:23Z"
     },
     {
@@ -421,7 +421,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004a6-c860-7731-9758-48f35b301120/exec-736d7495-7a31-48c5-890a-1109e489dc50.png",
+      "source_path": "~/.codex/generated_images/01a004a6-c860-7731-9758-48f35b301120/exec-736d7495-7a31-48c5-890a-1109e489dc50.png",
       "completed_at": "2026-08-15T09:03:23Z"
     }
   ]

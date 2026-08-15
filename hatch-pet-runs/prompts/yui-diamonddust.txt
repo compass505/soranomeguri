@@ -3,9 +3,9 @@ Create a Codex pet using the hatch-pet skill, end to end, and package it.
 Pet id / folder name: yui-diamonddust
 Display name: ダイヤモンドダスト
 Description (use verbatim in pet.json): A tiny round dormouse-like weather beast whose colorless ice-needle coat scatters points of spectral light.
-Reference image (attach as the canonical visual reference): /Users/kashiwa505/Documents/SecondBrain/30_Projects/ゆいゲーム/03_キャラクター/beast_diamonddust.png
-Run directory: /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust
-Package destination: /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/package/yui-diamonddust/
+Reference image (attach as the canonical visual reference): ~/Documents/SecondBrain/30_Projects/ゆいゲーム/03_キャラクター/beast_diamonddust.png
+Run directory: ~/Documents/yui-game/hatch-pet-runs/yui-diamonddust
+Package destination: ~/Documents/yui-game/hatch-pet-runs/package/yui-diamonddust/
 
 This is one of a series of ten weather-creature pets that must look like siblings drawn by
 the same hand. The other nine characters in the same series are generated from the same
@@ -116,7 +116,7 @@ Repair anything this scan finds by regenerating that row only. Include the scan'
 your final report.
 
 PACKAGING (verify the SHAPE of the output, not just that the command ran):
-Write /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/package/yui-diamonddust/pet.json containing EXACTLY these four keys and nothing else:
+Write ~/Documents/yui-game/hatch-pet-runs/package/yui-diamonddust/pet.json containing EXACTLY these four keys and nothing else:
   "id"              -> "yui-diamonddust"
   "displayName"     -> "ダイヤモンドダスト"
   "description"     -> the description string above
@@ -125,11 +125,11 @@ Then read the file back and confirm those four key names are present and no othe
 In the previous run three of seven pet.json files came out with different key names
 (pet_id / petId / spritesheet / a 23-key internal manifest) and those pets could not be
 loaded at all. A successful generation is not the same thing as a usable deliverable.
-Also copy the atlas to /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/package/yui-diamonddust/spritesheet.webp and confirm it is 1536x1872.
+Also copy the atlas to ~/Documents/yui-game/hatch-pet-runs/package/yui-diamonddust/spritesheet.webp and confirm it is 1536x1872.
 
 FINAL REPORT — end your response with exactly these lines:
 pet_id=yui-diamonddust
-atlas=/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/package/yui-diamonddust/spritesheet.webp
+atlas=~/Documents/yui-game/hatch-pet-runs/package/yui-diamonddust/spritesheet.webp
 atlas_size=<width>x<height>
 pet_json_keys=<comma-separated key names actually written>
 contact_sheet=<absolute path>

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "created_at": "2026-08-15T11:12:03.347804+00:00",
-  "run_dir": "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust",
+  "run_dir": "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust",
   "primary_generation_skill": "$imagegen",
   "jobs": [
     {
@@ -20,7 +20,7 @@
       "generation_skill": "$imagegen",
       "requires_grounded_generation": true,
       "allow_prompt_only_generation": false,
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a0051e-2c6d-7f11-85f0-4d6bd391fad2/exec-734fa14a-6748-4af1-a69d-3be9599fb4b4.png",
+      "source_path": "~/.codex/generated_images/01a0051e-2c6d-7f11-85f0-4d6bd391fad2/exec-734fa14a-6748-4af1-a69d-3be9599fb4b4.png",
       "completed_at": "2026-08-15T11:13:17Z"
     },
     {
@@ -61,7 +61,7 @@
         "reason": "no deterministic derivation is configured for this state"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a0051e-2c6d-7f11-85f0-4d6bd391fad2/exec-c2e5800f-8bec-4d81-bbaf-d4a5601a8250.png",
+      "source_path": "~/.codex/generated_images/01a0051e-2c6d-7f11-85f0-4d6bd391fad2/exec-c2e5800f-8bec-4d81-bbaf-d4a5601a8250.png",
       "completed_at": "2026-08-15T11:14:32Z"
     },
     {
@@ -102,7 +102,7 @@
         "reason": "no deterministic derivation is configured for this state"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a0051e-2c6d-7f11-85f0-4d6bd391fad2/exec-7d25b0ce-d5b6-431e-9c2d-8dc722be1f99.png",
+      "source_path": "~/.codex/generated_images/01a0051e-2c6d-7f11-85f0-4d6bd391fad2/exec-7d25b0ce-d5b6-431e-9c2d-8dc722be1f99.png",
       "completed_at": "2026-08-15T11:15:26Z"
     },
     {
@@ -212,7 +212,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a0051e-2c6d-7f11-85f0-4d6bd391fad2/exec-45199ed2-e401-4c83-989c-0926130157a0.png",
+      "source_path": "~/.codex/generated_images/01a0051e-2c6d-7f11-85f0-4d6bd391fad2/exec-45199ed2-e401-4c83-989c-0926130157a0.png",
       "completed_at": "2026-08-15T11:16:47Z"
     },
     {
@@ -253,7 +253,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a0051e-2c6d-7f11-85f0-4d6bd391fad2/exec-beec1d15-ab79-45ff-b5b7-dd0c34d76593.png",
+      "source_path": "~/.codex/generated_images/01a0051e-2c6d-7f11-85f0-4d6bd391fad2/exec-beec1d15-ab79-45ff-b5b7-dd0c34d76593.png",
       "completed_at": "2026-08-15T11:17:53Z"
     },
     {
@@ -294,7 +294,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a0051e-2c6d-7f11-85f0-4d6bd391fad2/exec-1f971f67-5185-49b7-a7a3-010a4945c536.png",
+      "source_path": "~/.codex/generated_images/01a0051e-2c6d-7f11-85f0-4d6bd391fad2/exec-1f971f67-5185-49b7-a7a3-010a4945c536.png",
       "completed_at": "2026-08-15T11:18:48Z"
     },
     {
@@ -335,7 +335,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a0051e-2c6d-7f11-85f0-4d6bd391fad2/exec-1a2da230-e97a-4730-8c28-18f83d1f7482.png",
+      "source_path": "~/.codex/generated_images/01a0051e-2c6d-7f11-85f0-4d6bd391fad2/exec-1a2da230-e97a-4730-8c28-18f83d1f7482.png",
       "completed_at": "2026-08-15T11:19:52Z"
     },
     {
@@ -376,7 +376,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a0051e-2c6d-7f11-85f0-4d6bd391fad2/exec-6131db69-ec24-48c6-b275-9ad3297ff49a.png",
+      "source_path": "~/.codex/generated_images/01a0051e-2c6d-7f11-85f0-4d6bd391fad2/exec-6131db69-ec24-48c6-b275-9ad3297ff49a.png",
       "completed_at": "2026-08-15T11:20:59Z"
     },
     {
@@ -417,7 +417,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a0051e-2c6d-7f11-85f0-4d6bd391fad2/exec-652ca9d9-34e8-44ea-a9c4-930e0da95268.png",
+      "source_path": "~/.codex/generated_images/01a0051e-2c6d-7f11-85f0-4d6bd391fad2/exec-652ca9d9-34e8-44ea-a9c4-930e0da95268.png",
       "completed_at": "2026-08-15T11:21:59Z"
     }
   ]

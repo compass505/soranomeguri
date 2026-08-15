@@ -1,6 +1,6 @@
 Repair ONE broken row of an existing hatch-pet run. Do not regenerate the whole pet.
 
-Run dir: /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-cloudy
+Run dir: ~/Documents/yui-game/hatch-pet-runs/yui-cloudy
 Pet id: yui-cloudy
 Broken row: failed
 
@@ -8,18 +8,18 @@ WHAT IS WRONG WITH THIS ROW
 The generated strip contains only 7 poses instead of 8, and they are bunched toward the left with a large empty region on the right, so the equal-slot cut runs straight through the middle of six of them. In the finished atlas, cells 1 to 6 each contain a body plus a detached slice of the neighbouring pose. Every cell must hold exactly one whole creature.
 
 WHAT TO DO
-1. Read /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-cloudy/prompts/ to find the existing prompt for the `failed` row, and read
-   /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-cloudy/imagegen-jobs.json for that job's input images.
+1. Read ~/Documents/yui-game/hatch-pet-runs/yui-cloudy/prompts/ to find the existing prompt for the `failed` row, and read
+   ~/Documents/yui-game/hatch-pet-runs/yui-cloudy/imagegen-jobs.json for that job's input images.
 2. Regenerate ONLY that row with $imagegen, attaching the same input images the job lists:
-   the canonical base at /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-cloudy/references/canonical-base.png and the layout guide at
-   /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-cloudy/references/layout-guides/failed.png. Add the correction described above to the
+   the canonical base at ~/Documents/yui-game/hatch-pet-runs/yui-cloudy/references/canonical-base.png and the layout guide at
+   ~/Documents/yui-game/hatch-pet-runs/yui-cloudy/references/layout-guides/failed.png. Add the correction described above to the
    prompt. Keep everything else about the row identical.
-3. Copy the new strip over /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-cloudy/decoded/failed.png, keeping that job marked complete with
+3. Copy the new strip over ~/Documents/yui-game/hatch-pet-runs/yui-cloudy/decoded/failed.png, keeping that job marked complete with
    the new source_path and completed_at.
 4. Re-run the deterministic pipeline over the whole run with /usr/bin/python3:
    extract_strip_frames.py (use --method stable-slots), inspect_frames.py
    (with --allow-stable-slots), compose_atlas.py, validate_atlas.py, make_contact_sheet.py.
-5. Copy the rebuilt atlas over /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-cloudy/../package/yui-cloudy/spritesheet.webp.
+5. Copy the rebuilt atlas over ~/Documents/yui-game/hatch-pet-runs/yui-cloudy/../package/yui-cloudy/spritesheet.webp.
    Leave pet.json exactly as it is — it is already correct.
 
 FRAME SLOT RULE — this is what broke the row, so make it explicit in the regeneration prompt:
@@ -48,6 +48,6 @@ unsliced creature.
 Return exactly:
 pet_id=yui-cloudy
 row=failed
-atlas=/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/package/yui-cloudy/spritesheet.webp
+atlas=~/Documents/yui-game/hatch-pet-runs/package/yui-cloudy/spritesheet.webp
 fixed=<yes|no>
 note=<one sentence>

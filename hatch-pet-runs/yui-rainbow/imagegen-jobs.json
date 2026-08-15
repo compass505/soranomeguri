@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "created_at": "2026-08-15T09:31:31.744769+00:00",
-  "run_dir": "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow",
+  "run_dir": "~/Documents/yui-game/hatch-pet-runs/yui-rainbow",
   "primary_generation_skill": "$imagegen",
   "jobs": [
     {
@@ -20,7 +20,7 @@
       "generation_skill": "$imagegen",
       "requires_grounded_generation": true,
       "allow_prompt_only_generation": false,
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004c2-79bb-75c1-b6a1-5a2fa5e5030d/exec-af4ebcbd-cad4-41ac-a7ba-ec80d8f9fdcb.png",
+      "source_path": "~/.codex/generated_images/01a004c2-79bb-75c1-b6a1-5a2fa5e5030d/exec-af4ebcbd-cad4-41ac-a7ba-ec80d8f9fdcb.png",
       "completed_at": "2026-08-15T09:33:00Z"
     },
     {
@@ -61,7 +61,7 @@
         "reason": "no deterministic derivation is configured for this state"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/generated-selected-idle.png",
+      "source_path": "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/generated-selected-idle.png",
       "completed_at": "2026-08-15T09:35:16Z"
     },
     {
@@ -102,7 +102,7 @@
         "reason": "no deterministic derivation is configured for this state"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/generated-selected-running-right.png",
+      "source_path": "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/generated-selected-running-right.png",
       "completed_at": "2026-08-15T09:35:16Z"
     },
     {
@@ -155,7 +155,7 @@
         "requires_explicit_approval": true,
         "fallback_generation_skill": "$imagegen"
       },
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004c2-79bb-75c1-b6a1-5a2fa5e5030d/exec-314870cf-f507-4b57-8569-8745a770af75.png",
+      "source_path": "~/.codex/generated_images/01a004c2-79bb-75c1-b6a1-5a2fa5e5030d/exec-314870cf-f507-4b57-8569-8745a770af75.png",
       "derived_from": "running-right",
       "completed_at": "2026-08-15T09:45:12Z",
       "metadata": {
@@ -209,7 +209,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004c2-79bb-75c1-b6a1-5a2fa5e5030d/exec-db845f50-67b0-4a39-91f3-c7ee7afdd8ef.png",
+      "source_path": "~/.codex/generated_images/01a004c2-79bb-75c1-b6a1-5a2fa5e5030d/exec-db845f50-67b0-4a39-91f3-c7ee7afdd8ef.png",
       "completed_at": "2026-08-15T09:37:10Z"
     },
     {
@@ -250,7 +250,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004c2-79bb-75c1-b6a1-5a2fa5e5030d/exec-73e8f7f5-46f9-4de2-969f-068143b45b2f.png",
+      "source_path": "~/.codex/generated_images/01a004c2-79bb-75c1-b6a1-5a2fa5e5030d/exec-73e8f7f5-46f9-4de2-969f-068143b45b2f.png",
       "completed_at": "2026-08-15T09:37:10Z"
     },
     {
@@ -291,7 +291,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004c2-79bb-75c1-b6a1-5a2fa5e5030d/exec-a60587f2-cf32-4192-82fa-bf114fd68b4d.png",
+      "source_path": "~/.codex/generated_images/01a004c2-79bb-75c1-b6a1-5a2fa5e5030d/exec-a60587f2-cf32-4192-82fa-bf114fd68b4d.png",
       "completed_at": "2026-08-15T09:39:12Z"
     },
     {
@@ -332,7 +332,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004c2-79bb-75c1-b6a1-5a2fa5e5030d/exec-e1a1ccee-885c-41c3-8511-922ec0b4ef54.png",
+      "source_path": "~/.codex/generated_images/01a004c2-79bb-75c1-b6a1-5a2fa5e5030d/exec-e1a1ccee-885c-41c3-8511-922ec0b4ef54.png",
       "completed_at": "2026-08-15T09:39:12Z"
     },
     {
@@ -373,7 +373,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004c2-79bb-75c1-b6a1-5a2fa5e5030d/exec-994287aa-2a95-48aa-96dd-7eef75f3940a.png",
+      "source_path": "~/.codex/generated_images/01a004c2-79bb-75c1-b6a1-5a2fa5e5030d/exec-994287aa-2a95-48aa-96dd-7eef75f3940a.png",
       "completed_at": "2026-08-15T09:42:27Z"
     },
     {
@@ -414,7 +414,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004c2-79bb-75c1-b6a1-5a2fa5e5030d/exec-9dfa3080-5db1-4973-814b-49cf40f6acdd.png",
+      "source_path": "~/.codex/generated_images/01a004c2-79bb-75c1-b6a1-5a2fa5e5030d/exec-9dfa3080-5db1-4973-814b-49cf40f6acdd.png",
       "completed_at": "2026-08-15T09:42:27Z"
     }
   ]

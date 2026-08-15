@@ -179,13 +179,13 @@
   ],
   "references": [
     {
-      "path": "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-thunder/references/reference-01.png",
+      "path": "~/Documents/yui-game/hatch-pet-runs/yui-thunder/references/reference-01.png",
       "width": 1254,
       "height": 1254,
       "mode": "RGB",
       "format": "PNG",
-      "source_path": "/Users/kashiwa505/Documents/SecondBrain/30_Projects/\u3086\u3044\u30b2\u30fc\u30e0/03_\u30ad\u30e3\u30e9\u30af\u30bf\u30fc/beast_thunder.png",
-      "copied_path": "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-thunder/references/reference-01.png"
+      "source_path": "~/Documents/SecondBrain/30_Projects/\u3086\u3044\u30b2\u30fc\u30e0/03_\u30ad\u30e3\u30e9\u30af\u30bf\u30fc/beast_thunder.png",
+      "copied_path": "~/Documents/yui-game/hatch-pet-runs/yui-thunder/references/reference-01.png"
     }
   ],
   "chroma_key": {

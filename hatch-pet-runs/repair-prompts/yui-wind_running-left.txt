@@ -1,6 +1,6 @@
 Repair ONE broken row of an existing hatch-pet run. Do not regenerate the whole pet.
 
-Run dir: /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-wind
+Run dir: ~/Documents/yui-game/hatch-pet-runs/yui-wind
 Pet id: yui-wind
 Broken row: running-left
 
@@ -8,18 +8,18 @@ WHAT IS WRONG WITH THIS ROW
 Cell 6 of the finished row contains a body plus a detached slice of the neighbouring pose, because that pose crosses its slot boundary. This character is long-bodied (body length about 2.0x shoulder height), so its poses are wider than the others and overrun their slots easily. Draw the eight poses smaller so that even the longest stretched stride fits entirely inside one slot with clear green margin at both ends. Also keep the eight poses at a consistent scale and with the feet on a consistent line: this character currently varies far more between frames than the other six in the series, which makes playback shake.
 
 WHAT TO DO
-1. Read /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-wind/prompts/ to find the existing prompt for the `running-left` row, and read
-   /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-wind/imagegen-jobs.json for that job's input images.
+1. Read ~/Documents/yui-game/hatch-pet-runs/yui-wind/prompts/ to find the existing prompt for the `running-left` row, and read
+   ~/Documents/yui-game/hatch-pet-runs/yui-wind/imagegen-jobs.json for that job's input images.
 2. Regenerate ONLY that row with $imagegen, attaching the same input images the job lists:
-   the canonical base at /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-wind/references/canonical-base.png and the layout guide at
-   /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-wind/references/layout-guides/running-left.png. Add the correction described above to the
+   the canonical base at ~/Documents/yui-game/hatch-pet-runs/yui-wind/references/canonical-base.png and the layout guide at
+   ~/Documents/yui-game/hatch-pet-runs/yui-wind/references/layout-guides/running-left.png. Add the correction described above to the
    prompt. Keep everything else about the row identical.
-3. Copy the new strip over /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-wind/decoded/running-left.png, keeping that job marked complete with
+3. Copy the new strip over ~/Documents/yui-game/hatch-pet-runs/yui-wind/decoded/running-left.png, keeping that job marked complete with
    the new source_path and completed_at.
 4. Re-run the deterministic pipeline over the whole run with /usr/bin/python3:
    extract_strip_frames.py (use --method stable-slots), inspect_frames.py
    (with --allow-stable-slots), compose_atlas.py, validate_atlas.py, make_contact_sheet.py.
-5. Copy the rebuilt atlas over /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-wind/../package/yui-wind/spritesheet.webp.
+5. Copy the rebuilt atlas over ~/Documents/yui-game/hatch-pet-runs/yui-wind/../package/yui-wind/spritesheet.webp.
    Leave pet.json exactly as it is — it is already correct.
 
 FRAME SLOT RULE — this is what broke the row, so make it explicit in the regeneration prompt:
@@ -48,6 +48,6 @@ unsliced creature.
 Return exactly:
 pet_id=yui-wind
 row=running-left
-atlas=/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/package/yui-wind/spritesheet.webp
+atlas=~/Documents/yui-game/hatch-pet-runs/package/yui-wind/spritesheet.webp
 fixed=<yes|no>
 note=<one sentence>

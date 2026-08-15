@@ -13,111 +13,111 @@
     {
       "state": "idle",
       "frames": [
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/idle/00.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/idle/01.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/idle/02.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/idle/03.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/idle/04.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/idle/05.png"
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/idle/00.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/idle/01.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/idle/02.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/idle/03.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/idle/04.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/idle/05.png"
       ],
       "method": "components"
     },
     {
       "state": "running-right",
       "frames": [
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-right/00.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-right/01.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-right/02.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-right/03.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-right/04.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-right/05.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-right/06.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-right/07.png"
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-right/00.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-right/01.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-right/02.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-right/03.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-right/04.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-right/05.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-right/06.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-right/07.png"
       ],
       "method": "components"
     },
     {
       "state": "running-left",
       "frames": [
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-left/00.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-left/01.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-left/02.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-left/03.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-left/04.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-left/05.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-left/06.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-left/07.png"
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-left/00.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-left/01.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-left/02.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-left/03.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-left/04.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-left/05.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-left/06.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running-left/07.png"
       ],
       "method": "components"
     },
     {
       "state": "waving",
       "frames": [
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waving/00.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waving/01.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waving/02.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waving/03.png"
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waving/00.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waving/01.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waving/02.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waving/03.png"
       ],
       "method": "components"
     },
     {
       "state": "jumping",
       "frames": [
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/jumping/00.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/jumping/01.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/jumping/02.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/jumping/03.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/jumping/04.png"
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/jumping/00.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/jumping/01.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/jumping/02.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/jumping/03.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/jumping/04.png"
       ],
       "method": "components"
     },
     {
       "state": "failed",
       "frames": [
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/failed/00.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/failed/01.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/failed/02.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/failed/03.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/failed/04.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/failed/05.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/failed/06.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/failed/07.png"
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/failed/00.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/failed/01.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/failed/02.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/failed/03.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/failed/04.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/failed/05.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/failed/06.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/failed/07.png"
       ],
       "method": "components"
     },
     {
       "state": "waiting",
       "frames": [
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waiting/00.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waiting/01.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waiting/02.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waiting/03.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waiting/04.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waiting/05.png"
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waiting/00.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waiting/01.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waiting/02.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waiting/03.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waiting/04.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/waiting/05.png"
       ],
       "method": "components"
     },
     {
       "state": "running",
       "frames": [
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running/00.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running/01.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running/02.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running/03.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running/04.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running/05.png"
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running/00.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running/01.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running/02.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running/03.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running/04.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/running/05.png"
       ],
       "method": "components"
     },
     {
       "state": "review",
       "frames": [
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/review/00.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/review/01.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/review/02.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/review/03.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/review/04.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/review/05.png"
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/review/00.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/review/01.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/review/02.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/review/03.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/review/04.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-diamonddust/frames-despill-v1/review/05.png"
       ],
       "method": "components"
     }

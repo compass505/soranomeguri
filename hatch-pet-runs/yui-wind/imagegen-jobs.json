@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "created_at": "2026-08-15T09:32:00.499557+00:00",
-  "run_dir": "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-wind",
+  "run_dir": "~/Documents/yui-game/hatch-pet-runs/yui-wind",
   "primary_generation_skill": "$imagegen",
   "jobs": [
     {
@@ -20,7 +20,7 @@
       "generation_skill": "$imagegen",
       "requires_grounded_generation": true,
       "allow_prompt_only_generation": false,
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004c2-c634-7ae3-bb58-be2d1b88da22/exec-b2aa057c-28bc-4798-b09b-8a10413dd51a.png",
+      "source_path": "~/.codex/generated_images/01a004c2-c634-7ae3-bb58-be2d1b88da22/exec-b2aa057c-28bc-4798-b09b-8a10413dd51a.png",
       "completed_at": "2026-08-15T09:33:01Z"
     },
     {
@@ -61,7 +61,7 @@
         "reason": "no deterministic derivation is configured for this state"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004c2-c634-7ae3-bb58-be2d1b88da22/exec-82854044-9636-4b45-9865-831eaf78790f.png",
+      "source_path": "~/.codex/generated_images/01a004c2-c634-7ae3-bb58-be2d1b88da22/exec-82854044-9636-4b45-9865-831eaf78790f.png",
       "completed_at": "2026-08-15T09:34:49Z"
     },
     {
@@ -102,7 +102,7 @@
         "reason": "no deterministic derivation is configured for this state"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004c2-c634-7ae3-bb58-be2d1b88da22/exec-ac9e4372-3a9d-4093-866c-7d2e8dbf52db.png",
+      "source_path": "~/.codex/generated_images/01a004c2-c634-7ae3-bb58-be2d1b88da22/exec-ac9e4372-3a9d-4093-866c-7d2e8dbf52db.png",
       "completed_at": "2026-08-15T09:41:47Z",
       "retry_count": 1
     },
@@ -159,7 +159,7 @@
         "requires_explicit_approval": true,
         "fallback_generation_skill": "$imagegen"
       },
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004cf-0de0-79f0-8de8-df1c05f2ac27/exec-a1930d5c-e74d-471b-9620-3383b2c57aac.png",
+      "source_path": "~/.codex/generated_images/01a004cf-0de0-79f0-8de8-df1c05f2ac27/exec-a1930d5c-e74d-471b-9620-3383b2c57aac.png",
       "completed_at": "2026-08-15T09:46:55Z",
       "metadata": {
         "width": 1374,
@@ -206,7 +206,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004c2-c634-7ae3-bb58-be2d1b88da22/exec-a7efc558-8ecb-4cb6-83fe-5328e12b946e.png",
+      "source_path": "~/.codex/generated_images/01a004c2-c634-7ae3-bb58-be2d1b88da22/exec-a7efc558-8ecb-4cb6-83fe-5328e12b946e.png",
       "completed_at": "2026-08-15T09:36:36Z"
     },
     {
@@ -247,7 +247,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004c2-c634-7ae3-bb58-be2d1b88da22/exec-de91914e-d4ce-4f6e-a247-06ae4b89c195.png",
+      "source_path": "~/.codex/generated_images/01a004c2-c634-7ae3-bb58-be2d1b88da22/exec-de91914e-d4ce-4f6e-a247-06ae4b89c195.png",
       "completed_at": "2026-08-15T09:36:36Z"
     },
     {
@@ -288,7 +288,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004c2-c634-7ae3-bb58-be2d1b88da22/exec-eb248a86-2c7b-4e84-93b4-02405648da19.png",
+      "source_path": "~/.codex/generated_images/01a004c2-c634-7ae3-bb58-be2d1b88da22/exec-eb248a86-2c7b-4e84-93b4-02405648da19.png",
       "completed_at": "2026-08-15T09:38:16Z"
     },
     {
@@ -329,7 +329,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004c2-c634-7ae3-bb58-be2d1b88da22/exec-b2ad6aba-af09-4861-a00c-9f105f4284da.png",
+      "source_path": "~/.codex/generated_images/01a004c2-c634-7ae3-bb58-be2d1b88da22/exec-b2ad6aba-af09-4861-a00c-9f105f4284da.png",
       "completed_at": "2026-08-15T09:38:16Z"
     },
     {
@@ -370,7 +370,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004c2-c634-7ae3-bb58-be2d1b88da22/exec-426554ed-c595-4d37-8a6d-ae95d605be42.png",
+      "source_path": "~/.codex/generated_images/01a004c2-c634-7ae3-bb58-be2d1b88da22/exec-426554ed-c595-4d37-8a6d-ae95d605be42.png",
       "completed_at": "2026-08-15T09:40:00Z"
     },
     {
@@ -411,7 +411,7 @@
         "reason": "state requires its own generated animation semantics"
       },
       "mirror_policy": {},
-      "source_path": "/Users/kashiwa505/.codex/generated_images/01a004c2-c634-7ae3-bb58-be2d1b88da22/exec-aac43312-732f-4100-9004-443adb7f879c.png",
+      "source_path": "~/.codex/generated_images/01a004c2-c634-7ae3-bb58-be2d1b88da22/exec-aac43312-732f-4100-9004-443adb7f879c.png",
       "completed_at": "2026-08-15T09:40:00Z"
     }
   ]

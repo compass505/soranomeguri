@@ -13,111 +13,111 @@
     {
       "state": "idle",
       "frames": [
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/idle/00.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/idle/01.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/idle/02.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/idle/03.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/idle/04.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/idle/05.png"
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/idle/00.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/idle/01.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/idle/02.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/idle/03.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/idle/04.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/idle/05.png"
       ],
       "method": "stable-slots"
     },
     {
       "state": "running-right",
       "frames": [
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-right/00.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-right/01.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-right/02.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-right/03.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-right/04.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-right/05.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-right/06.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-right/07.png"
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-right/00.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-right/01.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-right/02.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-right/03.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-right/04.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-right/05.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-right/06.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-right/07.png"
       ],
       "method": "stable-slots"
     },
     {
       "state": "running-left",
       "frames": [
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-left/00.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-left/01.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-left/02.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-left/03.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-left/04.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-left/05.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-left/06.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-left/07.png"
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-left/00.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-left/01.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-left/02.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-left/03.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-left/04.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-left/05.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-left/06.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running-left/07.png"
       ],
       "method": "stable-slots"
     },
     {
       "state": "waving",
       "frames": [
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waving/00.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waving/01.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waving/02.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waving/03.png"
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waving/00.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waving/01.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waving/02.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waving/03.png"
       ],
       "method": "stable-slots"
     },
     {
       "state": "jumping",
       "frames": [
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/jumping/00.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/jumping/01.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/jumping/02.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/jumping/03.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/jumping/04.png"
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/jumping/00.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/jumping/01.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/jumping/02.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/jumping/03.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/jumping/04.png"
       ],
       "method": "stable-slots"
     },
     {
       "state": "failed",
       "frames": [
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/failed/00.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/failed/01.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/failed/02.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/failed/03.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/failed/04.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/failed/05.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/failed/06.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/failed/07.png"
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/failed/00.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/failed/01.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/failed/02.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/failed/03.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/failed/04.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/failed/05.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/failed/06.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/failed/07.png"
       ],
       "method": "stable-slots"
     },
     {
       "state": "waiting",
       "frames": [
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waiting/00.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waiting/01.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waiting/02.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waiting/03.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waiting/04.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waiting/05.png"
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waiting/00.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waiting/01.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waiting/02.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waiting/03.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waiting/04.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/waiting/05.png"
       ],
       "method": "stable-slots"
     },
     {
       "state": "running",
       "frames": [
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running/00.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running/01.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running/02.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running/03.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running/04.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running/05.png"
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running/00.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running/01.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running/02.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running/03.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running/04.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/running/05.png"
       ],
       "method": "stable-slots"
     },
     {
       "state": "review",
       "frames": [
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/review/00.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/review/01.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/review/02.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/review/03.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/review/04.png",
-        "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/review/05.png"
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/review/00.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/review/01.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/review/02.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/review/03.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/review/04.png",
+        "~/Documents/yui-game/hatch-pet-runs/yui-rainbow/frames_stable/review/05.png"
       ],
       "method": "stable-slots"
     }

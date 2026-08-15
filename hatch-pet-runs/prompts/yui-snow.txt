@@ -3,9 +3,9 @@ Create a Codex pet using the hatch-pet skill, end to end, and package it.
 Pet id / folder name: yui-snow
 Display name: ゆき
 Description (use verbatim in pet.json): A rabbit-like weather beast in a straight dense winter coat with black-tipped ears and tail.
-Reference image (attach as the canonical visual reference): /Users/kashiwa505/Documents/SecondBrain/30_Projects/ゆいゲーム/03_キャラクター/beast_snow.png
-Run directory: /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-snow
-Package destination: /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/package/yui-snow/
+Reference image (attach as the canonical visual reference): ~/Documents/SecondBrain/30_Projects/ゆいゲーム/03_キャラクター/beast_snow.png
+Run directory: ~/Documents/yui-game/hatch-pet-runs/yui-snow
+Package destination: ~/Documents/yui-game/hatch-pet-runs/package/yui-snow/
 
 This is one of a series of ten weather-creature pets that must look like siblings drawn by
 the same hand. The other nine characters in the same series are generated from the same
@@ -104,7 +104,7 @@ Repair anything this scan finds by regenerating that row only. Include the scan'
 your final report.
 
 PACKAGING (verify the SHAPE of the output, not just that the command ran):
-Write /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/package/yui-snow/pet.json containing EXACTLY these four keys and nothing else:
+Write ~/Documents/yui-game/hatch-pet-runs/package/yui-snow/pet.json containing EXACTLY these four keys and nothing else:
   "id"              -> "yui-snow"
   "displayName"     -> "ゆき"
   "description"     -> the description string above
@@ -113,11 +113,11 @@ Then read the file back and confirm those four key names are present and no othe
 In the previous run three of seven pet.json files came out with different key names
 (pet_id / petId / spritesheet / a 23-key internal manifest) and those pets could not be
 loaded at all. A successful generation is not the same thing as a usable deliverable.
-Also copy the atlas to /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/package/yui-snow/spritesheet.webp and confirm it is 1536x1872.
+Also copy the atlas to ~/Documents/yui-game/hatch-pet-runs/package/yui-snow/spritesheet.webp and confirm it is 1536x1872.
 
 FINAL REPORT — end your response with exactly these lines:
 pet_id=yui-snow
-atlas=/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/package/yui-snow/spritesheet.webp
+atlas=~/Documents/yui-game/hatch-pet-runs/package/yui-snow/spritesheet.webp
 atlas_size=<width>x<height>
 pet_json_keys=<comma-separated key names actually written>
 contact_sheet=<absolute path>
