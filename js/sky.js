@@ -3,7 +3,7 @@
 // ★名前で分岐すると、つまみを回している最中に空がカクッと切り替わる。
 //   連続量から作れば、雲が湧いてくる途中も絵になる。ここが v2 の手触りの半分。
 
-import { derive, classify } from './weather.js';
+import { derive } from './weather.js';
 
 const lerp = (a, b, t) => a + (b - a) * t;
 const clamp01 = (x) => Math.max(0, Math.min(1, x));

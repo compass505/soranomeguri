@@ -1,5 +1,5 @@
 // 本体。つまみ → 空 → 子 → 餌 のループを繋ぐ。
-// vault: 30_Projects/ゆいゲーム/02_企画/骨格v2_空をつくる.md
+// vault: 30_Projects/そらのめぐり/02_企画/骨格v2_空をつくる.md
 
 import { classify, reachable, WEATHER_JA, WEATHERS } from './weather.js';
 import { skyLook, drawClouds, Precip } from './sky.js';
@@ -7,6 +7,10 @@ import { SpriteBank } from './sprites.js';
 import { Pet, bondLevel } from './garden.js';
 import * as S from './state.js';
 
+// アトラスのidは `yui-*` のまま据え置く。ゲーム名を「そらのめぐり」に変えた後も改名しない:
+// このidは ~/.codex/pets/ のフォルダ名・各 pet.json の id・hatch-pet-runs の生成記録と
+// ログの全部を貫いていて、揃えて直さないと「どう作ったか」を辿り直せなくなる。
+// プレイヤーには一切見えないので、由来だけ書いて残す。
 const PET_ID = Object.fromEntries(WEATHERS.map((w) => [w, `yui-${w}`]));
 
 const cv = document.getElementById('stage');

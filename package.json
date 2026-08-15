@@ -3,7 +3,7 @@
     "sharp": "^0.35.3"
   },
   "type": "module",
-  "name": "yui-game",
+  "name": "soranomeguri",
   "private": true,
   "scripts": {
     "start": "node server.mjs",

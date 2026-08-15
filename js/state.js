@@ -26,7 +26,7 @@ const DAILY_TOTAL = 5;      // 1日に採れる実りの合計
 const DAILY_PER_KIND = 3;   // 天気1種あたり
 const CARRY_DAYS = 3;       // 繰り越しの上限
 
-const KEY = 'yui-game-v2';
+const KEY = 'soranomeguri-v1';   // 旧 'yui-game-v2'（改名前のテスト保存は引き継がない）
 
 function todayIndex() {
   return Math.floor(Date.now() / 86400000);
