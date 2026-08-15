@@ -1,5 +1,13 @@
 {
   "dependencies": {
     "sharp": "^0.35.3"
+  },
+  "type": "module",
+  "name": "yui-game",
+  "private": true,
+  "scripts": {
+    "start": "node server.mjs",
+    "sweep": "node sim/sweep.mjs",
+    "measure": "node tools/measure_sprites.mjs && node tools/crop_bg.mjs"
   }
 }
