@@ -30,6 +30,26 @@ function must(text, from, to, label) {
 const spriteMetrics = JSON.parse(await readFile(ROOT + 'js/sprite-metrics.json', 'utf8'));
 const bgMetrics = JSON.parse(await readFile(ROOT + 'js/bg-metrics.json', 'utf8'));
 
+/** アトラスを縮めるなら、セル座標も同じ倍率で縮める。
+ *  ここを忘れると描画元の矩形がはみ出して、隣のコマまで一緒に写る。 */
+function scaleSpriteMetrics(m, s) {
+  const px = (n) => Math.round(n * s);
+  const pets = {};
+  for (const [id, pet] of Object.entries(m.pets)) {
+    const rows = {};
+    for (const [row, frames] of Object.entries(pet.rows)) {
+      rows[row] = frames.map((f) => ({ x0: px(f.x0), y0: px(f.y0), x1: px(f.x1), y1: px(f.y1) }));
+    }
+    pets[id] = {
+      ground: px(pet.ground),
+      idleHeight: px(pet.idleHeight),
+      idleWidth: px(pet.idleWidth),
+      rows,
+    };
+  }
+  return { cell: { w: px(m.cell.w), h: px(m.cell.h) }, rows: m.rows, pets };
+}
+
 // --- アトラスを縮めて data URI に ---
 const petIds = Object.keys(spriteMetrics.pets);
 const sprites = {};
@@ -75,7 +95,7 @@ js = must(js,
   'bgm = __BG_METRICS__;',
   'bg-metrics の取得');
 
-const head = `const __SPRITE_METRICS__ = ${JSON.stringify(spriteMetrics)};
+const head = `const __SPRITE_METRICS__ = ${JSON.stringify(scaleSpriteMetrics(spriteMetrics, SPRITE_SCALE))};
 const __BG_METRICS__ = ${JSON.stringify(bgOut)};
 const __SPRITES__ = ${JSON.stringify(sprites)};
 `;
