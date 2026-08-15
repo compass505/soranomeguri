@@ -34,11 +34,14 @@ const bgMetrics = JSON.parse(await readFile(ROOT + 'js/bg-metrics.json', 'utf8')
  *  ここを忘れると描画元の矩形がはみ出して、隣のコマまで一緒に写る。 */
 function scaleSpriteMetrics(m, s) {
   const px = (n) => Math.round(n * s);
+  const scaleBBox = (bbox) => bbox && Object.fromEntries(
+    Object.entries(bbox).map(([key, value]) => [key, px(value)]),
+  );
   const pets = {};
   for (const [id, pet] of Object.entries(m.pets)) {
     const rows = {};
     for (const [row, frames] of Object.entries(pet.rows)) {
-      rows[row] = frames.map((f) => ({ x0: px(f.x0), y0: px(f.y0), x1: px(f.x1), y1: px(f.y1) }));
+      rows[row] = frames.map(scaleBBox);
     }
     pets[id] = {
       ground: px(pet.ground),

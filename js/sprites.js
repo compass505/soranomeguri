@@ -2,8 +2,6 @@
 // 行の定義は tools/measure_sprites.mjs が hatch-pet の compose_atlas.py から写したもの。
 // ★行を推測で並べると「跳躍」を「ぶれ」と読み違える。実測は tools/ が吐く JSON に入っている。
 
-const CW = 192, CH = 208;
-
 export const ROWS = {
   idle: 0, 'running-right': 1, 'running-left': 2, waving: 3, jumping: 4,
   failed: 5, waiting: 6, running: 7, review: 8, 'look-a': 9, 'look-b': 10,
@@ -40,12 +38,13 @@ export class SpriteBank {
     const im = this.img[id];
     if (!im) return;
     const m = this.metrics.pets[id];
+    const { w: cellW, h: cellH } = this.metrics.cell;
     const r = ROWS[row] ?? 0;
     const n = this.frameCount(id, row);
     const c = ((frame % n) + n) % n;
 
-    const sx = c * CW, sy = r * CH;
-    const dw = CW * scale, dh = CH * scale;
+    const sx = c * cellW, sy = r * cellH;
+    const dw = cellW * scale, dh = cellH * scale;
     // その体の idle 足元を基準線に置く。跳躍や伏せはここから素直に外れてよい（それが演技）
     const dy = groundY - m.ground * scale;
     const dx = x - dw / 2;
@@ -54,9 +53,9 @@ export class SpriteBank {
     if (flip) {
       ctx.translate(dx + dw / 2, 0);
       ctx.scale(-1, 1);
-      ctx.drawImage(im, sx, sy, CW, CH, -dw / 2, dy, dw, dh);
+      ctx.drawImage(im, sx, sy, cellW, cellH, -dw / 2, dy, dw, dh);
     } else {
-      ctx.drawImage(im, sx, sy, CW, CH, dx, dy, dw, dh);
+      ctx.drawImage(im, sx, sy, cellW, cellH, dx, dy, dw, dh);
     }
     ctx.restore();
   }
