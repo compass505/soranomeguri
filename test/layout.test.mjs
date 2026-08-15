@@ -72,3 +72,38 @@ test('画面が広いほどキャラは相対的に小さくてよい（寄り�
 test('倍率の既定値が公開されている', () => {
   assert.ok(Array.isArray(PET_SCALE_RANGE) && PET_SCALE_RANGE.length === 2);
 });
+
+// ★ここが最初の修正で抜けた条件。
+//   庭を広げるために地面を2.7倍に寄せたのに、キャラの倍率は据え置きだった。
+//   結果、石や池だけが大きくなって生き物が相対的に小さくなった。
+//   「庭が画面の何%か」だけを約束にしていたので、すり抜けた。
+//   **生き物と背景は同じ縮尺で見えなければならない。**
+
+/** 地面の絵をどれだけ拡大して描いているか（1 = 等倍で画面幅に収まる） */
+const groundZoom = (v) => gardenLayout(v).groundW / v.width;
+
+test('★キャラの大きさは、地面の寄り具合に追随する', () => {
+  for (const v of [phone, tablet, desktop]) {
+    const z = groundZoom(v);
+    const l = gardenLayout(v);
+    const ratio = l.petScale[1] / PET_SCALE_RANGE[1];
+    assert.ok(ratio >= Math.min(z, 1.6) * 0.7,
+      `${v.width}x${v.height}: 地面は${z.toFixed(1)}倍に寄っているのに ` +
+      `キャラは${ratio.toFixed(2)}倍のまま。背景だけ大きくなって生き物が小さく見える`);
+  }
+});
+
+test('★スマホで、手前の子が画面幅の35%以上に描かれる', () => {
+  const l = gardenLayout(phone);
+  const near = 208 * l.petScale[1];
+  assert.ok(near / phone.width >= 0.35,
+    `手前の子が ${near.toFixed(0)}px（画面幅の${(near / phone.width * 100).toFixed(0)}%）。` +
+    '生き物を眺めるゲームとして小さすぎる');
+});
+
+test('キャラが画面を占領しない', () => {
+  for (const v of [phone, tablet, desktop]) {
+    const near = 208 * gardenLayout(v).petScale[1];
+    assert.ok(near / v.height <= 0.55, `${v.width}x${v.height}: 手前の子が画面の高さの半分超`);
+  }
+});

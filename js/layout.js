@@ -27,7 +27,13 @@ export function gardenLayout(v) {
   const horizon = height - groundH;
 
   // 狭い画面では子を少し大きくする。sqrt にして極端な幅でも破綻しにくくする。
-  const responsive = clamp(Math.sqrt(MIN_PET_WIDTH / width), PET_SCALE_MIN, PET_SCALE_MAX);
+  const widthResponsive = clamp(Math.sqrt(MIN_PET_WIDTH / width), PET_SCALE_MIN, PET_SCALE_MAX);
+
+  // 地面を cover で拡大した分だけ、生き物も同じ画面上の存在感を保つ。
+  // 極端な縦長画面での過剰な寄りを避けるため、地面の拡大率には上限を設ける。
+  const groundZoom = groundW / width;
+  const groundResponsive = Math.min(groundZoom, 1.6) * 0.7;
+  const responsive = clamp(Math.max(widthResponsive, groundResponsive), PET_SCALE_MIN, PET_SCALE_MAX);
   const petScale = PET_SCALE_RANGE.map((scale) => scale * responsive);
 
   return { horizon, groundW, groundH, petScale };
