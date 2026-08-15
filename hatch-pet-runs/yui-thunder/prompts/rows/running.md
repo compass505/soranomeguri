@@ -1,0 +1,21 @@
+Create one horizontal animation strip for Codex pet `yui-thunder`, state `running`.
+
+Use the attached canonical base for identity. Use the attached layout guide only for slot count, spacing, centering, and padding; do not draw the guide.
+
+Output exactly 6 full-body frames in one left-to-right row on flat pure green #00FF00. Treat the row as 6 invisible equal-width slots: one centered complete pose per slot, evenly spaced, with no overlap, clipping, empty slots, labels, or borders.
+
+Identity: same pet in every frame: Series sibling identity lock: four-legged beast standing and moving on the ground, not bipedal and not a mascot blob; body length 1.6x shoulder height; head 1/3 of body length; horizontal back line when standing; belly line above the elbow. Eyes have amber/honey irises, round dark pupils, a drawn upper lash line, and exactly two catchlights. Small dark nose and visible paw pads. Painterly cel-shaded game-creature art with clean readable outline, soft warm rendering, flat lit palette; match the attached reference rendering exactly. No text, logos, scenery, ground shadow. Character: wolf-like quadruped, dark blue-grey fur in stiff spiky tufts along neck, back, tail; straight spiked tail rather than plumed; one bright yellow lightning bolt on each flank, each a single thick zigzag stroke at least 3px wide at final 192x208 cell size, simplify if needed but preserve width and visibility. Keep one centered full-body pet per frame, complete unclipped paws and tail, consistent sibling proportions and palette across rows.. Preserve silhouette, face, proportions, markings, palette, material, style, and props.
+Style: Pet-safe sprite: compact full-body mascot, readable in a 192x208 cell, clear silhouette, simple face, stable palette/materials, and crisp edges for chroma-key extraction. Style `painterly`: Painterly mascot with simplified brush texture, readable forms, stable palette, and enough edge clarity for clean extraction. User style notes: Warm painterly cel-shaded creature game art matching canonical reference; crisp dark outline, readable at 192x208, flat removable chroma background, no shadows or scenery..
+Animation continuity: keep apparent pet scale and baseline stable within the row unless the state itself intentionally changes vertical position, such as `jumping`. Move the pose within the slot instead of redrawing the pet larger or smaller frame to frame.
+
+State action: Working loop: focused active-task processing, thinking, typing, scanning, or effortful concentration; not literal foot-running, jogging, sprinting, treadmill motion, raised knees, long steps, pumping arms, or directional travel.
+
+State requirements:
+- Show the pet actively working or processing, as if running a task: focused posture, busy hands or paws, purposeful bobbing, thinking motion, tool or prop motion only if already part of the pet identity, or other non-locomotion activity.
+- Do not show literal foot-running, jogging, sprinting, treadmill motion, raised knees, long steps, pumping arms, directional travel, speed lines, dust clouds, floor shadows, motion trails, or detached motion effects.
+
+Clean extraction: crisp opaque edges, safe padding, no scenery, text, guide marks, checkerboard, shadows, glows, motion blur, speed lines, dust, detached effects, stray pixels, or chroma-key colors inside the pet.
+
+Repair correction: The canonical base has no props. Add no new props or objects and no written text of any kind; nothing may be in, under, or beside the paws. Show working/thinking only through the wolf's own body: lowered head, focused narrowed eyes, ears forward, one forepaw lifted or deliberately placed, and a slight lean. Avoid open books, writing, magnifying glasses, notepads, pencils, stone tablets, carved characters, tools, accessories, symbols, and all literal foot-running, prowling, sprinting, jogging, or travel poses.
+
+Frame-slot correction: The strip is cut into 6 equal-width slots. Draw exactly 6 poses evenly across the full strip with the same horizontal gap between every neighboring pair. Every pose must be completely inside its own slot, centered with clear empty chroma-green margin on both sides; do not bunch poses, leave a large empty region at either end, touch or overlap neighboring poses, or cross a slot boundary because a crossing pose will be sliced in half.

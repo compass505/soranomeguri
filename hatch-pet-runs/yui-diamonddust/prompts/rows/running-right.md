@@ -1,0 +1,19 @@
+Create one horizontal animation strip for Codex pet `yui-diamonddust`, state `running-right`.
+
+Use the attached canonical base for identity. Use the attached layout guide only for slot count, spacing, centering, and padding; do not draw the guide.
+
+Output exactly 8 full-body frames in one left-to-right row on flat pure user-selected #00FF00. Treat the row as 8 invisible equal-width slots: one centered complete pose per slot, evenly spaced, with no overlap, clipping, empty slots, labels, or borders.
+
+Identity: same pet in every frame: Four-legged ground-standing weather beast, not bipedal and not a mascot blob. Character-specific smallest sibling: a tiny round dome-backed dormouse/hedgehog quadruped, body length 1.1x shoulder height, head 1/2 body length, gently domed back, very short legs, belly close to ground, rendered at about 70% of the height other series pets would fill in a 192x208 cell with intentional extra empty margin. Small round close-held ears, short round needle-covered tail. Coat is countless fine straight ice needles standing slightly away from the body, clear and colorless like window frost, soft glassy halo texture; colorless near-white body with palest grey-blue shadows. Keep a handful of isolated bright spectral spark dots, each 3-5 px diameter at final 192x208 cell size, in pink, cyan, and gold; never bands, arcs, gradients, rings, halos, or connected rainbow. Eyes have amber/honey irises, round dark pupils, drawn upper lash line, and exactly two catchlights per eye. Small dark nose and visible paw pads. Horizontal sibling identity lock still applies to style and facial construction except this character proportion override.. Preserve silhouette, face, proportions, markings, palette, material, style, and props.
+Style: Pet-safe sprite: compact full-body mascot, readable in a 192x208 cell, clear silhouette, simple face, stable palette/materials, and crisp edges for chroma-key extraction. Style `painterly`: Painterly mascot with simplified brush texture, readable forms, stable palette, and enough edge clarity for clean extraction. User style notes: Painterly cel-shaded game-creature art with clean readable outline, soft warm rendering, flat lit palette, matching the attached canonical reference exactly. Preserve numerical geometry and the small 70% scale target as a goal. At final cell size maintain spark dots at least 3 px diameter. Flat solid #00ff00 chroma-key background only; no text, logos, scenery, ground shadow, cast shadow, contact shadow, glow, haze, detached effects, or guide marks..
+Animation continuity: keep apparent pet scale and baseline stable within the row unless the state itself intentionally changes vertical position, such as `jumping`. Move the pose within the slot instead of redrawing the pet larger or smaller frame to frame.
+
+State action: Dragging-right loop: show directional movement to the right through body and limb poses only.
+
+State requirements:
+- Show directional drag movement to the right through body, limb, and prop movement only.
+- The row must unmistakably face and travel right.
+- The movement cadence must alternate visibly across the 8 frames instead of repeating one nearly static stride.
+- Do not draw speed lines, dust clouds, floor shadows, motion trails, or detached motion effects.
+
+Clean extraction: crisp opaque edges, safe padding, no scenery, text, guide marks, checkerboard, shadows, glows, motion blur, speed lines, dust, detached effects, stray pixels, or chroma-key colors inside the pet.

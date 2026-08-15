@@ -1,0 +1,125 @@
+Create a Codex pet using the hatch-pet skill, end to end, and package it.
+
+Pet id / folder name: yui-snow
+Display name: ゆき
+Description (use verbatim in pet.json): A rabbit-like weather beast in a straight dense winter coat with black-tipped ears and tail.
+Reference image (attach as the canonical visual reference): /Users/kashiwa505/Documents/SecondBrain/30_Projects/ゆいゲーム/03_キャラクター/beast_snow.png
+Run directory: /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-snow
+Package destination: /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/package/yui-snow/
+
+This is one of a series of ten weather-creature pets that must look like siblings drawn by
+the same hand. The other nine characters in the same series are generated from the same
+shared identity lock below.
+
+SHARED IDENTITY LOCK (all ten characters in this series must match on these;
+specify them as numbers, not adjectives — vague wording is what made them drift last time):
+- A four-legged beast standing and moving on the ground. Not bipedal, not a mascot blob.
+- Body length is about 1.6x the shoulder height.
+- The head is about 1/3 of the body length.
+- The back line is horizontal when standing.
+- The belly line sits above the elbow.
+- Eyes: amber/honey iris, a round dark pupil, a drawn upper lash line, and exactly two catchlights.
+- A small dark nose and visible paw pads.
+- Style: painterly cel-shaded game-creature art with a clean readable outline, soft warm
+  rendering, and a flat lit palette. Match the attached reference image's rendering exactly.
+- No text, no logos, no scenery, no ground shadow.
+
+MARKING RULE (this is the difference between a marking that survives and one that disappears):
+At the final 192x208 cell size, any marking specified only as a "shape" gets absorbed into the
+fur shading and vanishes. Every marking below is specified with a MINIMUM STROKE WIDTH.
+Honor that width in the 192x208 cell, even if it means simplifying the marking.
+
+CHARACTER-SPECIFIC DESIGN — yui-snow:
+Species read: a rabbit/stoat-like quadruped.
+Fur: straight, dense winter coat, near-white with faint cool blue shadow.
+Ears: long, upright and straight.
+Marking: solid black tips on both ear ends and on the tail tip, each drawn as a solid block
+  at least 3px wide inside the 192x208 cell.
+Build: CORRECTION: in the previous version this character came out rounder and heavier than
+  the other six. Keep it as slender as the shared identity lock specifies — body length about
+  1.6x shoulder height, back line horizontal, belly above the elbow.
+
+ENVIRONMENT — already verified by the caller. Do not re-investigate these and do not stop on them:
+- `python` is NOT on PATH. Use `/usr/bin/python3` for every hatch-pet script invocation.
+- `jq` is installed at /usr/bin/jq and works.
+- There is no `load_workspace_dependencies` tool in this CLI and you do not need one.
+  /usr/bin/python3 already has Pillow, which is the only dependency these scripts have.
+- You ARE authorized to spawn subagents. Do not ask permission. Keep at most 2 generation
+  workers running at once.
+- Run fully autonomously. Do not ask the user any questions. Make every judgment call
+  yourself and report what you decided at the end.
+
+SANDBOX — important deviation from the skill's default instructions:
+Only the run directory is writable. $HOME/.codex is NOT writable by shell commands here.
+- Do NOT try to package into $HOME/.codex/pets/. Package into the run directory instead,
+  at the path given under "Package destination" below. The caller installs it from there.
+- Do NOT run the skill's cleanup step that deletes files under $HOME/.codex/generated_images.
+  Skip it silently; leftover generated files are the caller's problem, not a reason to stop.
+- If any shell command is refused because of the sandbox, work around it inside the run
+  directory. A sandbox refusal is never a reason to abandon the run.
+
+STOP / CONTINUE POLICY — read this twice. This is the most important instruction in this task.
+
+The previous run of this exact job produced ZERO output for six of seven characters. The cause
+was not image quality. The cause was that a dimension target was written as a pass/fail gate,
+the target turned out to be physically unreachable for a long-bodied quadruped, and the run
+stopped at the gate instead of delivering anything.
+
+Therefore:
+
+You may STOP and report failure ONLY for these three reasons:
+  1. A row cannot be generated at all after its retries.
+  2. Frames are missing from a generated row.
+  3. validate_atlas.py fails.
+
+You must NOT stop, and must NOT skip packaging, for any of these:
+  - sprite width or height varying between frames or between rows
+  - a sprite touching or nearly touching the edge of its cell
+  - a row rendering smaller or larger than other rows
+  - any dimension, size, or margin target being missed
+These are GOALS, not GATES. Note them and keep going.
+
+Retry a genuinely failing row at most 2 times. After that, accept the best available row,
+continue the pipeline, and list every remaining deviation in your final report.
+Never abandon packaging because of a dimension. Always produce the packaged pet.
+
+FRAME STABILITY (a real defect found in the previous run — check for it explicitly):
+The previous atlases had frames within a single row that jumped in size and baseline
+(one row varied by 105px in height and 53px at the feet), which made playback visibly shake.
+After rendering the preview GIFs, look at them. If a row shows size popping or a baseline
+jump while the source strip itself was stable, re-run frame extraction with
+`--method stable-slots`, then re-run inspect (with `--allow-stable-slots`), compose, validate,
+contact sheet, and previews. Prefer this over regenerating the row.
+
+MACHINE VERIFICATION BEFORE PACKAGING (do not skip; do not substitute your own eyeballing):
+The previous run shipped two atlases that its own QA had marked ok: one had layout guide
+ruler lines drawn into a frame as if they were artwork, one had two creatures in a single
+frame, and one row was rendered at 12% of the area of the other rows. Visual QA missed all of
+them. So, after composing the atlas and before packaging, run a cell-by-cell scan with
+/usr/bin/python3 that counts non-transparent pixels in every one of the 72 cells and reports:
+  - any used cell that is empty or nearly empty
+  - any used cell whose non-transparent area is less than 40% of the median for its row
+  - any cell after a row's last used column that is not fully transparent
+Repair anything this scan finds by regenerating that row only. Include the scan's numbers in
+your final report.
+
+PACKAGING (verify the SHAPE of the output, not just that the command ran):
+Write /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/package/yui-snow/pet.json containing EXACTLY these four keys and nothing else:
+  "id"              -> "yui-snow"
+  "displayName"     -> "ゆき"
+  "description"     -> the description string above
+  "spritesheetPath" -> "spritesheet.webp"
+Then read the file back and confirm those four key names are present and no others.
+In the previous run three of seven pet.json files came out with different key names
+(pet_id / petId / spritesheet / a 23-key internal manifest) and those pets could not be
+loaded at all. A successful generation is not the same thing as a usable deliverable.
+Also copy the atlas to /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/package/yui-snow/spritesheet.webp and confirm it is 1536x1872.
+
+FINAL REPORT — end your response with exactly these lines:
+pet_id=yui-snow
+atlas=/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/package/yui-snow/spritesheet.webp
+atlas_size=<width>x<height>
+pet_json_keys=<comma-separated key names actually written>
+contact_sheet=<absolute path>
+cell_scan=<pass, or a list of the cells that failed the scan>
+deviations=<remaining known deviations, or none>

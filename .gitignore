@@ -1,0 +1,16 @@
+node_modules/
+
+# hatch-pet の実行途中の中間物。すべて再生成できるので追跡しない
+hatch-pet-runs/*/decoded/
+hatch-pet-runs/*/qa/
+hatch-pet-runs/*/frames/
+hatch-pet-runs/*/final/
+hatch-pet-runs/*/references/
+hatch-pet-runs/*/previews/
+hatch-pet-runs/logs/
+hatch-pet-runs/atlas11/
+
+# 生成された派生物（tools/ で作り直せる）
+assets/bg/*_c.png
+js/sprite-metrics.json
+js/bg-metrics.json

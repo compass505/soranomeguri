@@ -1,0 +1,53 @@
+Repair ONE broken row of an existing hatch-pet run. Do not regenerate the whole pet.
+
+Run dir: /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-wind
+Pet id: yui-wind
+Broken row: running-left
+
+WHAT IS WRONG WITH THIS ROW
+Cell 6 of the finished row contains a body plus a detached slice of the neighbouring pose, because that pose crosses its slot boundary. This character is long-bodied (body length about 2.0x shoulder height), so its poses are wider than the others and overrun their slots easily. Draw the eight poses smaller so that even the longest stretched stride fits entirely inside one slot with clear green margin at both ends. Also keep the eight poses at a consistent scale and with the feet on a consistent line: this character currently varies far more between frames than the other six in the series, which makes playback shake.
+
+WHAT TO DO
+1. Read /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-wind/prompts/ to find the existing prompt for the `running-left` row, and read
+   /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-wind/imagegen-jobs.json for that job's input images.
+2. Regenerate ONLY that row with $imagegen, attaching the same input images the job lists:
+   the canonical base at /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-wind/references/canonical-base.png and the layout guide at
+   /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-wind/references/layout-guides/running-left.png. Add the correction described above to the
+   prompt. Keep everything else about the row identical.
+3. Copy the new strip over /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-wind/decoded/running-left.png, keeping that job marked complete with
+   the new source_path and completed_at.
+4. Re-run the deterministic pipeline over the whole run with /usr/bin/python3:
+   extract_strip_frames.py (use --method stable-slots), inspect_frames.py
+   (with --allow-stable-slots), compose_atlas.py, validate_atlas.py, make_contact_sheet.py.
+5. Copy the rebuilt atlas over /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-wind/../package/yui-wind/spritesheet.webp.
+   Leave pet.json exactly as it is — it is already correct.
+
+FRAME SLOT RULE — this is what broke the row, so make it explicit in the regeneration prompt:
+The strip is cut into 8 equal slots of equal width. Every pose must sit COMPLETELY
+INSIDE its own slot, centred in it, with clear empty chroma-green margin on both sides.
+Draw exactly 8 poses, evenly spaced across the full width of the strip, with the same
+horizontal gap between every neighbouring pair. Do not bunch the poses together, do not leave
+a large empty region at either end, and never let one pose touch or overlap the next. A pose
+that crosses a slot boundary gets sliced in half when the strip is cut.
+
+ENVIRONMENT — verified by the caller, do not re-investigate:
+- `python` is NOT on PATH. Use `/usr/bin/python3`.
+- `jq` is at /usr/bin/jq.
+- $HOME/.codex is NOT writable here. Do not package there and do not run the cleanup step
+  that deletes files under $HOME/.codex/generated_images.
+- You may spawn subagents without asking. Run autonomously and ask the user nothing.
+
+STOP POLICY: you may stop only if the row cannot be generated at all, frames are missing, or
+validate_atlas.py fails. Size variation, cell-edge proximity and dimension targets are goals,
+not gates — note them and continue to a rebuilt atlas.
+
+Verify before finishing: open the rebuilt row in the new contact sheet and confirm the defect
+described above is gone and that each of the 8 cells contains exactly one whole,
+unsliced creature.
+
+Return exactly:
+pet_id=yui-wind
+row=running-left
+atlas=/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/package/yui-wind/spritesheet.webp
+fixed=<yes|no>
+note=<one sentence>

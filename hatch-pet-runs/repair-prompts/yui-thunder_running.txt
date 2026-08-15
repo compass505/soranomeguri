@@ -1,0 +1,53 @@
+Repair ONE broken row of an existing hatch-pet run. Do not regenerate the whole pet.
+
+Run dir: /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-thunder
+Pet id: yui-thunder
+Broken row: running
+
+WHAT IS WRONG WITH THIS ROW
+The row added props that do not exist in this character's base identity, and two of them carry written text: an open book with lines of writing, a magnifying glass, a notepad with a pencil, and a stone tablet with carved characters. New props and any text are forbidden. Show the working/thinking state through the wolf's own body only — lowered head, focused narrowed eyes, ears forward, one forepaw lifted or placed, a slight lean — with nothing in or under its paws. Also avoid literal foot-running, prowling and sprinting poses in this row; it is concentration, not travel.
+
+WHAT TO DO
+1. Read /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-thunder/prompts/ to find the existing prompt for the `running` row, and read
+   /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-thunder/imagegen-jobs.json for that job's input images.
+2. Regenerate ONLY that row with $imagegen, attaching the same input images the job lists:
+   the canonical base at /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-thunder/references/canonical-base.png and the layout guide at
+   /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-thunder/references/layout-guides/running.png. Add the correction described above to the
+   prompt. Keep everything else about the row identical.
+3. Copy the new strip over /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-thunder/decoded/running.png, keeping that job marked complete with
+   the new source_path and completed_at.
+4. Re-run the deterministic pipeline over the whole run with /usr/bin/python3:
+   extract_strip_frames.py (use --method stable-slots), inspect_frames.py
+   (with --allow-stable-slots), compose_atlas.py, validate_atlas.py, make_contact_sheet.py.
+5. Copy the rebuilt atlas over /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-thunder/../package/yui-thunder/spritesheet.webp.
+   Leave pet.json exactly as it is — it is already correct.
+
+FRAME SLOT RULE — this is what broke the row, so make it explicit in the regeneration prompt:
+The strip is cut into 6 equal slots of equal width. Every pose must sit COMPLETELY
+INSIDE its own slot, centred in it, with clear empty chroma-green margin on both sides.
+Draw exactly 6 poses, evenly spaced across the full width of the strip, with the same
+horizontal gap between every neighbouring pair. Do not bunch the poses together, do not leave
+a large empty region at either end, and never let one pose touch or overlap the next. A pose
+that crosses a slot boundary gets sliced in half when the strip is cut.
+
+ENVIRONMENT — verified by the caller, do not re-investigate:
+- `python` is NOT on PATH. Use `/usr/bin/python3`.
+- `jq` is at /usr/bin/jq.
+- $HOME/.codex is NOT writable here. Do not package there and do not run the cleanup step
+  that deletes files under $HOME/.codex/generated_images.
+- You may spawn subagents without asking. Run autonomously and ask the user nothing.
+
+STOP POLICY: you may stop only if the row cannot be generated at all, frames are missing, or
+validate_atlas.py fails. Size variation, cell-edge proximity and dimension targets are goals,
+not gates — note them and continue to a rebuilt atlas.
+
+Verify before finishing: open the rebuilt row in the new contact sheet and confirm the defect
+described above is gone and that each of the 6 cells contains exactly one whole,
+unsliced creature.
+
+Return exactly:
+pet_id=yui-thunder
+row=running
+atlas=/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/package/yui-thunder/spritesheet.webp
+fixed=<yes|no>
+note=<one sentence>

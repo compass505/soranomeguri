@@ -1,0 +1,59 @@
+Generate one horizontal sprite row strip with the $imagegen skill. This is a turnaround row
+for an existing pet, used for gaze-following in a game. Do not run the hatch-pet pipeline;
+this is a single image generation job.
+
+Pet: yui-cloudy
+Row id: look-a
+Output: save the selected image to /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/look-strips/yui-cloudy_look-a.png
+
+Input images to attach (all of them):
+- /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-cloudy/references/canonical-base.png — canonical identity reference. The pet in every frame must be this exact
+  character: same species, face, eye design, markings, palette, materials, proportions
+  and silhouette.
+- /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-cloudy/references/layout-guides/running-right.png — layout guide only. It defines 8 evenly spaced frame slots across the strip.
+  Follow its frame count, spacing, centering and padding. Never draw the guide itself:
+  no boxes, no borders, no centre marks, no labels, no guide colours, no guide background.
+
+WHAT TO DRAW
+A single horizontal strip of exactly 8 frames. The pet stands still in the same neutral
+standing pose in all 8 frames. The ONLY thing that changes between frames is which
+direction the pet is turned, rotating on the spot around a vertical axis.
+
+Turn angles for this row: 0, 22.5, 45, 67.5, 90, 112.5, 135, 157.5 degrees.
+Frame 0 is the pet seen from directly BEHIND: we see its back and the back of its head, and its face is not visible. Each following frame turns it 22.5 degrees clockwise as seen from above, so frame 4 (90 degrees) faces the viewer's RIGHT in full profile, and frame 7 (157.5 degrees) is almost facing the viewer.
+
+The head follows the body's direction, and the eyes look in the same direction the body is
+turned. In frames where the face is visible, the amber eyes with their two catchlights must
+read clearly.
+
+HARD REQUIREMENTS
+- Background: flat solid chroma green #00FF00, filling the whole strip, with nothing else
+  on it. No scenery, no ground, no shadow, no text, no frame numbers, no grid lines.
+- Exactly 8 complete pets, one per frame slot, none clipped, none crossing into a
+  neighbouring slot. The strip is later cut into 8 EQUAL slots of equal width, so every
+  pose must sit completely inside its own slot, centred in it, with clear empty green
+  margin on both sides. Space the 8 poses evenly across the full width with the same gap
+  between every neighbouring pair. Do not bunch them together and do not leave a large
+  empty region at either end. A pose that crosses a slot boundary gets sliced in half.
+  Draw the pet small enough that even the widest turned pose fits inside one slot.
+- SAME SIZE AND SAME BASELINE IN ALL 8 FRAMES. This row is played back as a smooth turn
+  that follows the player's cursor, so any change in scale or in the height of the feet
+  reads as the character jolting. Keep the feet on the same horizontal line and the body
+  at the same scale in every frame. This is the most important requirement in this job
+  after identity.
+- No detached effects of any kind: no motion arcs, speed lines, sparkles, dust, glow,
+  aura, drop shadows or floating symbols.
+- No chroma-green tones anywhere in the pet, its markings, its highlights or its shadows.
+
+CHARACTER NOTE: the long drop ears must stay visible against the curly fleece in every frame, including the rear views. Keep them one value darker than the curls with a clear separating outline.
+
+Use $imagegen only. Do not draw, tile, composite or synthesize the strip locally. If
+$imagegen returns Bad Request, retry the same job once.
+
+Before returning, look at the result and check: exactly 8 frames, the same character in all
+of them, the rotation actually progressing in one consistent direction, a flat green
+background, and no size or baseline jumps.
+
+Return exactly:
+selected_source=<absolute path of the image you saved to /Users/kashiwa505/Documents/yui-game/hatch-pet-runs/look-strips/yui-cloudy_look-a.png>
+qa_note=<one sentence>

@@ -1,0 +1,210 @@
+{
+  "pet_id": "yui-rainy",
+  "display_name": "\u3042\u3081",
+  "description": "An otter-like weather beast with a slicked wet coat, webbed feet, and droplets on its back.",
+  "created_at": "2026-08-15T08:53:21.227538+00:00",
+  "atlas": {
+    "columns": 8,
+    "rows": 9,
+    "cell_width": 192,
+    "cell_height": 208,
+    "width": 1536,
+    "height": 1872
+  },
+  "rows": [
+    {
+      "state": "idle",
+      "row": 0,
+      "frames": 6,
+      "purpose": "calm resting, breathing, and blinking loop"
+    },
+    {
+      "state": "running-right",
+      "row": 1,
+      "frames": 8,
+      "purpose": "rightward drag movement loop"
+    },
+    {
+      "state": "running-left",
+      "row": 2,
+      "frames": 8,
+      "purpose": "leftward drag movement loop"
+    },
+    {
+      "state": "waving",
+      "row": 3,
+      "frames": 4,
+      "purpose": "greeting or attention gesture"
+    },
+    {
+      "state": "jumping",
+      "row": 4,
+      "frames": 5,
+      "purpose": "hover or playful jump"
+    },
+    {
+      "state": "failed",
+      "row": 5,
+      "frames": 8,
+      "purpose": "blocked, failed, or cancelled reaction"
+    },
+    {
+      "state": "waiting",
+      "row": 6,
+      "frames": 6,
+      "purpose": "waiting for approval, help, or user input"
+    },
+    {
+      "state": "running",
+      "row": 7,
+      "frames": 6,
+      "purpose": "active task work or processing"
+    },
+    {
+      "state": "review",
+      "row": 8,
+      "frames": 6,
+      "purpose": "ready or completed output review"
+    }
+  ],
+  "layout_guides": [
+    {
+      "state": "idle",
+      "path": "references/layout-guides/idle.png",
+      "width": 1152,
+      "height": 208,
+      "frames": 6,
+      "cell_width": 192,
+      "cell_height": 208,
+      "safe_margin_x": 18,
+      "safe_margin_y": 16,
+      "usage": "layout guide input only; do not copy visible guide lines into generated sprite strips"
+    },
+    {
+      "state": "running-right",
+      "path": "references/layout-guides/running-right.png",
+      "width": 1536,
+      "height": 208,
+      "frames": 8,
+      "cell_width": 192,
+      "cell_height": 208,
+      "safe_margin_x": 18,
+      "safe_margin_y": 16,
+      "usage": "layout guide input only; do not copy visible guide lines into generated sprite strips"
+    },
+    {
+      "state": "running-left",
+      "path": "references/layout-guides/running-left.png",
+      "width": 1536,
+      "height": 208,
+      "frames": 8,
+      "cell_width": 192,
+      "cell_height": 208,
+      "safe_margin_x": 18,
+      "safe_margin_y": 16,
+      "usage": "layout guide input only; do not copy visible guide lines into generated sprite strips"
+    },
+    {
+      "state": "waving",
+      "path": "references/layout-guides/waving.png",
+      "width": 768,
+      "height": 208,
+      "frames": 4,
+      "cell_width": 192,
+      "cell_height": 208,
+      "safe_margin_x": 18,
+      "safe_margin_y": 16,
+      "usage": "layout guide input only; do not copy visible guide lines into generated sprite strips"
+    },
+    {
+      "state": "jumping",
+      "path": "references/layout-guides/jumping.png",
+      "width": 960,
+      "height": 208,
+      "frames": 5,
+      "cell_width": 192,
+      "cell_height": 208,
+      "safe_margin_x": 18,
+      "safe_margin_y": 16,
+      "usage": "layout guide input only; do not copy visible guide lines into generated sprite strips"
+    },
+    {
+      "state": "failed",
+      "path": "references/layout-guides/failed.png",
+      "width": 1536,
+      "height": 208,
+      "frames": 8,
+      "cell_width": 192,
+      "cell_height": 208,
+      "safe_margin_x": 18,
+      "safe_margin_y": 16,
+      "usage": "layout guide input only; do not copy visible guide lines into generated sprite strips"
+    },
+    {
+      "state": "waiting",
+      "path": "references/layout-guides/waiting.png",
+      "width": 1152,
+      "height": 208,
+      "frames": 6,
+      "cell_width": 192,
+      "cell_height": 208,
+      "safe_margin_x": 18,
+      "safe_margin_y": 16,
+      "usage": "layout guide input only; do not copy visible guide lines into generated sprite strips"
+    },
+    {
+      "state": "running",
+      "path": "references/layout-guides/running.png",
+      "width": 1152,
+      "height": 208,
+      "frames": 6,
+      "cell_width": 192,
+      "cell_height": 208,
+      "safe_margin_x": 18,
+      "safe_margin_y": 16,
+      "usage": "layout guide input only; do not copy visible guide lines into generated sprite strips"
+    },
+    {
+      "state": "review",
+      "path": "references/layout-guides/review.png",
+      "width": 1152,
+      "height": 208,
+      "frames": 6,
+      "cell_width": 192,
+      "cell_height": 208,
+      "safe_margin_x": 18,
+      "safe_margin_y": 16,
+      "usage": "layout guide input only; do not copy visible guide lines into generated sprite strips"
+    }
+  ],
+  "references": [
+    {
+      "path": "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainy/references/reference-01.png",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGB",
+      "format": "PNG",
+      "source_path": "/Users/kashiwa505/Documents/SecondBrain/30_Projects/\u3086\u3044\u30b2\u30fc\u30e0/03_\u30ad\u30e3\u30e9\u30af\u30bf\u30fc/beast_rainy.png",
+      "copied_path": "/Users/kashiwa505/Documents/yui-game/hatch-pet-runs/yui-rainy/references/reference-01.png"
+    }
+  ],
+  "chroma_key": {
+    "hex": "#00FF00",
+    "rgb": [
+      0,
+      255,
+      0
+    ],
+    "name": "user-selected",
+    "selection": "manual"
+  },
+  "pet_notes": "Series identity lock: four-legged beast standing and moving on the ground; not bipedal and not a mascot blob. Body length about 1.6x shoulder height. Head about 1/3 of body length. Back line horizontal when standing. Belly line above the elbow. Eyes have amber/honey irises, round dark pupils, a drawn upper lash line, and exactly two catchlights. Small dark nose and visible paw pads. Character-specific: otter-like quadruped with short slicked-down wet-looking blue-grey coat and a paler throat; 3 to 5 opaque water droplets resting ON the back, each attached to and overlapping the body silhouette with an outline at least 3px wide at final 192x208 cell size; never floating free. Webbed feet with webbing visible between toes. Thick-based tapering tail carried low. No text, logos, scenery, ground shadow, detached effects, guide marks, or extra creatures. Use the attached reference as the canonical sibling visual.",
+  "style_preset": "painterly",
+  "style_notes": "Painterly cel-shaded game-creature art with a clean readable outline, soft warm rendering, and flat lit palette. Match the attached reference rendering exactly across all rows. Keep the pet readable as one full-body sprite at 192x208.",
+  "style_contract": "Pet-safe sprite: compact full-body mascot, readable in a 192x208 cell, clear silhouette, simple face, stable palette/materials, and crisp edges for chroma-key extraction. Style `painterly`: Painterly mascot with simplified brush texture, readable forms, stable palette, and enough edge clarity for clean extraction. User style notes: Painterly cel-shaded game-creature art with a clean readable outline, soft warm rendering, and flat lit palette. Match the attached reference rendering exactly across all rows. Keep the pet readable as one full-body sprite at 192x208..",
+  "brand_name": "",
+  "brand_brief": "",
+  "brand_sources": [],
+  "pet_safe_style": "Pet-safe sprite: compact full-body mascot, readable in a 192x208 cell, clear silhouette, simple face, stable palette/materials, and crisp edges for chroma-key extraction.",
+  "primary_generation_skill": "$imagegen"
+}

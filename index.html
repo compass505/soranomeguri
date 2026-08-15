@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>そらをつくる</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <canvas id="stage"></canvas>
+
+  <div id="hud">
+    <div id="date"><span id="sekki">立春</span><span id="dayno"></span></div>
+    <div id="weather"><span id="wname">—</span></div>
+  </div>
+
+  <div id="feed"></div>
+
+  <div id="panel">
+    <div class="dials">
+      <label class="dial" data-k="t">
+        <span class="name">気温</span>
+        <input type="range" id="d-t" step="0.1">
+        <span class="val" id="v-t"></span>
+      </label>
+      <label class="dial" data-k="w">
+        <span class="name">湿り</span>
+        <input type="range" id="d-w" min="0" max="100" step="0.5">
+        <span class="val" id="v-w"></span>
+      </label>
+      <label class="dial" data-k="p">
+        <span class="name">気圧</span>
+        <input type="range" id="d-p" step="0.5">
+        <span class="val" id="v-p"></span>
+      </label>
+      <label class="dial" data-k="v">
+        <span class="name">風</span>
+        <input type="range" id="d-v" step="0.1">
+        <span class="val" id="v-v"></span>
+      </label>
+    </div>
+
+    <div id="gauges">
+      <div class="g"><span>雲</span><div class="bar"><i id="g-cloud"></i></div></div>
+      <div class="g"><span>湿度</span><div class="bar"><i id="g-rh"></i></div></div>
+      <div class="g"><span>上昇気流</span><div class="bar"><i id="g-u"></i></div></div>
+    </div>
+
+    <div id="bag"></div>
+  </div>
+</div>
+<script type="module" src="js/game.js"></script>
+</body>
+</html>
