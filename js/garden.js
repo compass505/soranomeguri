@@ -3,6 +3,7 @@
 //   段階が上がると waving が増え、視線がこちらを追う時間が伸び、駆け寄ってくる。
 
 import { yawToward } from './sprites.js';
+import { PET_SCALE_RANGE } from './layout.js';
 
 export const BONDS = ['よそよそしい', '気づく', '懐く', '甘える'];
 
@@ -49,7 +50,8 @@ export class Pet {
    */
   get scale() {
     const k = (this.y - this.b.y0) / Math.max(1, this.b.y1 - this.b.y0);
-    return (0.42 + k * 0.30) * (SPECIES_SCALE[this.id] ?? 1);
+    const [far, near] = this.b.petScale ?? PET_SCALE_RANGE;
+    return (far + k * (near - far)) * (SPECIES_SCALE[this.id] ?? 1);
   }
 
   pickNew(delay = 0) {

@@ -8,6 +8,7 @@ import {
 import { skyLook, drawClouds, Precip } from './sky.js';
 import { SpriteBank } from './sprites.js';
 import { Pet, bondLevel } from './garden.js';
+import { gardenLayout } from './layout.js';
 import * as S from './state.js';
 
 // アトラスのidは `yui-*` のまま据え置く。ゲーム名を「そらのめぐり」に変えた後も改名しない:
@@ -261,10 +262,11 @@ function syncPets(kind, look) {
 function groundBounds() {
   const r = cv.getBoundingClientRect();
   const gAsp = bgm ? bgm.bg_ground_green.height / bgm.bg_ground_green.width : 0.284;
-  const horizon = Math.max(r.height * 0.30, Math.min(r.height * 0.68, r.height - r.width * gAsp));
+  const layout = gardenLayout({ width: r.width, height: r.height, groundAspect: gAsp });
   // 地平線より少し手前から画面下までが歩ける範囲
   return { x0: r.width * 0.10, x1: r.width * 0.90,
-           y0: horizon + (r.height - horizon) * 0.22, y1: r.height - 16 };
+           y0: layout.horizon + (r.height - layout.horizon) * 0.22, y1: r.height - 16,
+           petScale: layout.petScale };
 }
 
 // ---------------------------------------------------------------- 描画
@@ -272,9 +274,9 @@ function groundBounds() {
 function paint(look, dt) {
   const r = cv.getBoundingClientRect();
   const W = r.width, H = r.height;
-  // 地平線は絵の縦横比から決める。目分量のスライス比だと余白が画面に出た
   const gAsp = bgm ? bgm.bg_ground_green.height / bgm.bg_ground_green.width : 0.284;
-  const horizon = Math.max(H * 0.30, Math.min(H * 0.68, H - W * gAsp));
+  const layout = gardenLayout({ width: W, height: H, groundAspect: gAsp });
+  const { horizon, groundW, groundH } = layout;
 
   // 空
   const g = ctx.createLinearGradient(0, 0, 0, horizon + 40);
@@ -291,17 +293,15 @@ function paint(look, dt) {
     const hw = W * 1.25;                                       // 少し広げて端の切れを隠す
     const hh = hw * (bgm.bg_hills.height / bgm.bg_hills.width) * 0.62;
     ctx.globalAlpha = 0.92 - look.cloudDark * 0.3;
-    ctx.drawImage(bg.hills, -(hw - W) / 2, horizon - hh + 2, hw, hh);
+    ctx.drawImage(bg.hills, -(hw - W) / 2, horizon - hh, hw, hh);
     ctx.globalAlpha = 1;
   }
 
   // 地面。緑 ⇄ 雪 を気温でクロスフェード
-  const gy = horizon;
-  const gh = Math.max(H - gy, W * gAsp);
   const drawGround = (img, a) => {
     if (!img || a <= 0.001) return;
     ctx.globalAlpha = a;
-    ctx.drawImage(img, 0, gy, W, gh);
+    ctx.drawImage(img, -(groundW - W) / 2, horizon, groundW, groundH);
     ctx.globalAlpha = 1;
   };
   drawGround(bg.green, 1);

@@ -1,0 +1,23 @@
+{
+ "bg_ground_green": {
+  "src": "assets/bg/bg_ground_green_c.png",
+  "top": 466,
+  "width": 1672,
+  "height": 475,
+  "topRatio": 0.4952
+ },
+ "bg_ground_snow": {
+  "src": "assets/bg/bg_ground_snow_c.png",
+  "top": 465,
+  "width": 1672,
+  "height": 476,
+  "topRatio": 0.4942
+ },
+ "bg_hills": {
+  "src": "assets/bg/bg_hills_c.png",
+  "top": 700,
+  "width": 1672,
+  "height": 241,
+  "topRatio": 0.7439
+ }
+}

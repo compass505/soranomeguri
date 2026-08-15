@@ -10,7 +10,8 @@ hatch-pet-runs/*/previews/
 hatch-pet-runs/logs/
 hatch-pet-runs/atlas11/
 
-# 生成された派生物（tools/ で作り直せる）
-assets/bg/*_c.png
-js/sprite-metrics.json
-js/bg-metrics.json
+# 生成物だが、これらは追跡する（2026-08-15）。
+#   assets/bg/*_c.png / js/*-metrics.json は tools/ で作り直せるが、
+#   実行時に fetch している。GitHub Pages はリポジトリをそのまま配信するので、
+#   除外すると公開先で 404 になり空も庭も出ない。
+#   「作り直せるか」ではなく「配信物に要るか」で判断する。
