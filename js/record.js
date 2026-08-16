@@ -49,6 +49,12 @@ const EDGE_COLOR = Object.freeze({
   thunder: '#8b7fb0', hail: '#93a7b3', snow: '#e8eef0',
 });
 
+const NODE_COLOR = Object.freeze({
+  sunny: '#d7a24a', cloudy: '#899597', rainy: '#567a96', thunder: '#716b8f',
+  hail: '#7893a3', snow: '#b8ccd5', fog: '#a8b9b7', rainbow: '#bd7f87',
+  wind: '#729b92', diamonddust: '#91adc1',
+});
+
 const PET_ID = (id) => `yui-${id}`;
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const DAY_WORD = ['一日目', '二日目', '三日目'];
@@ -113,6 +119,8 @@ export class RecordScreen {
     this.selected = null;
     this.ring = root.querySelector('#record-ring');
     this.outside = root.querySelector('#record-outside');
+    this.main = root.querySelector('.record-main');
+    this.guide = root.querySelector('#record-guide');
     this.sheet = root.querySelector('#record-sheet');
     this.closeButton = root.querySelector('#record-close');
 
@@ -124,6 +132,7 @@ export class RecordScreen {
   open() {
     this.root.hidden = false;
     this.root.setAttribute('aria-hidden', 'false');
+    this.root.scrollTop = 0;
     document.body.classList.add('record-open');
     this.render();
     this.closeButton.focus();
@@ -140,7 +149,10 @@ export class RecordScreen {
     this.renderRing();
     this.renderOutside();
     if (this.selected) this.renderSheet(this.selected, false);
-    else this.sheet.hidden = true;
+    else {
+      this.sheet.hidden = true;
+      this.guide.hidden = false;
+    }
   }
 
   renderRing() {
@@ -180,6 +192,21 @@ export class RecordScreen {
     }
     this.ring.appendChild(svg);
 
+    const ids = [...RING_ORDER, ...OUTSIDE_ORDER];
+    const metCount = ids.filter((id) => Boolean(state.seen[id])).length;
+    const passedCount = ringEntries(state).filter((edge) => edge.passed).length;
+    const center = html('div', 'record-orbit-center');
+    center.appendChild(html('p', '', '出会った子'));
+    const met = html('strong', '', String(metCount));
+    met.appendChild(html('span', '', ` / ${ids.length}`));
+    center.appendChild(met);
+    center.appendChild(html(
+      'small',
+      '',
+      passedCount === RING_ORDER.length ? '七つの道が つながった' : `通った道 ${passedCount} / ${RING_ORDER.length}`,
+    ));
+    this.ring.appendChild(center);
+
     for (const [index, id] of RING_ORDER.entries()) {
       const point = pointAt(index);
       const node = this.makeNode(id, point);
@@ -203,7 +230,8 @@ export class RecordScreen {
     const button = html('button', `record-node${seen ? '' : ' is-unseen'}`);
     button.type = 'button';
     button.dataset.recordNode = id;
-    button.setAttribute('aria-label', RECORD_NAME[id]);
+    button.style.setProperty('--node-color', NODE_COLOR[id]);
+    button.setAttribute('aria-label', `${RECORD_NAME[id]}の子、${seen ? '記録あり' : 'まだ出会っていない'}`);
     button.setAttribute('aria-pressed', String(this.selected === id));
     if (point) {
       button.style.left = `${point.x}px`;
@@ -229,11 +257,23 @@ export class RecordScreen {
       node.setAttribute('aria-pressed', String(node.dataset.recordNode === id));
     }
     this.renderSheet(id, true);
+    if (window.matchMedia?.('(max-width: 879px)').matches) {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      requestAnimationFrame(() => {
+        const mainTop = this.main.getBoundingClientRect().top;
+        const sheetTop = this.sheet.getBoundingClientRect().top;
+        this.main.scrollTo({
+          top: this.main.scrollTop + sheetTop - mainTop - 12,
+          behavior: reduceMotion ? 'auto' : 'smooth',
+        });
+      });
+    }
   }
 
   renderSheet(id, animateArc) {
     const state = this.getState();
     const seen = Boolean(state.seen[id]);
+    this.guide.hidden = true;
     this.sheet.replaceChildren();
     this.sheet.hidden = false;
 

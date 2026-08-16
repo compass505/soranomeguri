@@ -47,18 +47,38 @@
 
   <section id="record-screen" class="record-screen" aria-labelledby="record-title" aria-hidden="true" hidden>
     <header class="record-header">
-      <button id="record-close" type="button">←もどる</button>
-      <h1 id="record-title">めぐりの記録</h1>
-      <span aria-hidden="true"></span>
+      <button id="record-close" type="button"><span aria-hidden="true">←</span> 空へもどる</button>
+      <div class="record-heading">
+        <p>二十四節気の観測帖</p>
+        <h1 id="record-title">めぐりの記録</h1>
+      </div>
+      <span class="record-header-mark" aria-hidden="true"></span>
     </header>
     <main class="record-main">
-      <section class="record-overview" aria-label="実りの環">
-        <div id="record-ring" class="record-ring"></div>
+      <section class="record-overview" aria-labelledby="record-ring-title">
+        <header class="record-section-heading">
+          <p class="record-section-kicker">空のめぐり</p>
+          <h2 id="record-ring-title">天気の子たち</h2>
+          <p>子を選ぶと、出会った日や好きな実りをたどれます。</p>
+        </header>
+        <div class="record-orbit-shell">
+          <div id="record-ring" class="record-ring"></div>
+        </div>
         <section class="record-outside-section" aria-labelledby="record-outside-title">
-          <h2 id="record-outside-title">環の外</h2>
+          <div>
+            <p class="record-section-kicker">特別な空</p>
+            <h2 id="record-outside-title">環の外にいる子</h2>
+          </div>
+          <p>決まった実りの道を持たない、三つの出会い。</p>
           <div id="record-outside" class="record-outside"></div>
         </section>
       </section>
+      <aside id="record-guide" class="record-guide" aria-label="記録の見かた">
+        <span class="record-guide-orbit" aria-hidden="true"></span>
+        <p>ひとりを選ぶ</p>
+        <strong>空で重ねた時間が<br>ここに残ります</strong>
+        <small>矢印キーでも子を選べます</small>
+      </aside>
       <article id="record-sheet" class="record-sheet" aria-live="polite" hidden></article>
     </main>
   </section>

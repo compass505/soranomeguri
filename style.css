@@ -240,52 +240,146 @@ body.title-open { overflow: hidden; }
 #dayno { margin-left: 8px; opacity: .72; font-size: 12px; }
 #weather { font-size: 17px; font-weight: 600; }
 
-/* --- めぐりの記録。庭の光に重ねる、鈍い和紙の場所 --- */
+/* --- めぐりの記録。空に残った航跡を読む、小さな観測帖 --- */
 body.record-open { overflow: hidden; }
 .record-screen {
-  --sumi: #33302a;
-  --washi: #f5efe2;
-  --kasumi: #cdd4d3;
-  --sora: #7fa8c9;
-  --hidamari: #e0a63c;
-  --sumire: #8b7fb0;
+  --record-ink: #29343a;
+  --record-paper: #f3f5f2;
+  --record-mist: #d6e0df;
+  --record-sky: #7fa8c9;
+  --record-rain: #567a96;
+  --record-fruit: #d7a24a;
+  --record-dusk: #716b8f;
   position: fixed;
   z-index: 15;
   inset: 0;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  color: var(--sumi);
-  background: var(--washi);
+  color: var(--record-ink);
+  background:
+    radial-gradient(circle at 50% -14rem, rgba(127,168,201,.38) 0 17rem, transparent 38rem),
+    linear-gradient(180deg, #edf3f4 0%, var(--record-paper) 58%, #f4f1e9 100%);
+  isolation: isolate;
+}
+.record-screen[hidden] { display: none; }
+.record-screen::before {
+  position: absolute;
+  z-index: -1;
+  right: -12rem;
+  bottom: -20rem;
+  width: 44rem;
+  height: 44rem;
+  border: 1px solid rgba(86,122,150,.09);
+  border-radius: 50%;
+  box-shadow: 0 0 0 5rem rgba(127,168,201,.025), 0 0 0 10rem rgba(127,168,201,.018);
+  content: "";
+  pointer-events: none;
 }
 .record-header {
-  height: 52px;
+  flex: 0 0 auto;
+  min-height: 66px;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: minmax(8rem, 1fr) auto minmax(8rem, 1fr);
   align-items: center;
-  padding: env(safe-area-inset-top) 14px 0;
-  border-bottom: 1px solid rgba(51,48,42,.14);
-  background: var(--washi);
+  padding: calc(4px + env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) 4px max(18px, env(safe-area-inset-left));
+  border-bottom: 1px solid rgba(41,52,58,.12);
+  background: rgba(243,245,242,.78);
+  backdrop-filter: blur(16px);
 }
-.record-header h1 {
-  margin: 0;
-  font-size: 16px;
+.record-heading { text-align: center; }
+.record-heading p,
+.record-heading h1 { margin: 0; }
+.record-heading p {
+  color: var(--record-rain);
+  font: 600 9px/1.2 system-ui, sans-serif;
+  letter-spacing: .22em;
+}
+.record-heading h1 {
+  margin-top: 3px;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: 17px;
   font-weight: 600;
-  letter-spacing: .12em;
+  letter-spacing: .17em;
+}
+.record-header-mark {
+  justify-self: end;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(86,122,150,.26);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--record-fruit) 0 3px, transparent 4px);
 }
 #record-close {
   justify-self: start;
-  min-width: 72px;
-  min-height: 40px;
-  padding: 0;
+  min-height: 42px;
+  padding: 0 8px 0 0;
   border: 0;
-  font: inherit;
-  font-size: 13px;
-  color: inherit;
+  font: 500 12px/1 system-ui, sans-serif;
+  letter-spacing: .04em;
+  color: var(--record-ink);
   background: transparent;
   cursor: pointer;
 }
-.record-main { height: calc(100% - 52px); overflow-y: auto; overscroll-behavior: contain; }
-.record-overview { width: min(100%, 400px); margin: 0 auto; }
-.record-ring { position: relative; width: 320px; height: 320px; margin: 0 auto; }
+#record-close span { margin-right: 5px; color: var(--record-rain); font-size: 17px; }
+.record-main {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 28px 18px calc(56px + env(safe-area-inset-bottom));
+  scroll-padding-top: 20px;
+}
+.record-overview { width: min(100%, 520px); margin: 0 auto; }
+.record-section-heading { padding: 0 8px 12px; }
+.record-section-kicker,
+.record-section-heading h2,
+.record-section-heading > p:last-child { margin: 0; }
+.record-section-kicker {
+  color: var(--record-rain);
+  font: 650 10px/1.3 system-ui, sans-serif;
+  letter-spacing: .2em;
+}
+.record-section-heading h2,
+.record-outside-section h2 {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-weight: 600;
+  letter-spacing: .1em;
+}
+.record-section-heading h2 { margin-top: 4px; font-size: 24px; }
+.record-section-heading > p:last-child {
+  margin-top: 8px;
+  color: rgba(41,52,58,.66);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.record-orbit-shell {
+  position: relative;
+  width: 348px;
+  height: 348px;
+  margin: 0 auto 20px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(86,122,150,.12);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(255,255,255,.7) 0 23%, transparent 24%),
+    repeating-radial-gradient(circle, transparent 0 52px, rgba(86,122,150,.055) 53px 54px, transparent 55px 79px);
+  box-shadow: inset 0 0 60px rgba(127,168,201,.08);
+}
+.record-orbit-shell::before,
+.record-orbit-shell::after {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--record-fruit);
+  box-shadow: 0 0 0 4px rgba(215,162,74,.12);
+  content: "";
+}
+.record-orbit-shell::before { top: 26px; left: 57px; }
+.record-orbit-shell::after { right: 41px; bottom: 44px; opacity: .6; }
+.record-ring { position: relative; width: 320px; height: 320px; }
 .record-ring-lines { position: absolute; inset: 0; width: 320px; height: 320px; overflow: visible; }
 .record-edge {
   fill: none;
@@ -293,136 +387,304 @@ body.record-open { overflow: hidden; }
   stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;
+  opacity: .68;
 }
-.record-edge.is-passed { stroke-width: 4; }
+.record-edge.is-passed {
+  stroke-width: 4;
+  opacity: .94;
+  filter: drop-shadow(0 1px 2px rgba(86,122,150,.16));
+}
 .record-edge.is-drawing {
   stroke-dasharray: 300;
   stroke-dashoffset: 300;
   animation: record-draw 600ms ease-out forwards;
 }
 @keyframes record-draw { to { stroke-dashoffset: 0; } }
-
+.record-orbit-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 102px;
+  height: 102px;
+  display: grid;
+  place-content: center;
+  gap: 3px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(86,122,150,.2);
+  border-radius: 50%;
+  text-align: center;
+  background: rgba(250,251,248,.82);
+  box-shadow: 0 8px 24px rgba(86,122,150,.1);
+  pointer-events: none;
+}
+.record-orbit-center::before {
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(215,162,74,.22);
+  border-radius: inherit;
+  content: "";
+}
+.record-orbit-center p { margin: 0; font-size: 9px; letter-spacing: .12em; }
+.record-orbit-center strong {
+  font: 500 20px/1 "Hiragino Mincho ProN", "Yu Mincho", serif;
+  letter-spacing: .06em;
+}
+.record-orbit-center strong span { color: rgba(41,52,58,.45); font-size: 10px; }
+.record-orbit-center small { color: var(--record-rain); font-size: 8px; letter-spacing: .08em; }
 .record-node {
   width: 82px;
-  min-height: 72px;
+  min-height: 74px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 0;
+  padding: 2px 3px 4px;
   border: 0;
+  border-radius: 14px;
   font: inherit;
   color: inherit;
   background: transparent;
   cursor: pointer;
+  transition: background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
 }
 .record-ring > .record-node { position: absolute; transform: translate(-50%, -50%); }
-.record-node-sprite { display: block; width: 56px; height: 58px; }
-.record-empty {
+.record-ring > .record-node:hover { transform: translate(-50%, calc(-50% - 2px)); }
+.record-node[aria-pressed="true"] {
+  background: rgba(255,255,255,.78);
+  box-shadow: 0 6px 18px rgba(86,122,150,.13), inset 0 0 0 1px color-mix(in srgb, var(--node-color) 38%, transparent);
+}
+.record-node-sprite {
   display: block;
   width: 56px;
-  height: 56px;
-  border: 1.5px solid var(--kasumi);
+  height: 58px;
+  filter: drop-shadow(0 5px 5px rgba(41,52,58,.12));
+}
+.record-empty {
+  display: block;
+  width: 52px;
+  height: 52px;
+  margin: 3px 0;
+  border: 1px dashed color-mix(in srgb, var(--node-color) 58%, var(--record-mist));
   border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--node-color) 13%, transparent), transparent 66%);
 }
 .record-node-name {
   display: block;
   max-width: 96px;
   margin-top: -1px;
   font-size: 10px;
-  line-height: 1.2;
+  line-height: 1.25;
   white-space: normal;
 }
-.record-node:focus-visible, #record-close:focus-visible {
-  outline: 3px solid var(--sora);
-  outline-offset: 2px;
-  border-radius: 6px;
+.record-node[aria-pressed="true"] .record-node-name { font-weight: 700; }
+.record-node:focus-visible,
+#record-close:focus-visible {
+  outline: 3px solid var(--record-rain);
+  outline-offset: 3px;
 }
 .record-outside-section {
-  padding: 0 10px 12px;
-  border-top: 1px solid rgba(51,48,42,.14);
+  padding: 22px 8px 0;
+  border-top: 1px solid rgba(41,52,58,.14);
 }
-.record-outside-section > h2 {
-  margin: 7px 0 2px;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: .1em;
+.record-outside-section > div:first-child {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
 }
-.record-outside { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
-.record-outside-item { min-width: 0; text-align: center; }
-.record-outside-item .record-node { width: 100%; min-height: 65px; }
+.record-outside-section h2 { margin: 4px 0 0; font-size: 17px; }
+.record-outside-section > p {
+  margin: 5px 0 15px;
+  color: rgba(41,52,58,.62);
+  font-size: 11px;
+  line-height: 1.6;
+}
+.record-outside { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.record-outside-item {
+  min-width: 0;
+  padding: 9px 5px 10px;
+  border: 1px solid rgba(86,122,150,.12);
+  border-radius: 16px;
+  text-align: center;
+  background: rgba(255,255,255,.36);
+}
+.record-outside-item .record-node { width: 100%; min-height: 68px; }
 .record-outside-reason {
-  margin: -1px auto 0;
-  max-width: 112px;
+  margin: 2px auto 0;
+  max-width: 118px;
+  color: rgba(41,52,58,.6);
   font-size: 9px;
-  line-height: 1.35;
+  line-height: 1.45;
 }
-
+.record-guide { display: none; }
 .record-sheet {
-  width: min(calc(100% - 32px), 420px);
-  margin: 0 auto;
-  padding: 28px 4px calc(42px + env(safe-area-inset-bottom));
-  border-top: 1px solid rgba(51,48,42,.2);
+  width: min(100%, 440px);
+  margin: 34px auto 0;
+  padding: 28px 22px 30px;
+  border: 1px solid rgba(86,122,150,.14);
+  border-radius: 26px;
+  background: rgba(255,255,255,.54);
+  box-shadow: 0 18px 50px rgba(86,122,150,.09);
 }
-.record-portrait { width: 156px; height: 156px; margin: 0 auto; }
-.record-portrait-sprite { display: block; }
+.record-portrait {
+  width: 156px;
+  height: 156px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(127,168,201,.15), transparent 68%);
+}
+.record-portrait-sprite { display: block; filter: drop-shadow(0 9px 8px rgba(41,52,58,.13)); }
 .record-portrait.is-unseen { display: grid; place-items: center; }
 .record-portrait-empty {
   width: 104px;
   height: 104px;
-  border: 1.5px solid var(--kasumi);
+  border: 1px dashed var(--record-mist);
   border-radius: 50%;
+  background: radial-gradient(circle, rgba(127,168,201,.08), transparent 68%);
 }
 .record-character-name {
   margin: 8px 0 0;
   font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
-  font-size: 21px;
-  font-weight: 500;
-  letter-spacing: .12em;
+  font-size: 23px;
+  font-weight: 600;
+  letter-spacing: .14em;
   text-align: center;
 }
-.record-bond-word, .record-unseen-hint {
-  margin: 11px 0 24px;
+.record-bond-word,
+.record-unseen-hint {
+  margin: 11px 0 25px;
+  color: rgba(41,52,58,.72);
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
   font-size: 14px;
-  line-height: 1.8;
+  line-height: 1.9;
   text-align: center;
 }
 .record-history {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 10px 16px;
+  gap: 11px 18px;
   margin: 0;
-  padding: 17px 0;
-  border-top: 1px solid rgba(51,48,42,.18);
+  padding: 18px 0;
+  border-top: 1px solid rgba(41,52,58,.14);
 }
-.record-history dt, .record-history dd { margin: 0; font-size: 13px; }
+.record-history dt,
+.record-history dd { margin: 0; font-size: 13px; }
+.record-history dt { color: rgba(41,52,58,.62); }
 .record-history dd { text-align: right; }
 .record-history dd.is-mincho {
   font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
   letter-spacing: .12em;
 }
 .is-number {
-  font-family: system-ui, sans-serif;
+  font-family: ui-monospace, "SFMono-Regular", monospace;
   font-variant-numeric: tabular-nums;
 }
-.record-quiet { border-bottom: 1px solid rgba(51,48,42,.18); }
-.record-meals, .record-favorite {
-  padding: 17px 0;
-  border-top: 1px solid rgba(51,48,42,.18);
+.record-quiet { border-bottom: 1px solid rgba(41,52,58,.14); }
+.record-meals,
+.record-favorite {
+  padding: 18px 0;
+  border-top: 1px solid rgba(41,52,58,.14);
 }
-.record-meals h3 { margin: 0 0 10px; font-size: 13px; font-weight: 500; }
-.record-meal-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
-.record-meal-list li { display: flex; align-items: baseline; gap: 10px; padding-left: 12px; font-size: 13px; }
+.record-meals h3 {
+  margin: 0 0 12px;
+  color: rgba(41,52,58,.62);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .08em;
+}
+.record-meal-list { display: grid; gap: 7px; margin: 0; padding: 0; list-style: none; }
+.record-meal-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 9px;
+  font-size: 13px;
+  background: rgba(127,168,201,.08);
+}
 .record-meal-count { margin-left: auto; }
-.record-liked-note { min-width: 3.8em; font-size: 11px; color: rgba(51,48,42,.66); }
-.record-favorite { border-bottom: 1px solid rgba(51,48,42,.18); }
-.record-favorite p { margin: 0; font-size: 13px; line-height: 1.8; }
+.record-liked-note { min-width: 3.8em; color: var(--record-rain); font-size: 10px; }
+.record-favorite { border-bottom: 1px solid rgba(41,52,58,.14); }
+.record-favorite p { margin: 0; font-size: 13px; line-height: 1.9; }
 
-@media (max-width: 350px) {
-  .record-ring { transform: scale(.94); transform-origin: top center; margin-bottom: -19px; }
+@media (min-width: 880px) {
+  .record-main {
+    display: grid;
+    grid-template-columns: minmax(470px, 540px) minmax(330px, 420px);
+    align-items: start;
+    justify-content: center;
+    gap: clamp(34px, 6vw, 86px);
+    padding-top: 40px;
+  }
+  .record-overview { margin: 0; }
+  .record-guide,
+  .record-sheet {
+    position: sticky;
+    top: 12px;
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .record-guide {
+    min-height: 430px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    border: 1px solid rgba(86,122,150,.13);
+    border-radius: 28px;
+    text-align: center;
+    background: rgba(255,255,255,.36);
+  }
+  .record-guide[hidden] { display: none; }
+  .record-guide-orbit {
+    position: relative;
+    width: 94px;
+    height: 94px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(86,122,150,.24);
+    border-radius: 50%;
+  }
+  .record-guide-orbit::before {
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--record-fruit);
+    box-shadow: 0 0 0 6px rgba(215,162,74,.12);
+    content: "";
+  }
+  .record-guide p,
+  .record-guide strong,
+  .record-guide small { display: block; }
+  .record-guide p { margin: 0 0 10px; color: var(--record-rain); font-size: 10px; letter-spacing: .18em; }
+  .record-guide strong { font: 500 20px/1.8 "Hiragino Mincho ProN", "Yu Mincho", serif; letter-spacing: .08em; }
+  .record-guide small { margin-top: 25px; color: rgba(41,52,58,.48); font-size: 10px; }
+  .record-sheet { margin: 0; }
+}
+@media (max-width: 540px) {
+  .record-header { grid-template-columns: 1fr auto 1fr; padding-right: 14px; padding-left: 14px; }
+  .record-heading p { display: none; }
+  .record-heading h1 { margin: 0; font-size: 15px; }
+  .record-header-mark { width: 22px; height: 22px; }
+  #record-close { font-size: 11px; }
+  .record-main { padding-right: 14px; padding-left: 14px; }
+  .record-section-heading h2 { font-size: 21px; }
+  .record-outside { gap: 5px; }
+  .record-outside-item { padding-right: 2px; padding-left: 2px; }
+  .record-sheet { padding-right: 18px; padding-left: 18px; }
+}
+@media (max-width: 359px) {
+  .record-orbit-shell { transform: scale(.88); transform-origin: top center; margin-bottom: -22px; }
+  .record-outside-reason { font-size: 8px; }
+  #record-close { font-size: 0; }
+  #record-close span { font-size: 18px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .record-edge.is-drawing { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
+  .record-node { transition: none; }
 }
 
 /* 出来事の通知。数値ではなく言葉で返す */
