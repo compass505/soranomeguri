@@ -44,6 +44,28 @@ const precip = new Precip(1, 1);
 
 // ---------------------------------------------------------------- 初期化
 
+function setupTitleScreen() {
+  const screen = el('title-screen');
+  const start = el('title-start');
+  if (!screen || !start) return;
+
+  // 保存がある時だけ、入口の言葉を「もどる」に変える。進行状況そのものは見せない。
+  try {
+    if (localStorage.getItem('soranomeguri-v1')) {
+      start.querySelector('.title-action').textContent = '空へもどる';
+    }
+  } catch { /* 保存領域を読めない環境でも、入口はそのまま使える */ }
+
+  requestAnimationFrame(() => screen.classList.add('is-ready'));
+  start.addEventListener('click', () => {
+    start.disabled = true;
+    screen.classList.add('is-leaving');
+    screen.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('title-open');
+    setTimeout(() => { screen.hidden = true; fitCanvas(); }, 1150);
+  }, { once: true });
+}
+
 function fitCanvas() {
   const r = cv.getBoundingClientRect();
   const dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -444,4 +466,5 @@ function loop(now) {
   requestAnimationFrame(loop);
 }
 
+setupTitleScreen();
 init();

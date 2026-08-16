@@ -9,8 +9,34 @@
 <link rel="apple-touch-icon" href="assets/icon-192.png">
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="title-open">
 <div id="app">
+  <section id="title-screen" class="title-screen" aria-labelledby="title-logo">
+    <div class="title-sky" aria-hidden="true">
+      <span class="title-sun"></span>
+      <span class="title-cloud title-cloud-a"></span>
+      <span class="title-cloud title-cloud-b"></span>
+      <span class="title-cloud title-cloud-c"></span>
+      <span class="title-hills"></span>
+    </div>
+
+    <div class="title-copy">
+      <p class="title-kicker"><span>二十四節気</span><i></i><span>十の天気</span></p>
+      <div class="season-ring" aria-hidden="true"><i></i></div>
+      <h1 id="title-logo"><span>そらの</span><strong>めぐり</strong></h1>
+      <p class="title-tagline">空をめぐらせ、天気の子と暮らす。</p>
+      <button id="title-start" class="title-start" type="button">
+        <span class="title-action">空をひらく</span>
+        <span class="title-arrow" aria-hidden="true">→</span>
+      </button>
+    </div>
+
+    <p class="title-guide">
+      <span>気温</span><i></i><span>湿り</span><i></i><span>気圧</span><i></i><span>風</span>
+      <small>四つのつまみで、今日の空をつくる</small>
+    </p>
+  </section>
+
   <canvas id="stage"></canvas>
 
   <div id="hud">

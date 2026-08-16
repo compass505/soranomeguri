@@ -12,9 +12,203 @@ body {
   background: #cfd8dc;
   -webkit-font-smoothing: antialiased;
 }
+body.title-open { overflow: hidden; }
 #app { position: relative; height: 100dvh; display: flex; flex-direction: column; }
 /* flex-basis:0 は canvas 属性の縦横比を基準にせず、min-height:0 は自動最小値を切る。 */
 #stage { flex: 1 1 0; min-height: 0; width: 100%; display: block; touch-action: none; }
+
+/* --- トップ画面。ゲームの空へ溶ける、ひと呼吸ぶんの入口 --- */
+.title-screen {
+  --title-ink: #2f5364;
+  --title-pale: #edf6f2;
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  min-height: 100%;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  color: var(--title-ink);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255,255,255,.62) 0 8%, transparent 32%),
+    linear-gradient(180deg, #759eb8 0%, #a9c5ca 45%, #e9dfc5 82%, #d8d7ad 100%);
+  opacity: 0;
+  transition: opacity 1.15s ease, visibility 1.15s ease;
+}
+.title-screen.is-ready { opacity: 1; }
+.title-screen.is-leaving { opacity: 0; visibility: hidden; pointer-events: none; }
+.title-screen::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: .22;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(255,255,255,.48) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 72% 68%, rgba(39,77,88,.22) 0 1px, transparent 1.4px);
+  background-size: 7px 7px, 11px 11px;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+.title-sky, .title-sky span { position: absolute; inset: 0; pointer-events: none; }
+.title-sun {
+  left: 50%; top: 19%; right: auto; bottom: auto;
+  width: min(62vw, 580px); aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,250,213,.82) 0 20%, rgba(255,245,207,.24) 55%, transparent 72%);
+}
+.title-cloud { filter: blur(1px); opacity: .36; }
+.title-cloud::before, .title-cloud::after {
+  content: ""; position: absolute; border-radius: 50%; background: rgba(245,248,242,.78);
+  box-shadow: 42px 7px 0 1px rgba(245,248,242,.78), 82px -4px 0 7px rgba(245,248,242,.7), 126px 9px 0 -3px rgba(245,248,242,.72);
+}
+.title-cloud::before { width: 88px; height: 29px; }
+.title-cloud-a { inset: 17% auto auto -4%; animation: title-drift-a 28s ease-in-out infinite alternate; }
+.title-cloud-b { inset: 27% -2% auto auto; transform: scale(.7); animation: title-drift-b 34s ease-in-out infinite alternate; }
+.title-cloud-c { inset: 61% auto auto 9%; transform: scale(.5); opacity: .23; animation: title-drift-a 38s ease-in-out infinite alternate-reverse; }
+.title-hills {
+  top: auto;
+  height: 34%;
+  background:
+    radial-gradient(110% 100% at 18% 100%, #8cab8c 0 43%, transparent 43.5%),
+    radial-gradient(100% 95% at 79% 100%, #779c82 0 47%, transparent 47.5%),
+    linear-gradient(180deg, transparent 0 55%, #6f9175 55% 100%);
+  opacity: .72;
+}
+@keyframes title-drift-a { to { transform: translateX(56px); } }
+@keyframes title-drift-b { to { transform: translateX(-52px) scale(.7); } }
+
+.title-copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(88vw, 560px);
+  transform: translateY(-3vh);
+  text-align: center;
+}
+.title-kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 29px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .25em;
+  color: rgba(39,76,90,.7);
+}
+.title-kicker i { display: block; width: 24px; height: 1px; background: currentColor; opacity: .5; }
+.season-ring {
+  position: absolute;
+  z-index: -1;
+  top: 14px;
+  left: 50%;
+  width: min(76vw, 390px);
+  aspect-ratio: 1;
+  transform: translateX(-50%) rotate(-7deg);
+  border-radius: 50%;
+  background: repeating-conic-gradient(from 0deg, rgba(255,255,247,.82) 0 1deg, transparent 1deg 15deg);
+  -webkit-mask: radial-gradient(circle, transparent 0 47.5%, #000 48% 50%, transparent 50.5%);
+  mask: radial-gradient(circle, transparent 0 47.5%, #000 48% 50%, transparent 50.5%);
+  opacity: .66;
+  animation: title-turn 32s linear infinite;
+}
+.season-ring::before, .season-ring::after {
+  content: "";
+  position: absolute;
+  inset: 8.5%;
+  border: 1px solid rgba(255,255,247,.46);
+  border-radius: 50%;
+}
+.season-ring::after { inset: 19%; border-style: dashed; opacity: .42; }
+.season-ring i {
+  position: absolute;
+  left: 50%; top: -2px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #fff8dc;
+  box-shadow: 0 0 16px rgba(255,248,220,.9);
+}
+@keyframes title-turn { to { transform: translateX(-50%) rotate(353deg); } }
+
+#title-logo { margin: 0; font-weight: 400; line-height: .84; text-shadow: 0 2px 20px rgba(255,255,255,.28); }
+#title-logo span {
+  display: block;
+  margin-left: .35em;
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-size: clamp(24px, 6.8vw, 38px);
+  letter-spacing: .38em;
+}
+#title-logo strong {
+  display: block;
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-size: clamp(65px, 18vw, 108px);
+  font-weight: 500;
+  letter-spacing: .08em;
+}
+.title-tagline {
+  margin: 28px 0 34px;
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  font-size: clamp(14px, 3.6vw, 18px);
+  letter-spacing: .16em;
+  color: rgba(37,68,78,.78);
+}
+.title-start {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-width: 190px;
+  min-height: 54px;
+  padding: 0 25px 0 31px;
+  border: 1px solid rgba(255,255,248,.68);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  color: #31596a;
+  background: rgba(255,255,247,.72);
+  box-shadow: 0 13px 34px rgba(55,78,79,.15), inset 0 1px 0 rgba(255,255,255,.7);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+}
+.title-start:hover { transform: translateY(-2px); background: rgba(255,255,250,.88); box-shadow: 0 16px 40px rgba(55,78,79,.2); }
+.title-start:active { transform: translateY(1px); }
+.title-start:focus-visible { outline: 3px solid rgba(255,250,218,.9); outline-offset: 4px; }
+.title-arrow { font-size: 20px; font-weight: 400; line-height: 1; transition: transform .25s ease; }
+.title-start:hover .title-arrow { transform: translateX(4px); }
+.title-guide {
+  position: absolute;
+  z-index: 2;
+  left: 0; right: 0; bottom: max(24px, calc(14px + env(safe-area-inset-bottom)));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 10px;
+  letter-spacing: .16em;
+  color: rgba(255,255,247,.86);
+}
+.title-guide i { width: 3px; height: 3px; border-radius: 50%; background: currentColor; opacity: .65; }
+.title-guide small { position: absolute; top: -22px; white-space: nowrap; font-size: 10px; letter-spacing: .1em; opacity: .76; }
+
+@media (max-height: 610px) {
+  .title-copy { transform: translateY(-5vh) scale(.88); }
+  .title-kicker { margin-bottom: 18px; }
+  .title-tagline { margin: 20px 0 24px; }
+  .title-guide { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .title-cloud, .season-ring { animation: none; }
+  .title-screen, .title-start, .title-arrow { transition-duration: .01ms; }
+}
 
 /* --- 画面上の情報は最小限。数値は出さない（親密度は挙動で見せる方針） --- */
 #hud {
