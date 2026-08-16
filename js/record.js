@@ -17,11 +17,14 @@ export const RECORD_NAME = Object.freeze({
 });
 
 // 骨格v2 §6「挙動」欄の逐語。親密度はこの一文と姿勢以外では表さない。
+// 骨格v2 §6 の4段階を、プレイヤーの言葉で言い直したもの。
+// ★ 企画の表の右列（idle / waving / running…）はスプライトの行の名前であって、
+//   画面に出す文ではない。見えている事実だけを書く。
 export const BOND_TEXT = Object.freeze([
-  'idle 中心。こちらを見ない',
-  'ときどき視線がカーソルを追う。waiting が増える',
-  '現れた時に waving。視線追従が持続する',
-  '開いた瞬間に running で駆け寄る。なでると jumping',
+  'まだ こちらを 見ない',
+  'ときどき 目が合う',
+  '来ると 手を あげてくれる',
+  'ひらくと 駆けてくる',
 ]);
 
 const BOND_POSE = Object.freeze(['idle', 'waiting', 'waving', 'running']);

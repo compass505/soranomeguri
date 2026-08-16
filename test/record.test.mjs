@@ -29,11 +29,22 @@ test('好物を食べさせた弧だけが通った記録になる', () => {
   assert.equal(byTarget.sunny.passed, false, '晴が雨を食べても、霧→晴の弧は通らない');
 });
 
-test('親密度の一文は 骨格v2 §6 の挙動欄と逐語で一致する', () => {
+test('親密度の一文は 骨格v2 §6 の4段階を、プレイヤーの言葉で言い直したもの', () => {
   assert.deepEqual(BOND_TEXT, [
-    'idle 中心。こちらを見ない',
-    'ときどき視線がカーソルを追う。waiting が増える',
-    '現れた時に waving。視線追従が持続する',
-    '開いた瞬間に running で駆け寄る。なでると jumping',
+    'まだ こちらを 見ない',
+    'ときどき 目が合う',
+    '来ると 手を あげてくれる',
+    'ひらくと 駆けてくる',
   ]);
+});
+
+// ★企画の表の右列はスプライトの行の名前で、画面に出す文ではない。
+//   一度そのまま画面に出していたので、混入を機械で止める。
+test('★段階の一文にスプライトの行の名前が混ざらない', () => {
+  const rows = ['idle', 'waving', 'jumping', 'failed', 'waiting', 'running', 'review'];
+  for (const text of BOND_TEXT) {
+    for (const row of rows) {
+      assert.ok(!text.includes(row), `「${text}」に内部の状態名 ${row} が出ている`);
+    }
+  }
 });
