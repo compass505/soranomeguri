@@ -4,6 +4,7 @@
 
 import { yawToward } from './sprites.js';
 import { PET_SCALE_RANGE, inPond, crossesPond } from './layout.js';
+import { entranceOf } from './arrival.js';
 
 export const BONDS = ['よそよそしい', '気づく', '懐く', '甘える'];
 
@@ -29,14 +30,20 @@ export class Pet {
     this.id = id;
     this.bond = bond;                       // 0..3
     this.b = bounds;
-    this.x = rand(bounds.x0, bounds.x1);
-    this.y = rand(bounds.y0, bounds.y1);
-    if (bounds.pond && inPond(bounds.pond, this.x, this.y)) {
-      for (let i = 0; i < MAX_POND_RETRIES && inPond(bounds.pond, this.x, this.y); i++) {
-        this.x = rand(bounds.x0, bounds.x1);
-        this.y = rand(bounds.y0, bounds.y1);
+    this.entrance = entranceOf(this.id);
+    let targetX = rand(bounds.x0, bounds.x1);
+    let targetY = rand(bounds.y0, bounds.y1);
+    if (bounds.pond && inPond(bounds.pond, targetX, targetY)) {
+      for (let i = 0; i < MAX_POND_RETRIES && inPond(bounds.pond, targetX, targetY); i++) {
+        targetX = rand(bounds.x0, bounds.x1);
+        targetY = rand(bounds.y0, bounds.y1);
       }
     }
+    this.arrivalX = targetX;
+    this.arrivalY = targetY;
+    // 登場前に本来の位置から次の行き先を決める。庭の外からの登場経路は池を判定しない。
+    this.x = targetX;
+    this.y = targetY;
     this.tx = this.x; this.ty = this.y;
     this.state = 'idle';
     this.t = 0;                             // 状態内の経過秒
@@ -44,9 +51,16 @@ export class Pet {
     this.facing = 1;
     this.gaze = null;                       // 視線追従中の yaw
     this.gazeLeft = 0;
-    this.arriving = 2.0;                    // 登場演出の残り
+    this.arriving = this.entrance.secs;     // 登場演出の残り
+    this.arrivalElapsed = 0;                // 登場演出の開始からの経過
     this.mood = 0;                          // 一時的な演技（給餌の反応など）の残り秒
     this.pickNew(0.5);
+    if (this.entrance.row === 'running') {
+      const fromLeft = targetX - bounds.x0 <= bounds.x1 - targetX;
+      this.x = fromLeft ? bounds.x0 - 60 : bounds.x1 + 60;
+      this.y = targetY;
+      this.facing = fromLeft ? 1 : -1;
+    }
   }
 
   /**
@@ -104,7 +118,19 @@ export class Pet {
     this.t += dt;
     this.frame += dt * (this.state === 'running' ? 12 : 6);
 
-    if (this.arriving > 0) { this.arriving -= dt; }
+    if (this.arriving > 0) {
+      this.arrivalElapsed = Math.min(this.entrance.secs, this.arrivalElapsed + dt);
+      if (this.entrance.row === 'running') {
+        const progress = this.entrance.secs > 0
+          ? this.arrivalElapsed / this.entrance.secs
+          : 1;
+        const fromX = this.facing >= 0 ? this.b.x0 - 60 : this.b.x1 + 60;
+        this.x = fromX + (this.arrivalX - fromX) * progress;
+        this.y = this.arrivalY;
+      }
+      this.arriving = Math.max(0, this.arriving - dt);
+      return;
+    }
     if (this.mood > 0) {
       this.mood -= dt;
       if (this.mood <= 0) this.pickNew(0.2);
@@ -142,11 +168,21 @@ export class Pet {
 
   /** いま描くべき行と向き。 */
   render() {
-    if (this.arriving > 0) return { row: 'jumping', flip: false };
+    if (this.arriving > 0) {
+      return {
+        row: this.entrance.row,
+        flip: this.entrance.row === 'running' && this.facing < 0,
+      };
+    }
     if (this.gaze !== null) return { row: null, yaw: this.gaze };
     if (this.state === 'running') {
       return { row: this.facing >= 0 ? 'running-right' : 'running-left', flip: false };
     }
     return { row: this.state, flip: this.facing < 0 && this.state === 'idle' };
+  }
+
+  /** 登場演出のにじみ。fade秒で0から1になり、その後は通常の濃さ。 */
+  get fadeIn() {
+    return Math.min(1, this.arrivalElapsed / this.entrance.fade);
   }
 }

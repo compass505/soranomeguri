@@ -2,6 +2,26 @@
 
 export const ARRIVE_AFTER = 2.5;    // 天気がこの秒数続いたら、その子が庭に来る
 export const LEAVE_SECS   = 6.0;    // 帰るのにかける秒数
+
+/** 天気ごとの登場演出。row はアトラスの行、secs は演出の長さ、fade はにじみ出る秒数。 */
+export const ENTRANCE = {
+  sunny: { row: 'running', secs: 2.0, fade: 0.6 },
+  cloudy: { row: 'idle', secs: 1.8, fade: 1.2 },
+  rainy: { row: 'jumping', secs: 1.6, fade: 0.35 },
+  snow: { row: 'idle', secs: 2.4, fade: 1.8 },
+  thunder: { row: 'jumping', secs: 1.2, fade: 0.12 },
+  hail: { row: 'jumping', secs: 1.4, fade: 0.3 },
+  fog: { row: 'idle', secs: 2.6, fade: 2.2 },
+  wind: { row: 'running', secs: 1.8, fade: 0.5 },
+  rainbow: { row: 'running', secs: 2.2, fade: 0.8 },
+  diamonddust: { row: 'waiting', secs: 3.0, fade: 2.6 },
+};
+
+/** 未知の天気でも落ちないように、既定を返す。 */
+export function entranceOf(kind) {
+  return ENTRANCE[kind] || { row: 'idle', secs: 1.8, fade: 1.0 };
+}
+
 // 虹の日だけの道連れ。骨格v2の8節「雨→晴れの途中は、雨の子・虹の子・晴れの子が
 // 居合わせる」を保証する。慣性を入れると雨の子は先に帰ってしまうので、自然には起きなくなった。
 export const COMPANIONS = { rainbow: ['rainy', 'sunny'] };

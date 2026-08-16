@@ -2,7 +2,7 @@
 // ★罰なしを守る: 開かなかった日に失うものは無い。上限は「その日採れる量」だけで、
 //   採らなかった分は3日ぶんまで繰り越す（骨格v2 の7節）。
 
-import { calendar, WEATHERS } from './weather.js';
+import { baseline, calendar, WEATHERS } from './weather.js';
 
 // 実りの名前。01_調査/F 4章の語彙庫（雨の異名400種・風の異名2000種）から引いている
 export const FRUIT = {
@@ -33,14 +33,16 @@ function todayIndex() {
 }
 
 export function freshState() {
+  const startDay = todayIndex();
+  const b = baseline(calendar(todayIndex() - startDay).sekkiIndex);
   return {
     version: 2,
-    startDay: todayIndex(),
-    lastDay: todayIndex(),
-    dials: { t: 13.5, w: 40, p: 1013, v: 3 },
+    startDay,
+    lastDay: startDay,
+    dials: { ...b },
     bag: {},                        // 天気id -> 個数
     bond: {},                       // 天気id -> 隠し点数
-    daily: { day: todayIndex(), taken: 0, perKind: {}, fed: {}, petted: {} },
+    daily: { day: startDay, taken: 0, perKind: {}, fed: {}, petted: {} },
     carry: 0,
     seen: {},                       // 初めて会った日
     log: [],
@@ -68,6 +70,7 @@ export function rollDay(s) {
   const unused = Math.max(0, DAILY_TOTAL - s.daily.taken);
   s.carry = Math.min(DAILY_TOTAL * CARRY_DAYS, s.carry + unused + Math.max(0, missed - 1) * DAILY_TOTAL);
   s.daily = { day: now, taken: 0, perKind: {}, fed: {}, petted: {} };
+  s.dials = { ...baseline(calendar(now - s.startDay).sekkiIndex) };
   s.lastDay = now;
   return s;
 }

@@ -346,7 +346,7 @@ function paint(look, dt) {
   for (const p of sorted) {
     const id = PET_ID[p.id];
     if (!bank.has(id)) continue;
-    ctx.globalAlpha = roster.fade(p.id);
+    ctx.globalAlpha = roster.fade(p.id) * p.fadeIn;
     const rr = p.render();
     if (rr.row === null) bank.drawGaze(ctx, id, rr.yaw, p.x, p.y, p.scale);
     else bank.draw(ctx, id, rr.row, Math.floor(p.frame), p.x, p.y, p.scale, rr.flip);

@@ -40,8 +40,13 @@ const WATER_MAX = 40.0;         // 「湿り」100 のときの絶対水蒸気�
 /** 節気 i の平常値。★気圧は季節で動かさない — 季節の門は気温だけが担う。 */
 export function baseline(sekkiIndex) {
   const phase = (2 * Math.PI * (sekkiIndex - 11)) / 24;
+  const t = 13.5 + 18.0 * Math.cos(phase);   // 大暑 31.5 / 大寒 -4.5
   return {
-    t: 13.5 + 18.0 * Math.cos(phase),   // 大暑 31.5 / 大寒 -4.5
+    t,
+    // 相対湿度60%をその節気の平常気温で実現する水量を逆算する。
+    // 同じ相対湿度でも抱えている水の量は夏と冬でまるで違う（夏の朝は湿り49、冬の朝は5）ので、
+    // 開いた瞬間の湿度計に「つまみは独立していない」ことが出るようにする。
+    w: clamp((0.60 * satAbsHumidity(t) / WATER_MAX) * 100, 0, 100),
     p: 1013.0,
     v: 4.0,
   };
