@@ -40,9 +40,18 @@
   <canvas id="stage"></canvas>
 
   <div id="hud">
-    <div id="date"><span id="sekki">立春</span><span id="dayno"></span></div>
-    <button id="record-open" type="button" disabled>めぐり</button>
-    <div id="weather"><span id="wname">—</span></div>
+    <div id="date" class="hud-card">
+      <span class="hud-eyebrow">二十四節気</span>
+      <span class="hud-reading"><strong id="sekki">立春</strong><small id="dayno"></small></span>
+    </div>
+    <button id="record-open" type="button" disabled>
+      <span class="record-open-mark" aria-hidden="true"><i></i></span>
+      <span class="record-open-copy"><small>観測帖</small><strong>めぐりの記録</strong></span>
+    </button>
+    <div id="weather" class="hud-card">
+      <span class="hud-eyebrow">いまの空</span>
+      <span class="hud-reading"><strong id="wname">—</strong></span>
+    </div>
   </div>
 
   <section id="record-screen" class="record-screen" aria-labelledby="record-title" aria-hidden="true" hidden>
@@ -86,6 +95,13 @@
   <div id="feed"></div>
 
   <div id="panel">
+    <header class="panel-heading">
+      <div>
+        <p>空の調律</p>
+        <h2>四つのつまみ</h2>
+      </div>
+      <span class="panel-orbit" aria-hidden="true"><i></i></span>
+    </header>
     <div class="dials">
       <label class="dial" data-k="t">
         <span class="name">気温</span>
@@ -109,13 +125,21 @@
       </label>
     </div>
 
-    <div id="gauges">
-      <div class="g"><span>雲</span><div class="bar"><i id="g-cloud"></i></div></div>
-      <div class="g"><span>湿度</span><div class="bar"><i id="g-rh"></i></div></div>
-      <div class="g"><span>上昇気流</span><div class="bar"><i id="g-u"></i></div></div>
-    </div>
+    <div class="panel-lower">
+      <section class="panel-readings" aria-labelledby="readings-title">
+        <h3 id="readings-title">空のようす</h3>
+        <div id="gauges">
+          <div class="g"><span>雲</span><div class="bar"><i id="g-cloud"></i></div></div>
+          <div class="g"><span>湿度</span><div class="bar"><i id="g-rh"></i></div></div>
+          <div class="g"><span>上昇気流</span><div class="bar"><i id="g-u"></i></div></div>
+        </div>
+      </section>
 
-    <div id="bag"></div>
+      <section class="panel-harvest" aria-labelledby="harvest-title">
+        <h3 id="harvest-title">今日の実り</h3>
+        <div id="bag"></div>
+      </section>
+    </div>
   </div>
 
   <details id="dev-panel" hidden>
