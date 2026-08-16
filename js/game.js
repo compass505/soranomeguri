@@ -57,6 +57,7 @@ function setupDevPanel() {
   panel.hidden = false;
 
   const cal = S.gameCalendar(st);
+  el('dev-summary').textContent = cal.sekkiMonth;
   el('dev-now').textContent = `今: ${cal.sekkiMonth}（${cal.sekki}）（${cal.dayOfYear + 1}/${DAYS_PER_YEAR}日目、早送り${S.devShiftDays()}日）`;
 
   const sel = el('dev-sekki');

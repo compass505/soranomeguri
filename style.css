@@ -511,13 +511,24 @@ input[type=range]::-moz-range-thumb {
 #bag .hint { font-size: 11px; opacity: .55; align-self: center; }
 
 /* --- 日送りツール（希少な天気を待たずに確かめる用） --- */
+/* たたむと小さな札1枚、開くと中身が下に伸びる（<details>のネイティブな折りたたみ） */
 #dev-panel {
-  position: fixed; z-index: 40; top: 8px; left: 8px;
+  position: fixed; z-index: 40; top: 52px; left: 8px;
   background: rgba(58,55,48,0.88); color: #fdf8ee;
-  border-radius: 10px; padding: 8px 10px;
-  font-size: 11px; line-height: 1.5; display: grid; gap: 6px;
+  border-radius: 10px; font-size: 11px; line-height: 1.5;
   box-shadow: 0 2px 10px rgba(0,0,0,.25);
 }
+#dev-summary {
+  list-style: none; cursor: pointer; user-select: none;
+  padding: 6px 10px; display: flex; align-items: center; gap: 6px;
+  white-space: nowrap;
+}
+#dev-summary::-webkit-details-marker { display: none; }
+#dev-summary::before {
+  content: "▸"; font-size: 9px; opacity: .7; transition: transform .15s ease;
+}
+#dev-panel[open] #dev-summary::before { transform: rotate(90deg); }
+.dev-body { display: grid; gap: 6px; padding: 0 10px 8px; }
 #dev-panel .dev-row { display: flex; gap: 6px; }
 #dev-panel input, #dev-panel select, #dev-panel button {
   font: inherit; font-size: 11px; border-radius: 6px; border: 1px solid rgba(255,255,255,.3);
