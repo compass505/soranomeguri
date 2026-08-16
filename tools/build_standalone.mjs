@@ -108,9 +108,13 @@ const html = await readFile(ROOT + 'index.html', 'utf8');
 const css = await readFile(ROOT + 'style.css', 'utf8');
 
 let out = html;
+out = must(out, '<meta name="theme-color" content="#7fa8c9">\n', '', 'standalone 用の theme-color');
+out = must(out, '<link rel="manifest" href="manifest.webmanifest">\n', '', 'standalone 用の manifest');
+out = must(out, '<link rel="apple-touch-icon" href="assets/icon-192.png">\n', '', 'standalone 用の apple-touch-icon');
 out = must(out, '<link rel="stylesheet" href="style.css">', `<style>\n${css}\n</style>`, 'CSSの差し込み');
 out = must(out, '<script type="module" src="js/game.js"></script>',
   `<script>\n${head}\n${js}\n</script>`, 'JSの差し込み');
+out = must(out, `<script>\nif ('serviceWorker' in navigator) {\n  navigator.serviceWorker.register('./sw.js').catch(() => {});\n}\n</script>\n`, '', 'standalone 用の service worker 登録');
 
 // 単体で開くので、外部を一切参照していないことを確かめる
 for (const bad of ['src="js/', 'href="style', 'fetch("js/', 'fetch(\'js/']) {

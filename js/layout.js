@@ -38,3 +38,73 @@ export function gardenLayout(v) {
 
   return { horizon, groundW, groundH, petScale };
 }
+
+/** 地面の絵は1枚に固定されていて池の位置は動かないので、絵に対する比で持てる。 */
+export const POND = { cx: 0.336, cy: 0.260, rx: 0.187, ry: 0.129 };
+
+/**
+ * @param {{width:number, height:number, groundAspect:number}} v
+ * @returns {{x0:number, x1:number, y0:number, y1:number}}
+ */
+export function walkBounds(v) {
+  const width = Math.max(1, v.width);
+  const height = Math.max(1, v.height);
+  const { horizon } = gardenLayout(v);
+  return {
+    x0: width * 0.10,
+    x1: width * 0.90,
+    y0: horizon + (height - horizon) * 0.22,
+    y1: height - 16,
+  };
+}
+
+/**
+ * 地面の絵（1672×475）に対する、水面の楕円の比。
+ * 地面は中央寄せで cover 拡大されるので、それに追随する。
+ * @param {{width:number, height:number, groundAspect:number}} v
+ * @returns {{cx:number, cy:number, rx:number, ry:number}}
+ */
+export function pondOnScreen(v) {
+  const width = Math.max(1, v.width);
+  const { horizon, groundW, groundH } = gardenLayout(v);
+  return {
+    cx: (width - groundW) / 2 + POND.cx * groundW,
+    cy: horizon + POND.cy * groundH,
+    rx: POND.rx * groundW,
+    ry: POND.ry * groundH,
+  };
+}
+
+/**
+ * その点は水の上か。
+ * @param {{cx:number, cy:number, rx:number, ry:number}} pond
+ */
+export function inPond(pond, x, y) {
+  const dx = (x - pond.cx) / pond.rx;
+  const dy = (y - pond.cy) / pond.ry;
+  return dx * dx + dy * dy <= 1;
+}
+
+/**
+ * その直線は水の上を通るか（両端が陸でも、突っ切るなら true）。
+ * @param {{cx:number, cy:number, rx:number, ry:number}} pond
+ */
+export function crossesPond(pond, x0, y0, x1, y1) {
+  // 楕円を単位円へ写して、線分と単位円の交差を二次方程式で解く。
+  const ax = (x0 - pond.cx) / pond.rx;
+  const ay = (y0 - pond.cy) / pond.ry;
+  const dx = (x1 - x0) / pond.rx;
+  const dy = (y1 - y0) / pond.ry;
+  const a = dx * dx + dy * dy;
+  const c = ax * ax + ay * ay - 1;
+  if (c <= 0) return true;
+  if (a === 0) return false;
+
+  const b = 2 * (ax * dx + ay * dy);
+  const discriminant = b * b - 4 * a * c;
+  if (discriminant < 0) return false;
+  const root = Math.sqrt(discriminant);
+  const t0 = (-b - root) / (2 * a);
+  const t1 = (-b + root) / (2 * a);
+  return (t0 >= 0 && t0 <= 1) || (t1 >= 0 && t1 <= 1);
+}

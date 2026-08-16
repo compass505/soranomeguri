@@ -54,11 +54,50 @@ export function skyLook(dials, kind) {
     //   飽和と無風という連続条件だけで出すと、-15℃・無風のダイヤモンドダストの日まで
     //   相対湿度100%になって画面が真っ白に潰れた（実際に潰れた）。
     fogVeil: kind === 'fog' ? clamp01((d.rh - 96) / 4) : 0,
+    // 虹は「点ではなく道」なので、いま道の上にいるかは classify しか知らない。
+    // 連続量だけで出すと、雨上がりでない晴れの日にも虹が居座るため kind で分岐する。
+    rainbow: kind === 'rainbow' ? clamp01(0.45 + ((4 - d.cloud) / 4) * 0.55) : 0,
     // 雪景色への切り替えは気温そのもの（積雪は残るので降水と独立）
     snowCover: clamp01((-dials.t - 1) / 6),
     windSpeed: dials.v,
     lightning: d.precip && d.u >= 0.70 && dials.t >= 20 && d.rh >= 90,
   };
+}
+
+/** 虹の弧の幾何。画面上半分に地平線から生える大きさを返す。 */
+export function rainbowArc(w, horizon) {
+  const r = Math.min(Math.max(w * 0.34, horizon * 0.50), horizon * 1.20);
+  const cx = w * 0.5;
+  const cy = horizon + r * 0.25;
+  const bandWidth = Math.min(Math.max(r * 0.03, 3), 7);
+  const bands = [
+    [239, 83, 80],
+    [245, 166, 35],
+    [250, 220, 80],
+    [83, 190, 117],
+    [86, 155, 220],
+    [89, 100, 190],
+    [154, 93, 190],
+  ];
+  return { cx, cy, r, bandWidth, bands };
+}
+
+/** 虹。淡い7本の帯を空の上半分だけに描く。 */
+export function drawRainbow(ctx, look, w, horizon) {
+  if (look.rainbow <= 0.01) return;
+  const { cx, cy, r, bandWidth, bands } = rainbowArc(w, horizon);
+  ctx.save();
+  ctx.globalAlpha = look.rainbow * 0.38;
+  ctx.filter = 'blur(2px)';
+  ctx.lineWidth = bandWidth;
+  ctx.lineCap = 'round';
+  for (let i = 0; i < bands.length; i++) {
+    ctx.strokeStyle = rgb(bands[i]);
+    ctx.beginPath();
+    ctx.arc(cx, cy, r - i * bandWidth, Math.PI, Math.PI * 2);
+    ctx.stroke();
+  }
+  ctx.restore();
 }
 
 /** 粒（雨・雪・ひょう）の簡易パーティクル。 */

@@ -5,11 +5,13 @@ import {
   classify, reachable, fullRange, DIAL_KEYS,
   AFTER_RAIN_WINDOW, WEATHER_JA, WEATHERS,
 } from './weather.js';
-import { skyLook, drawClouds, Precip } from './sky.js';
+import { skyLook, drawClouds, drawRainbow, Precip } from './sky.js';
 import { SpriteBank } from './sprites.js';
 import { Pet, bondLevel } from './garden.js';
-import { gardenLayout } from './layout.js';
+import { gardenLayout, walkBounds, pondOnScreen } from './layout.js';
 import * as S from './state.js';
+import { relax, settled } from './inertia.js';
+import { Roster } from './arrival.js';
 
 // アトラスのidは `yui-*` のまま据え置く。ゲーム名を「そらのめぐり」に変えた後も改名しない:
 // このidは ~/.codex/pets/ のフォルダ名・各 pet.json の id・hatch-pet-runs の生成記録と
@@ -22,6 +24,7 @@ const ctx = cv.getContext('2d');
 const el = (id) => document.getElementById(id);
 
 let st = S.load();
+let sky = { ...st.dials };       // つまみを目標として追いかける、空の実際の状態
 let bank = null;
 let bg = {};
 let bgm = null;
@@ -33,6 +36,7 @@ let stableFor = 0;             // いまの天気が続いている秒数
 let current = null;            // いまの天気
 let afterRain = 0;             // 降水が止まってからの残り猶予（秒）。虹の窓
 let sinceHarvest = 0;
+const roster = new Roster();
 
 const precip = new Precip(1, 1);
 
@@ -70,6 +74,8 @@ async function init() {
   bank = await SpriteBank.load(Object.values(PET_ID));
 
   setupDials();
+  // 範囲外の保存値を季節の可動域へ寄せた後、空とつまみを一致させて始める。
+  sky = { ...st.dials };
   bindPointer();
   drawBag();
   requestAnimationFrame(loop);
@@ -204,6 +210,13 @@ function bindPointer() {
 
 function tryFeed(target) {
   const r = S.feed(st, target.id, selected);
+  if (r === 'refused') {
+    target.react('waiting', 1.4);
+    say('ダイヤモンドダストの子は 食べない。しずかな空を 保つといい');
+    selected = null;
+    drawBag();
+    return;
+  }
   if (r === null) {
     say(st.daily.fed[target.id] ? 'きょうはもう おなかいっぱいのようだ' : 'その実りが足りない');
     return;
@@ -237,36 +250,32 @@ function tryPet(target) {
 
 // ---------------------------------------------------------------- 天気と来訪
 
-function syncPets(kind, look) {
+function syncPets(kind, dt) {
+  const events = roster.step(kind, dt);
   const bounds = groundBounds();
-  const want = new Set([kind]);
-  // 遷移の途中はすれ違う。虹の日は 雨の子・虹の子・晴れの子が居合わせる
-  if (kind === 'rainbow') { want.add('rainy'); want.add('sunny'); }
+  const present = new Set(events.present);
+  const left = new Set(events.left);
 
-  for (const k of want) {
-    if (!pets.some((p) => p.id === k)) {
-      if (!bank.has(PET_ID[k])) continue;      // アトラス未生成の子は出さない
-      pets.push(new Pet(k, bounds, bondLevel(st.bond[k] || 0)));
-      if (!st.seen[k]) { st.seen[k] = Date.now(); say(`${WEATHER_JA[k]}の子が はじめて 庭に来た`); }
-      else say(`${WEATHER_JA[k]}の子が 庭に来た`);
-    }
+  for (const k of events.arrived) {
+    if (!st.seen[k]) { st.seen[k] = Date.now(); say(`${WEATHER_JA[k]}の子が はじめて 庭に来た`); }
+    else say(`${WEATHER_JA[k]}の子が 庭に来た`);
   }
-  for (const p of pets) if (!want.has(p.id)) p.leaving = (p.leaving ?? 1.6);
-  pets = pets.filter((p) => {
-    if (p.leaving === undefined) return true;
-    return p.leaving > 0;
-  });
+
+  // Roster が持つ顔ぶれを正として、帰り支度中の子も描画配列に残す。
+  pets = pets.filter((p) => present.has(p.id) && !left.has(p.id));
+  for (const k of events.present) {
+    if (pets.some((p) => p.id === k)) continue;
+    if (!bank.has(PET_ID[k])) continue;            // アトラス未生成の子は出さない
+    pets.push(new Pet(k, bounds, bondLevel(st.bond[k] || 0)));
+  }
   for (const p of pets) p.b = bounds;
 }
 
 function groundBounds() {
   const r = cv.getBoundingClientRect();
   const gAsp = bgm ? bgm.bg_ground_green.height / bgm.bg_ground_green.width : 0.284;
-  const layout = gardenLayout({ width: r.width, height: r.height, groundAspect: gAsp });
-  // 地平線より少し手前から画面下までが歩ける範囲
-  return { x0: r.width * 0.10, x1: r.width * 0.90,
-           y0: layout.horizon + (r.height - layout.horizon) * 0.22, y1: r.height - 16,
-           petScale: layout.petScale };
+  const v = { width: r.width, height: r.height, groundAspect: gAsp };
+  return { ...walkBounds(v), petScale: gardenLayout(v).petScale, pond: pondOnScreen(v) };
 }
 
 // ---------------------------------------------------------------- 描画
@@ -286,6 +295,9 @@ function paint(look, dt) {
   ctx.fillRect(0, 0, W, horizon + 40);
 
   drawClouds(ctx, look, W, horizon, time);
+
+  // 虹は空にある。丘の向こうに立つよう、丘より先に描く。
+  drawRainbow(ctx, look, W, horizon);
 
   // 遠景の丘。下端を地平線に合わせる。
   // 幅いっぱいの自然な高さだと空を食い潰すので、遠景として 0.62 に縮める
@@ -334,7 +346,7 @@ function paint(look, dt) {
   for (const p of sorted) {
     const id = PET_ID[p.id];
     if (!bank.has(id)) continue;
-    ctx.globalAlpha = p.leaving !== undefined ? Math.max(0, p.leaving / 1.6) : 1;
+    ctx.globalAlpha = roster.fade(p.id);
     const rr = p.render();
     if (rr.row === null) bank.drawGaze(ctx, id, rr.yaw, p.x, p.y, p.scale);
     else bank.draw(ctx, id, rr.row, Math.floor(p.frame), p.x, p.y, p.scale, rr.flip);
@@ -366,18 +378,20 @@ function loop(now) {
   last = now;
   time += dt;
 
-  const kind = classify(st.dials, afterRain > 0);
-  const look = skyLook(st.dials, kind);
+  sky = relax(sky, st.dials, dt);
+  const kind = classify(sky, afterRain > 0);
+  const look = skyLook(sky, kind);
+  el('app').classList.toggle('settling', !settled(sky, st.dials));
 
   if (kind !== current) {
     current = kind;
     stableFor = 0;
     sinceHarvest = 0;
     el('wname').textContent = WEATHER_JA[kind];
-    syncPets(kind, look);
   } else {
     stableFor += dt;
   }
+  syncPets(kind, dt);
   // 降っている間は窓を満タンに保ち、止んだらそこから減る。
   // ★1フレームのフラグでは虹が出せなかった（雲が晴れる前にフラグが落ちる）
   // ★窓を開けるのは雨とひょうだけ。雪では開けない——
@@ -402,11 +416,7 @@ function loop(now) {
   // ダイヤの子だけ、静けさを保った時間で懐く
   if (kind === 'diamonddust' && stableFor > 3) S.quietTick(st, dt);
 
-  for (const p of pets) {
-    if (p.leaving !== undefined) p.leaving -= dt;
-    p.step(dt, pointer);
-  }
-  pets = pets.filter((p) => p.leaving === undefined || p.leaving > 0);
+  for (const p of pets) p.step(dt, pointer);
 
   // ゲージ
   el('g-cloud').style.width = `${look.cloud * 10}%`;

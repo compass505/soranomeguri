@@ -108,9 +108,11 @@ export function likedBy(s, pet) {
 
 /**
  * 餌をやる。1体1日1回。好物 +3、それ以外 +1。★減ることはない。
- * @returns 'liked' | 'ok' | null
+ * @returns 'liked' | 'ok' | 'refused' | null
  */
 export function feed(s, pet, kind) {
+  // ダイヤモンドダストの子は餌ではなく、静けさを保った時間で懐く。
+  if (pet === 'diamonddust') return 'refused';
   if (s.daily.fed[pet]) return null;
   if (!(s.bag[kind] > 0)) return null;
   s.bag[kind]--;

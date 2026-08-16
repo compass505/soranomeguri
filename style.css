@@ -13,7 +13,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 #app { position: relative; height: 100dvh; display: flex; flex-direction: column; }
-#stage { flex: 1 1 auto; width: 100%; display: block; touch-action: none; }
+/* flex-basis:0 は canvas 属性の縦横比を基準にせず、min-height:0 は自動最小値を切る。 */
+#stage { flex: 1 1 0; min-height: 0; width: 100%; display: block; touch-action: none; }
 
 /* --- 画面上の情報は最小限。数値は出さない（親密度は挙動で見せる方針） --- */
 #hud {
@@ -21,10 +22,14 @@ body {
   display: flex; justify-content: space-between; align-items: flex-start;
   padding: 14px 16px; pointer-events: none;
   font-size: 14px; letter-spacing: .04em;
-  text-shadow: 0 1px 3px rgba(255,255,255,.55);
+}
+#date, #weather {
+  background: rgba(255,252,246,0.82);
+  border-radius: 999px;
+  padding: 4px 12px;
 }
 #sekki { font-size: 19px; font-weight: 600; }
-#dayno { margin-left: 8px; opacity: .6; font-size: 12px; }
+#dayno { margin-left: 8px; opacity: .72; font-size: 12px; }
 #weather { font-size: 17px; font-weight: 600; }
 
 /* 出来事の通知。数値ではなく言葉で返す */
@@ -95,6 +100,11 @@ input[type=range]::-moz-range-thumb {
 .g span { flex: 0 0 auto; }
 .bar { flex: 1; height: 4px; border-radius: 2px; background: #e3ddd0; overflow: hidden; }
 .bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .18s linear; }
+#app.settling .bar i { animation: gauge-breathe 1.6s ease-in-out infinite; }
+@keyframes gauge-breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .55; }
+}
 
 /* --- 持ち物 --- */
 #bag { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; min-height: 30px; }

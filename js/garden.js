@@ -3,7 +3,7 @@
 //   段階が上がると waving が増え、視線がこちらを追う時間が伸び、駆け寄ってくる。
 
 import { yawToward } from './sprites.js';
-import { PET_SCALE_RANGE } from './layout.js';
+import { PET_SCALE_RANGE, inPond, crossesPond } from './layout.js';
 
 export const BONDS = ['よそよそしい', '気づく', '懐く', '甘える'];
 
@@ -16,6 +16,7 @@ export function bondLevel(points) {
 }
 
 const rand = (a, b) => a + Math.random() * (b - a);
+const MAX_POND_RETRIES = 20;
 
 // 種としての大小。1 が基準
 const SPECIES_SCALE = {
@@ -30,6 +31,12 @@ export class Pet {
     this.b = bounds;
     this.x = rand(bounds.x0, bounds.x1);
     this.y = rand(bounds.y0, bounds.y1);
+    if (bounds.pond && inPond(bounds.pond, this.x, this.y)) {
+      for (let i = 0; i < MAX_POND_RETRIES && inPond(bounds.pond, this.x, this.y); i++) {
+        this.x = rand(bounds.x0, bounds.x1);
+        this.y = rand(bounds.y0, bounds.y1);
+      }
+    }
     this.tx = this.x; this.ty = this.y;
     this.state = 'idle';
     this.t = 0;                             // 状態内の経過秒
@@ -62,7 +69,22 @@ export class Pet {
     if (r < wanderBias) {
       this.tx = rand(this.b.x0, this.b.x1);
       this.ty = rand(this.b.y0, this.b.y1);
-      this.state = 'running';
+      if (this.b.pond) {
+        for (let i = 0; i < MAX_POND_RETRIES; i++) {
+          if (!inPond(this.b.pond, this.tx, this.ty) &&
+              !crossesPond(this.b.pond, this.x, this.y, this.tx, this.ty)) break;
+          this.tx = rand(this.b.x0, this.b.x1);
+          this.ty = rand(this.b.y0, this.b.y1);
+        }
+        if (inPond(this.b.pond, this.tx, this.ty) ||
+            crossesPond(this.b.pond, this.x, this.y, this.tx, this.ty)) {
+          this.state = 'idle';
+        } else {
+          this.state = 'running';
+        }
+      } else {
+        this.state = 'running';
+      }
     } else if (r < wanderBias + 0.15 && this.bond >= 1) {
       this.state = 'waving';
     } else if (r < wanderBias + 0.28) {

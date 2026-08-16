@@ -10,6 +10,7 @@
     "sweep": "node sim/sweep.mjs",
     "measure": "node tools/measure_sprites.mjs && node tools/crop_bg.mjs",
     "check:atlas": "node tools/check_atlases.mjs",
+    "icons": "node tools/make_icons.mjs",
     "test": "node --test \"test/*.test.mjs\""
   },
   "devDependencies": {
