@@ -1,0 +1,58 @@
+[
+  {
+    "id": "cumulus_a",
+    "src": "assets/clouds/cumulus_a.webp",
+    "w": 1435,
+    "h": 631,
+    "kind": "cumulus"
+  },
+  {
+    "id": "cumulus_b",
+    "src": "assets/clouds/cumulus_b.webp",
+    "w": 1419,
+    "h": 432,
+    "kind": "cumulus"
+  },
+  {
+    "id": "cumulus_c",
+    "src": "assets/clouds/cumulus_c.webp",
+    "w": 923,
+    "h": 906,
+    "kind": "cumulus"
+  },
+  {
+    "id": "cirrus_a",
+    "src": "assets/clouds/cirrus_a.webp",
+    "w": 1321,
+    "h": 827,
+    "kind": "cirrus"
+  },
+  {
+    "id": "stratocumulus_a",
+    "src": "assets/clouds/stratocumulus_a.webp",
+    "w": 1463,
+    "h": 333,
+    "kind": "stratocumulus"
+  },
+  {
+    "id": "stratus_a",
+    "src": "assets/clouds/stratus_a.webp",
+    "w": 1426,
+    "h": 579,
+    "kind": "stratus"
+  },
+  {
+    "id": "cumulonimbus_a",
+    "src": "assets/clouds/cumulonimbus_a.webp",
+    "w": 965,
+    "h": 1376,
+    "kind": "cumulonimbus"
+  },
+  {
+    "id": "fractus_a",
+    "src": "assets/clouds/fractus_a.webp",
+    "w": 1377,
+    "h": 898,
+    "kind": "fractus"
+  }
+]

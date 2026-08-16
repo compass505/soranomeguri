@@ -70,6 +70,10 @@ test('★実行時に読む物が、ひとつ残らず先読み一覧に入っ�
   // 背景は切り落とした版だけを読む。どれを読むかは bg-metrics.json が持っている
   const bgm = JSON.parse(await read('js/bg-metrics.json'));
   for (const v of Object.values(bgm)) need.push(v.src);
+  // 雲も同じ形。原寸PNGは配らず、clouds.json が指す webp だけを読む
+  const clouds = JSON.parse(await read('assets/clouds/clouds.json'));
+  need.push('assets/clouds/clouds.json');
+  for (const v of clouds) need.push(v.src);
 
   const have = new Set(precache.map((p) => p.replace(/^\.\//, '')));
   const missing = need.filter((p) => !have.has(p));

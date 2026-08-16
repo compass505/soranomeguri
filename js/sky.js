@@ -64,6 +64,27 @@ export function skyLook(dials, kind) {
   };
 }
 
+/**
+ * 曇りの陰り。**空と地面で別の値を返す。**
+ *
+ * ★ずっと画面全体に同じ濃さを1枚かけていた。それだと空だけが暗くなる:
+ *   空は雲そのものの暗さ・曇天の蓋・この陰りの3つを受けるのに、地面はこれ1枚しか受けない。
+ *   荒天で「空は鉛色なのに芝は春のまま」になっていたのはこれが理由。
+ *
+ * ★向きも逆だった。**曇り空では雲底が光源側になる。**
+ *   見上げた曇り空は明るい灰色で、暗いのはその影に入る地面の方。
+ *   だから地面を強く、空を弱く陰らせるのが正しい。
+ *
+ * 積雪は光を跳ね返すので、雪の日は同じ雲量でも地面が暗くならない。
+ */
+export function gloomLevels(look) {
+  const shade = clamp01(clamp01((look.cloud - 4.5) / 5.5) * 0.75 + look.cloudDark * 0.55);
+  return {
+    sky: shade * 0.45,
+    ground: Math.min(0.82, shade * 1.35) * (1 - look.snowCover * 0.5),
+  };
+}
+
 /** 虹の弧の幾何。画面上半分に地平線から生える大きさを返す。 */
 export function rainbowArc(w, horizon) {
   const r = Math.min(Math.max(w * 0.34, horizon * 0.50), horizon * 1.20);
@@ -150,7 +171,12 @@ export class Precip {
   }
 }
 
-/** 雲。ふわっとした楕円の重ね描き。 */
+/**
+ * 雲の代替。**絵が読めなかったときにだけ使う。**
+ * ★これが長らく本番だったが、ぼかした楕円はどう並べても灰色の綿にしかならなかった。
+ *   いまの本番は `js/clouds.js`（描いた雲を奥行きで並べる）。ここは空が空っぽに
+ *   なるのを防ぐだけの保険なので、良く見せようとしないこと。
+ */
 export function drawClouds(ctx, look, w, h, time) {
   if (look.cloudCount <= 0) return;
   const band = h * 0.52;

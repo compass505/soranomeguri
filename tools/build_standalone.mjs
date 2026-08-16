@@ -17,6 +17,8 @@ const ROOT = new URL('..', import.meta.url).pathname;
 const SPRITE_SCALE = 0.75;      // 192x208 のセルが 144x156 になる
 const SPRITE_Q = 68;
 const BG_Q = 78;
+const CLOUD_MAX_W = 900;        // 画面幅1.2倍ぶんあれば足りる。原寸のままだと単体HTMLが太る
+const CLOUD_Q = 72;
 
 const dataURI = (buf, mime) => `data:${mime};base64,${buf.toString('base64')}`;
 const MB = (n) => (n / 1024 / 1024).toFixed(2) + 'MB';
@@ -77,6 +79,27 @@ for (const [key, meta] of Object.entries(bgMetrics)) {
 }
 console.log(`背景 ${Object.keys(bgMetrics).length}枚  ${MB(bgBytes)}`);
 
+// --- 雲も同様に。単体HTMLは fetch できないので、一覧ごと畳み込む ---
+// ★ここを忘れても手元では気付けない。サーバ経由なら fetch が通り、
+//   CloudBank が黙って握り潰して楕円の空に落ちるだけだから。単体HTMLでだけ雲が消える。
+let cloudManifest;
+try {
+  cloudManifest = JSON.parse(await readFile(ROOT + 'assets/clouds/clouds.json', 'utf8'));
+} catch {
+  throw new Error('assets/clouds/clouds.json が無い。先に `npm run clouds` を走らせること');
+}
+const cloudSprites = {};
+let cloudBytes = 0;
+for (const m of cloudManifest) {
+  const buf = await sharp(ROOT + m.src)
+    .resize({ width: Math.min(m.w, CLOUD_MAX_W), withoutEnlargement: true })
+    .webp({ quality: CLOUD_Q, alphaQuality: 90 })
+    .toBuffer();
+  cloudBytes += buf.length;
+  cloudSprites[m.id] = dataURI(buf, 'image/webp');
+}
+console.log(`雲 ${cloudManifest.length}枚  ${MB(cloudBytes)}  (最大幅${CLOUD_MAX_W} q${CLOUD_Q})`);
+
 // --- JS を1本に束ねる ---
 const bundled = await esbuild.build({
   entryPoints: [ROOT + 'js/game.js'],
@@ -97,10 +120,20 @@ js = must(js,
   'bgm = await fetch("js/bg-metrics.json").then((r) => r.json());',
   'bgm = __BG_METRICS__;',
   'bg-metrics の取得');
+js = must(js,
+  'await fetch("assets/clouds/clouds.json").then((r) => r.json());',
+  '__CLOUD_MANIFEST__;',
+  '雲の一覧の取得');
+js = must(js,
+  'im.src = m.src;',
+  'im.src = __CLOUDS__[m.id];',
+  '雲のsrc');
 
 const head = `const __SPRITE_METRICS__ = ${JSON.stringify(scaleSpriteMetrics(spriteMetrics, SPRITE_SCALE))};
 const __BG_METRICS__ = ${JSON.stringify(bgOut)};
 const __SPRITES__ = ${JSON.stringify(sprites)};
+const __CLOUD_MANIFEST__ = ${JSON.stringify(cloudManifest)};
+const __CLOUDS__ = ${JSON.stringify(cloudSprites)};
 `;
 
 // --- HTML を組む ---
@@ -117,7 +150,8 @@ out = must(out, '<script type="module" src="js/game.js"></script>',
 out = must(out, `<script>\nif ('serviceWorker' in navigator) {\n  navigator.serviceWorker.register('./sw.js').catch(() => {});\n}\n</script>\n`, '', 'standalone 用の service worker 登録');
 
 // 単体で開くので、外部を一切参照していないことを確かめる
-for (const bad of ['src="js/', 'href="style', 'fetch("js/', 'fetch(\'js/']) {
+for (const bad of ['src="js/', 'href="style', 'fetch("js/', 'fetch(\'js/',
+                   'fetch("assets/', 'fetch(\'assets/']) {
   if (out.includes(bad)) throw new Error(`外部参照が残っている: ${bad}`);
 }
 

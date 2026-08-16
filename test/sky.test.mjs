@@ -13,7 +13,7 @@
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { rainbowArc, skyLook } from '../js/sky.js';
+import { rainbowArc, skyLook, gloomLevels } from '../js/sky.js';
 
 const screens = [
   { w: 375, horizon: 308 },      // iPhone 縦
@@ -84,4 +84,45 @@ test('★虹の絵は判定が虹のときだけ出す', () => {
 test('虹の濃さは 0〜1 に収まる', () => {
   const look = skyLook({ t: 18, w: 92, p: 1030, v: 3 }, 'rainbow');
   assert.ok(look.rainbow > 0 && look.rainbow <= 1, `濃さが範囲外: ${look.rainbow}`);
+});
+
+// ---------------------------------------------------------------- 曇りの陰り
+
+test('★曇るほど暗くなるのは空より地面（雲底は光源側）', () => {
+  // ★実際にずれた: 画面全体に同じ濃さを1枚かけていたので、
+  //   空は「雲の暗さ + 曇天の蓋 + 陰り」の3つを受け、地面は陰り1枚しか受けなかった。
+  //   荒天で空が鉛色なのに芝が春のまま、という絵になっていた。
+  //   **見上げた曇り空は明るい灰色で、暗いのはその影に入る地面の方。**
+  for (const cloud of [6, 8, 10]) {
+    const g = gloomLevels({ cloud, cloudDark: (cloud - 6) / 4, snowCover: 0 });
+    assert.ok(g.ground > g.sky,
+      `雲量${cloud}: 地面 ${g.ground.toFixed(2)} が空 ${g.sky.toFixed(2)} より暗くない`);
+  }
+});
+
+test('晴れていれば空も地面も陰らない', () => {
+  const g = gloomLevels({ cloud: 3, cloudDark: 0, snowCover: 0 });
+  assert.equal(g.sky, 0, `晴れの空が陰っている: ${g.sky}`);
+  assert.equal(g.ground, 0, `晴れの地面が陰っている: ${g.ground}`);
+});
+
+test('曇るほど陰りは強まる（単調）', () => {
+  let prev = -1;
+  for (let c = 0; c <= 10; c += 0.25) {
+    const g = gloomLevels({ cloud: c, cloudDark: Math.max(0, (c - 6.5) / 3.5), snowCover: 0 });
+    assert.ok(g.ground >= prev - 1e-9, `雲量${c} で地面が明るくなった: ${prev} → ${g.ground}`);
+    prev = g.ground;
+  }
+});
+
+test('★積雪した地面は同じ雲量でも暗くならない（雪は光を跳ね返す）', () => {
+  const l = { cloud: 10, cloudDark: 1 };
+  assert.ok(gloomLevels({ ...l, snowCover: 1 }).ground < gloomLevels({ ...l, snowCover: 0 }).ground,
+    '雪の日でも地面が同じだけ暗い');
+});
+
+test('陰りは真っ黒まで行かない（庭が読めなくなる）', () => {
+  const g = gloomLevels({ cloud: 10, cloudDark: 1, snowCover: 0 });
+  assert.ok(g.ground <= 0.85, `地面が暗すぎる: ${g.ground}`);
+  assert.ok(g.sky <= 0.5, `空が暗すぎる: ${g.sky}`);
 });

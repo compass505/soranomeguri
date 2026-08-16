@@ -5,7 +5,8 @@ import {
   classify, reachable, fullRange, DIAL_KEYS,
   AFTER_RAIN_WINDOW, WEATHER_JA, WEATHERS,
 } from './weather.js';
-import { skyLook, drawClouds, drawRainbow, Precip } from './sky.js';
+import { skyLook, drawClouds, drawRainbow, gloomLevels, Precip } from './sky.js';
+import { CloudBank } from './clouds.js';
 import { SpriteBank } from './sprites.js';
 import { Pet, bondLevel } from './garden.js';
 import { gardenLayout, walkBounds, pondOnScreen } from './layout.js';
@@ -26,6 +27,7 @@ const el = (id) => document.getElementById(id);
 let st = S.load();
 let sky = { ...st.dials };       // つまみを目標として追いかける、空の実際の状態
 let bank = null;
+let clouds = null;
 let bg = {};
 let bgm = null;
 let pets = [];                 // いま庭にいる子
@@ -72,6 +74,7 @@ async function init() {
     loadImage(bgm.bg_hills.src),
   ]);
   bank = await SpriteBank.load(Object.values(PET_ID));
+  clouds = await CloudBank.load();
 
   setupDials();
   // 範囲外の保存値を季節の可動域へ寄せた後、空とつまみを一致させて始める。
@@ -294,16 +297,21 @@ function paint(look, dt) {
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, W, horizon + 40);
 
-  drawClouds(ctx, look, W, horizon, time);
+  // 雲は描いた絵を奥行きで並べる（js/clouds.js）。絵が読めなかった時だけ楕円に落ちる
+  if (clouds && clouds.ready) clouds.draw(ctx, look, W, horizon, time);
+  else drawClouds(ctx, look, W, horizon, time);
 
   // 虹は空にある。丘の向こうに立つよう、丘より先に描く。
   drawRainbow(ctx, look, W, horizon);
 
   // 遠景の丘。下端を地平線に合わせる。
   // 幅いっぱいの自然な高さだと空を食い潰すので、遠景として 0.62 に縮める
+  const hillH = bg.hills
+    ? W * 1.25 * (bgm.bg_hills.height / bgm.bg_hills.width) * 0.62
+    : 0;
   if (bg.hills) {
     const hw = W * 1.25;                                       // 少し広げて端の切れを隠す
-    const hh = hw * (bgm.bg_hills.height / bgm.bg_hills.width) * 0.62;
+    const hh = hillH;
     ctx.globalAlpha = 0.92 - look.cloudDark * 0.3;
     ctx.drawImage(bg.hills, -(hw - W) / 2, horizon - hh, hw, hh);
     ctx.globalAlpha = 1;
@@ -328,16 +336,25 @@ function paint(look, dt) {
     ctx.fillRect(0, 0, W, H);
     ctx.restore();
   }
-  // 雲が厚いと地面も暗くなる。★空だけ暗くして地面が明るいままだと嘘に見えたので強めた
-  // 雲量5から効き始め、荒れるほど強い。雨なのに春の芝が鮮やかなままだと嘘に見える
-  // 積雪は光を跳ね返すので、雪の日は同じ雲量でも暗くならない
-  const gloom = Math.min(1, Math.max(0, (look.cloud - 4.5) / 5.5) * 0.75 + look.cloudDark * 0.55)
-                * (1 - look.snowCover * 0.5);
-  if (gloom > 0.01) {
+  // 曇りの陰り。★空と地面で濃さを変える（gloomLevels に理由がある）。
+  // 一枚で全体にかけていた頃は、空だけが雲・蓋・陰りの3つを受けて沈み、
+  // 地面は陰り1枚しか受けないので「鉛色の空の下で芝が春のまま」になっていた。
+  const gloom = gloomLevels(look);
+  if (gloom.sky > 0.01 || gloom.ground > 0.01) {
     ctx.save();
     ctx.globalCompositeOperation = 'multiply';
-    ctx.fillStyle = `rgba(96,106,138,${Math.min(0.78, gloom)})`;
-    ctx.fillRect(0, 0, W, H);
+    // ★地平線でいきなり濃さを変えると、そこに明るさの段差が出る。
+    //   遠景の丘は「空」ではなく地形なので、丘の帯を使って空の値から地面の値へ渡す。
+    //   段差の無い所で切り替えられる場所は、この画面には他に無い
+    const g = ctx.createLinearGradient(0, Math.max(0, horizon - hillH), 0, horizon);
+    g.addColorStop(0, `rgba(96,106,138,${gloom.sky})`);
+    g.addColorStop(1, `rgba(96,106,138,${gloom.ground})`);
+    ctx.fillStyle = `rgba(96,106,138,${gloom.sky})`;
+    ctx.fillRect(0, 0, W, Math.max(0, horizon - hillH));
+    ctx.fillStyle = g;
+    ctx.fillRect(0, Math.max(0, horizon - hillH), W, Math.min(hillH, horizon));
+    ctx.fillStyle = `rgba(96,106,138,${gloom.ground})`;
+    ctx.fillRect(0, horizon, W, H - horizon);
     ctx.restore();
   }
 
