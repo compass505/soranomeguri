@@ -12,6 +12,16 @@ export const SEKKI = [
   '立冬', '小雪', '大雪', '冬至', '小寒', '大寒',
 ];
 
+// ★節気名は本人には馴染みが薄い（「立春」等）ので、画面表示は月の目安に置き換える。
+//   実際の暦だと各節気が指す時期のおおよそ。ゲーム内の暦（実日付72日で一周）とは
+//   一致しない——名前の由来としての月であって、実日付の月を予言するものではない。
+export const SEKKI_MONTH = [
+  '2月上旬', '2月下旬', '3月上旬', '3月下旬', '4月上旬', '4月下旬',
+  '5月上旬', '5月下旬', '6月上旬', '6月下旬', '7月上旬', '7月下旬',
+  '8月上旬', '8月下旬', '9月上旬', '9月下旬', '10月上旬', '10月下旬',
+  '11月上旬', '11月下旬', '12月上旬', '12月下旬', '1月上旬', '1月下旬',
+];
+
 export const DAYS_PER_SEKKI = 3;          // 1年 = 72日
 export const DAYS_PER_YEAR = SEKKI.length * DAYS_PER_SEKKI;
 
@@ -141,5 +151,5 @@ export function classify(dials, afterRain = false) {
 export function calendar(dayIndex) {
   const d = ((dayIndex % DAYS_PER_YEAR) + DAYS_PER_YEAR) % DAYS_PER_YEAR;
   const i = Math.floor(d / DAYS_PER_SEKKI);
-  return { dayOfYear: d, sekkiIndex: i, sekki: SEKKI[i] };
+  return { dayOfYear: d, sekkiIndex: i, sekki: SEKKI[i], sekkiMonth: SEKKI_MONTH[i] };
 }

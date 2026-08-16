@@ -75,7 +75,7 @@ function firstMetText(state, id) {
   if (!Number.isFinite(metAt)) return '';
   const metDay = Math.floor(metAt / 86400000) + devShiftDays();
   const cal = calendar(metDay - state.startDay);
-  return `${cal.sekki} の${DAY_WORD[cal.dayOfYear % 3]}`;
+  return `${cal.sekkiMonth} の${DAY_WORD[cal.dayOfYear % 3]}`;
 }
 
 function html(tag, className, text) {

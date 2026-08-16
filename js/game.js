@@ -4,7 +4,7 @@
 import {
   classify, reachable, fullRange, DIAL_KEYS,
   AFTER_RAIN_WINDOW, WEATHER_JA, WEATHERS,
-  SEKKI, DAYS_PER_SEKKI, DAYS_PER_YEAR,
+  SEKKI, SEKKI_MONTH, DAYS_PER_SEKKI, DAYS_PER_YEAR,
 } from './weather.js';
 import { skyLook, drawClouds, drawRainbow, gloomLevels, Precip } from './sky.js';
 import { CloudBank } from './clouds.js';
@@ -57,13 +57,13 @@ function setupDevPanel() {
   panel.hidden = false;
 
   const cal = S.gameCalendar(st);
-  el('dev-now').textContent = `今: ${cal.sekki}（${cal.dayOfYear + 1}/${DAYS_PER_YEAR}日目、早送り${S.devShiftDays()}日）`;
+  el('dev-now').textContent = `今: ${cal.sekkiMonth}（${cal.sekki}）（${cal.dayOfYear + 1}/${DAYS_PER_YEAR}日目、早送り${S.devShiftDays()}日）`;
 
   const sel = el('dev-sekki');
   for (const [i, name] of SEKKI.entries()) {
     const opt = document.createElement('option');
     opt.value = String(i);
-    opt.textContent = name;
+    opt.textContent = `${SEKKI_MONTH[i]}（${name}）`;
     sel.appendChild(opt);
   }
   sel.value = String(cal.sekkiIndex);
@@ -181,7 +181,7 @@ function sayBoundary(k, side) {
   const now = performance.now();
   if (now - boundaryNoticeAt[k] < 3000) return;
   boundaryNoticeAt[k] = now;
-  const sekki = S.gameCalendar(st).sekki;
+  const sekki = S.gameCalendar(st).sekkiMonth;
   say(`${sekki}の空は ここまでしか ${boundaryWords[k][side]}`);
 }
 
@@ -209,7 +209,7 @@ function applyRanges() {
     input.value = st.dials[k];
     el(`v-${k}`).textContent = FMT[k](st.dials[k]);
   }
-  el('sekki').textContent = cal.sekki;
+  el('sekki').textContent = cal.sekkiMonth;
   el('dayno').textContent = `${cal.dayOfYear + 1}日目`;
 }
 
