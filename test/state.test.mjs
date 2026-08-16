@@ -59,6 +59,16 @@ test('好物なら +3、それ以外なら +1', () => {
   assert.equal(st.bond.sunny, 4);
 });
 
+test('食べたものは、子と実りごとに日をまたいで累積する', () => {
+  st.bag = { fog: 2, rainy: 1 };
+  S.feed(st, 'sunny', 'fog');
+  st.daily.fed = {};
+  S.feed(st, 'sunny', 'fog');
+  st.daily.fed = {};
+  S.feed(st, 'sunny', 'rainy');
+  assert.deepEqual(st.meals.sunny, { fog: 2, rainy: 1 });
+});
+
 test('にじのかけらは万能（どの子にも好物として効く）', () => {
   st.bag = { rainbow: 1 };
   assert.equal(S.feed(st, 'thunder', 'rainbow'), 'liked');
@@ -129,7 +139,59 @@ test('なでるは1体1日1回、親密度が1上がる', () => {
   assert.equal(st.bond.sunny, 1);
 });
 
+// ---------------------------------------------------------------- めぐりの記録
+
+test('会った日数は同じ日に重ねず、別の日には積み上がる', () => {
+  assert.equal(S.recordMet(st, 'sunny'), true);
+  assert.equal(S.recordMet(st, 'sunny'), false, '同じ日の再会を二重に数えない');
+  assert.equal(st.metDays.sunny, 1);
+
+  st.lastMet.sunny -= 1;                    // 翌日にもう一度会った状態
+  assert.equal(S.recordMet(st, 'sunny'), true);
+  assert.equal(st.metDays.sunny, 2);
+});
+
+test('静かな空を保った秒数とダイヤの親密度が一緒に積み上がる', () => {
+  S.quietTick(st, 20);
+  S.quietTick(st, 40);
+  assert.equal(st.quiet, 60);
+  assert.equal(st.bond.diamonddust, 3);
+});
+
 // ---------------------------------------------------------------- 保存
+
+test('★version 2 の保存は関係と持ち物を失わず version 3 へ移行する', () => {
+  const old = {
+    ...st,
+    version: 2,
+    bond: { rainy: 22, fog: 7 },
+    seen: { rainy: 1755300000000, fog: 1755386400000 },
+    bag: { sunny: 4, rainbow: 1 },
+    carry: 11,
+  };
+  delete old.meals;
+  delete old.metDays;
+  delete old.lastMet;
+  delete old.quiet;
+  const kept = {
+    bond: structuredClone(old.bond),
+    seen: structuredClone(old.seen),
+    bag: structuredClone(old.bag),
+    carry: old.carry,
+  };
+  globalThis.localStorage.setItem('soranomeguri-v1', JSON.stringify(old));
+
+  const loaded = S.load();
+  assert.equal(loaded.version, 3);
+  assert.deepEqual(loaded.bond, kept.bond, 'bond が移行で変わった');
+  assert.deepEqual(loaded.seen, kept.seen, 'seen が移行で変わった');
+  assert.deepEqual(loaded.bag, kept.bag, 'bag が移行で変わった');
+  assert.equal(loaded.carry, kept.carry, 'carry が移行で変わった');
+  assert.deepEqual(loaded.meals, {});
+  assert.deepEqual(loaded.metDays, {});
+  assert.deepEqual(loaded.lastMet, {});
+  assert.equal(loaded.quiet, 0);
+});
 
 test('壊れた保存データを読んでも落ちず、新規状態になる', () => {
   globalThis.localStorage.setItem('soranomeguri-v1', '{壊れたJSON');

@@ -3,7 +3,7 @@
  * コードを network-first、絵を cache-first に分けて、「常に新しく、かつ
  * オフラインでも開ける」を両立させる。
  */
-const CACHE = 'soranomeguri-v2';
+const CACHE = 'soranomeguri-v3';
 /** コードは常に新しい方を取りに行く。絵は重くて変わらないのでキャッシュ優先。 */
 const CODE = /\.(html|css|js|json|webmanifest)$/;
 const PRECACHE = [
@@ -17,6 +17,7 @@ const PRECACHE = [
   'js/garden.js',
   'js/inertia.js',
   'js/layout.js',
+  'js/record.js',
   'js/sky.js',
   'js/sprite-metrics.json',
   'js/sprites.js',

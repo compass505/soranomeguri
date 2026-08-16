@@ -14,6 +14,7 @@ import { gardenLayout, walkBounds, pondOnScreen } from './layout.js';
 import * as S from './state.js';
 import { relax, settled } from './inertia.js';
 import { Roster } from './arrival.js';
+import { RecordScreen } from './record.js';
 
 // アトラスのidは `yui-*` のまま据え置く。ゲーム名を「そらのめぐり」に変えた後も改名しない:
 // このidは ~/.codex/pets/ のフォルダ名・各 pet.json の id・hatch-pet-runs の生成記録と
@@ -39,6 +40,8 @@ let stableFor = 0;             // いまの天気が続いている秒数
 let current = null;            // いまの天気
 let afterRain = 0;             // 降水が止まってからの残り猶予（秒）。虹の窓
 let sinceHarvest = 0;
+let quietUnsaved = 0;
+let recordScreen = null;
 const roster = new Roster();
 
 const precip = new Precip(1, 1);
@@ -127,6 +130,7 @@ function loadImage(src) {
 
 async function init() {
   window.addEventListener('resize', fitCanvas);
+  window.addEventListener('pagehide', () => S.save(st));
   fitCanvas();
 
   // 余白を切り落とした版を使う。切る位置は tools/crop_bg.mjs が画像から実測している
@@ -138,6 +142,14 @@ async function init() {
   ]);
   bank = await SpriteBank.load(Object.values(PET_ID));
   clouds = await CloudBank.load();
+
+  recordScreen = new RecordScreen({
+    root: el('record-screen'),
+    openButton: el('record-open'),
+    getState: () => st,
+    bank,
+  });
+  el('record-open').disabled = false;
 
   setupDials();
   // 範囲外の保存値を季節の可動域へ寄せた後、空とつまみを一致させて始める。
@@ -322,10 +334,18 @@ function syncPets(kind, dt) {
   const present = new Set(events.present);
   const left = new Set(events.left);
 
+  let changed = false;
   for (const k of events.arrived) {
-    if (!st.seen[k]) { st.seen[k] = Date.now(); say(`${WEATHER_JA[k]}の子が はじめて 庭に来た`); }
-    else say(`${WEATHER_JA[k]}の子が 庭に来た`);
+    if (!st.seen[k]) {
+      st.seen[k] = Date.now();
+      changed = true;
+      say(`${WEATHER_JA[k]}の子が はじめて 庭に来た`);
+    } else {
+      say(`${WEATHER_JA[k]}の子が 庭に来た`);
+    }
+    if (S.recordMet(st, k)) changed = true;
   }
+  if (changed) S.save(st);
 
   // Roster が持つ顔ぶれを正として、帰り支度中の子も描画配列に残す。
   pets = pets.filter((p) => present.has(p.id) && !left.has(p.id));
@@ -494,7 +514,14 @@ function loop(now) {
     }
   }
   // ダイヤの子だけ、静けさを保った時間で懐く
-  if (kind === 'diamonddust' && stableFor > 3) S.quietTick(st, dt);
+  if (kind === 'diamonddust' && stableFor > 3) {
+    S.quietTick(st, dt);
+    quietUnsaved += dt;
+    if (quietUnsaved >= 5) {
+      S.save(st);
+      quietUnsaved = 0;
+    }
+  }
 
   for (const p of pets) p.step(dt, pointer);
 

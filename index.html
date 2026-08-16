@@ -41,8 +41,27 @@
 
   <div id="hud">
     <div id="date"><span id="sekki">立春</span><span id="dayno"></span></div>
+    <button id="record-open" type="button" disabled>めぐり</button>
     <div id="weather"><span id="wname">—</span></div>
   </div>
+
+  <section id="record-screen" class="record-screen" aria-labelledby="record-title" aria-hidden="true" hidden>
+    <header class="record-header">
+      <button id="record-close" type="button">←もどる</button>
+      <h1 id="record-title">めぐりの記録</h1>
+      <span aria-hidden="true"></span>
+    </header>
+    <main class="record-main">
+      <section class="record-overview" aria-label="実りの環">
+        <div id="record-ring" class="record-ring"></div>
+        <section class="record-outside-section" aria-labelledby="record-outside-title">
+          <h2 id="record-outside-title">環の外</h2>
+          <div id="record-outside" class="record-outside"></div>
+        </section>
+      </section>
+      <article id="record-sheet" class="record-sheet" aria-live="polite" hidden></article>
+    </main>
+  </section>
 
   <div id="feed"></div>
 

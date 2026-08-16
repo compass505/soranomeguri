@@ -217,6 +217,20 @@ body.title-open { overflow: hidden; }
   padding: 14px 16px; pointer-events: none;
   font-size: 14px; letter-spacing: .04em;
 }
+#record-open {
+  pointer-events: auto;
+  min-height: 34px;
+  padding: 4px 13px;
+  border: 1px solid rgba(90,84,72,.16);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13px;
+  letter-spacing: .08em;
+  color: inherit;
+  background: rgba(255,252,246,.82);
+  cursor: pointer;
+}
+#record-open:focus-visible { outline: 3px solid rgba(255,252,246,.92); outline-offset: 3px; }
 #date, #weather {
   background: rgba(255,252,246,0.82);
   border-radius: 999px;
@@ -225,6 +239,191 @@ body.title-open { overflow: hidden; }
 #sekki { font-size: 19px; font-weight: 600; }
 #dayno { margin-left: 8px; opacity: .72; font-size: 12px; }
 #weather { font-size: 17px; font-weight: 600; }
+
+/* --- めぐりの記録。庭の光に重ねる、鈍い和紙の場所 --- */
+body.record-open { overflow: hidden; }
+.record-screen {
+  --sumi: #33302a;
+  --washi: #f5efe2;
+  --kasumi: #cdd4d3;
+  --sora: #7fa8c9;
+  --hidamari: #e0a63c;
+  --sumire: #8b7fb0;
+  position: fixed;
+  z-index: 15;
+  inset: 0;
+  overflow: hidden;
+  color: var(--sumi);
+  background: var(--washi);
+}
+.record-header {
+  height: 52px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: env(safe-area-inset-top) 14px 0;
+  border-bottom: 1px solid rgba(51,48,42,.14);
+  background: var(--washi);
+}
+.record-header h1 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .12em;
+}
+#record-close {
+  justify-self: start;
+  min-width: 72px;
+  min-height: 40px;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 13px;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+.record-main { height: calc(100% - 52px); overflow-y: auto; overscroll-behavior: contain; }
+.record-overview { width: min(100%, 400px); margin: 0 auto; }
+.record-ring { position: relative; width: 320px; height: 320px; margin: 0 auto; }
+.record-ring-lines { position: absolute; inset: 0; width: 320px; height: 320px; overflow: visible; }
+.record-edge {
+  fill: none;
+  stroke: var(--edge-color);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.record-edge.is-passed { stroke-width: 4; }
+.record-edge.is-drawing {
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: record-draw 600ms ease-out forwards;
+}
+@keyframes record-draw { to { stroke-dashoffset: 0; } }
+
+.record-node {
+  width: 82px;
+  min-height: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+.record-ring > .record-node { position: absolute; transform: translate(-50%, -50%); }
+.record-node-sprite { display: block; width: 56px; height: 58px; }
+.record-empty {
+  display: block;
+  width: 56px;
+  height: 56px;
+  border: 1.5px solid var(--kasumi);
+  border-radius: 50%;
+}
+.record-node-name {
+  display: block;
+  max-width: 96px;
+  margin-top: -1px;
+  font-size: 10px;
+  line-height: 1.2;
+  white-space: normal;
+}
+.record-node:focus-visible, #record-close:focus-visible {
+  outline: 3px solid var(--sora);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+.record-outside-section {
+  padding: 0 10px 12px;
+  border-top: 1px solid rgba(51,48,42,.14);
+}
+.record-outside-section > h2 {
+  margin: 7px 0 2px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .1em;
+}
+.record-outside { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+.record-outside-item { min-width: 0; text-align: center; }
+.record-outside-item .record-node { width: 100%; min-height: 65px; }
+.record-outside-reason {
+  margin: -1px auto 0;
+  max-width: 112px;
+  font-size: 9px;
+  line-height: 1.35;
+}
+
+.record-sheet {
+  width: min(calc(100% - 32px), 420px);
+  margin: 0 auto;
+  padding: 28px 4px calc(42px + env(safe-area-inset-bottom));
+  border-top: 1px solid rgba(51,48,42,.2);
+}
+.record-portrait { width: 156px; height: 156px; margin: 0 auto; }
+.record-portrait-sprite { display: block; }
+.record-portrait.is-unseen { display: grid; place-items: center; }
+.record-portrait-empty {
+  width: 104px;
+  height: 104px;
+  border: 1.5px solid var(--kasumi);
+  border-radius: 50%;
+}
+.record-character-name {
+  margin: 8px 0 0;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-align: center;
+}
+.record-bond-word, .record-unseen-hint {
+  margin: 11px 0 24px;
+  font-size: 14px;
+  line-height: 1.8;
+  text-align: center;
+}
+.record-history {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px 16px;
+  margin: 0;
+  padding: 17px 0;
+  border-top: 1px solid rgba(51,48,42,.18);
+}
+.record-history dt, .record-history dd { margin: 0; font-size: 13px; }
+.record-history dd { text-align: right; }
+.record-history dd.is-mincho {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  letter-spacing: .12em;
+}
+.is-number {
+  font-family: system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+.record-quiet { border-bottom: 1px solid rgba(51,48,42,.18); }
+.record-meals, .record-favorite {
+  padding: 17px 0;
+  border-top: 1px solid rgba(51,48,42,.18);
+}
+.record-meals h3 { margin: 0 0 10px; font-size: 13px; font-weight: 500; }
+.record-meal-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.record-meal-list li { display: flex; align-items: baseline; gap: 10px; padding-left: 12px; font-size: 13px; }
+.record-meal-count { margin-left: auto; }
+.record-liked-note { min-width: 3.8em; font-size: 11px; color: rgba(51,48,42,.66); }
+.record-favorite { border-bottom: 1px solid rgba(51,48,42,.18); }
+.record-favorite p { margin: 0; font-size: 13px; line-height: 1.8; }
+
+@media (max-width: 350px) {
+  .record-ring { transform: scale(.94); transform-origin: top center; margin-bottom: -19px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .record-edge.is-drawing { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
+}
 
 /* 出来事の通知。数値ではなく言葉で返す */
 #feed {

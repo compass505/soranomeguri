@@ -62,7 +62,7 @@ export function freshState() {
   const startDay = todayIndex();
   const b = baseline(calendar(todayIndex() - startDay).sekkiIndex);
   return {
-    version: 2,
+    version: 3,
     startDay,
     lastDay: startDay,
     dials: { ...b },
@@ -71,8 +71,26 @@ export function freshState() {
     daily: { day: startDay, taken: 0, perKind: {}, fed: {}, petted: {} },
     carry: 0,
     seen: {},                       // 初めて会った日
+    meals: {},                      // 天気id -> { 実りid: 累計回数 }
+    metDays: {},                    // 天気id -> 会った実日数
+    lastMet: {},                    // 天気id -> 最後に会った todayIndex
+    quiet: 0,                       // ダイヤの静けさ累計（秒）
     log: [],
   };
+}
+
+/**
+ * version 2 の記録を失わず、version 3 で増えた履歴だけを補う。
+ * ★bond / seen / bag / carry は関係そのものなので、作り直しもコピーもしない。
+ */
+export function migrate(s) {
+  if (s.version !== 2 && s.version !== 3) return null;
+  if (s.meals === undefined) s.meals = {};
+  if (s.metDays === undefined) s.metDays = {};
+  if (s.lastMet === undefined) s.lastMet = {};
+  if (s.quiet === undefined) s.quiet = 0;
+  s.version = 3;
+  return s;
 }
 
 export function load() {
@@ -80,7 +98,8 @@ export function load() {
     const raw = localStorage.getItem(KEY);
     if (!raw) return freshState();
     const s = JSON.parse(raw);
-    return s.version === 2 ? rollDay(s) : freshState();
+    const migrated = migrate(s);
+    return migrated ? rollDay(migrated) : freshState();
   } catch { return freshState(); }
 }
 
@@ -146,6 +165,8 @@ export function feed(s, pet, kind) {
   if (!(s.bag[kind] > 0)) return null;
   s.bag[kind]--;
   s.daily.fed[pet] = kind;
+  if (!s.meals[pet]) s.meals[pet] = {};
+  s.meals[pet][kind] = (s.meals[pet][kind] || 0) + 1;
   const liked = likedBy(s, pet) === kind || kind === 'rainbow';   // にじのかけらは万能
   s.bond[pet] = (s.bond[pet] || 0) + (liked ? 3 : 1);
   return liked ? 'liked' : 'ok';
@@ -161,5 +182,15 @@ export function pet(s, id) {
 
 /** ダイヤモンドダストの子だけ、餌ではなく静けさを保った時間で懐く。 */
 export function quietTick(s, secs) {
+  s.quiet += secs;
   s.bond.diamonddust = (s.bond.diamonddust || 0) + secs / 20;
+}
+
+/** 同じ実日には一度だけ「会った日」として数える。 */
+export function recordMet(s, id) {
+  const day = todayIndex();
+  if (s.lastMet[id] === day) return false;
+  s.metDays[id] = (s.metDays[id] || 0) + 1;
+  s.lastMet[id] = day;
+  return true;
 }
