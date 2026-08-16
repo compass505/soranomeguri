@@ -1,6 +1,14 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "soranomeguri", "runtimeExecutable": "node", "runtimeArgs": ["server.mjs"], "port": 8360 }
+    {
+      "name": "soranomeguri",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "server.mjs"
+      ],
+      "port": 8360,
+      "autoPort": true
+    }
   ]
 }
