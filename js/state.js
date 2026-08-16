@@ -28,8 +28,34 @@ const CARRY_DAYS = 3;       // 繰り越しの上限
 
 const KEY = 'soranomeguri-v1';   // 旧 'yui-game-v2'（改名前のテスト保存は引き継がない）
 
+// 実日付を早送りして節気を移動する道具。日送りパネルから使う。
+// ★可動域という希少性の仕組みは「実時間が経つのを待つ」ことに支えられている（骨格v2 2節）。
+//   早送り量は本編と同じ localStorage に保存する——タブを閉じても、次に開いた時も残る。
+const DEV_SHIFT_KEY = 'soranomeguri-dev-shift';
+
+let devShift = (() => {
+  try { return Math.floor(Number(localStorage.getItem(DEV_SHIFT_KEY))) || 0; } catch { return 0; }
+})();
+
 function todayIndex() {
-  return Math.floor(Date.now() / 86400000);
+  return Math.floor(Date.now() / 86400000) + devShift;
+}
+
+/** 実日付を n日ぶん先送りする。呼んだ後は reload しないと反映されない。負数は無視。 */
+export function devAdvanceDays(n) {
+  if (!(n > 0)) return;
+  devShift += Math.floor(n);
+  try { localStorage.setItem(DEV_SHIFT_KEY, String(devShift)); } catch { /* 諦める */ }
+}
+
+/** 早送りを解除する。 */
+export function devResetShift() {
+  devShift = 0;
+  try { localStorage.removeItem(DEV_SHIFT_KEY); } catch { /* 諦める */ }
+}
+
+export function devShiftDays() {
+  return devShift;
 }
 
 export function freshState() {

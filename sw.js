@@ -3,7 +3,7 @@
  * コードを network-first、絵を cache-first に分けて、「常に新しく、かつ
  * オフラインでも開ける」を両立させる。
  */
-const CACHE = 'soranomeguri-v1';
+const CACHE = 'soranomeguri-v2';
 /** コードは常に新しい方を取りに行く。絵は重くて変わらないのでキャッシュ優先。 */
 const CODE = /\.(html|css|js|json|webmanifest)$/;
 const PRECACHE = [
@@ -68,7 +68,12 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   if (event.request.method !== 'GET' || !['http:', 'https:'].includes(url.protocol)) return;
 
-  if (CODE.test(url.pathname)) {
+  // ★「/」（拡張子なしのトップページ）は CODE の正規表現に引っかからず、
+  //   下のキャッシュ優先の枝に落ちていた。一度キャッシュされると、
+  //   コードを直しても index.html だけ古いまま配られ続ける
+  //   （URLを叩いて開く・PWAのホーム画面アイコンから開く、どちらもこの形で来る）。
+  //   ナビゲーション（ページそのものの読み込み）は拡張子に関わらず必ずコード扱いにする。
+  if (CODE.test(url.pathname) || event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request)
         .then((response) => {

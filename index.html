@@ -78,6 +78,19 @@
 
     <div id="bag"></div>
   </div>
+
+  <div id="dev-panel" hidden>
+    <p id="dev-now"></p>
+    <div class="dev-row">
+      <input type="number" id="dev-days" min="1" step="1" value="1">
+      <button id="dev-advance" type="button">日を進める</button>
+    </div>
+    <div class="dev-row">
+      <select id="dev-sekki"></select>
+      <button id="dev-jump" type="button">その節気へ</button>
+    </div>
+    <button id="dev-reset" type="button">早送り解除</button>
+  </div>
 </div>
 <script type="module" src="js/game.js"></script>
 <script>

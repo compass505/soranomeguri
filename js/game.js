@@ -4,6 +4,7 @@
 import {
   classify, reachable, fullRange, DIAL_KEYS,
   AFTER_RAIN_WINDOW, WEATHER_JA, WEATHERS,
+  SEKKI, DAYS_PER_SEKKI, DAYS_PER_YEAR,
 } from './weather.js';
 import { skyLook, drawClouds, drawRainbow, gloomLevels, Precip } from './sky.js';
 import { CloudBank } from './clouds.js';
@@ -43,6 +44,46 @@ const roster = new Roster();
 const precip = new Precip(1, 1);
 
 // ---------------------------------------------------------------- 初期化
+
+// 希少な天気を待たずに確かめるための日送りツール。
+// ★可動域の希少性は「実時間が経つのを待つ」ことに支えられている——
+//   常時UIに出す間は、この仕組み自体を確かめる道具として使うこと。
+function setupDevPanel() {
+  const panel = el('dev-panel');
+  if (!panel) return;
+  panel.hidden = false;
+
+  const cal = S.gameCalendar(st);
+  el('dev-now').textContent = `今: ${cal.sekki}（${cal.dayOfYear + 1}/${DAYS_PER_YEAR}日目、早送り${S.devShiftDays()}日）`;
+
+  const sel = el('dev-sekki');
+  for (const [i, name] of SEKKI.entries()) {
+    const opt = document.createElement('option');
+    opt.value = String(i);
+    opt.textContent = name;
+    sel.appendChild(opt);
+  }
+  sel.value = String(cal.sekkiIndex);
+
+  el('dev-advance').addEventListener('click', () => {
+    const n = Math.max(1, Math.floor(Number(el('dev-days').value) || 1));
+    S.devAdvanceDays(n);
+    location.reload();
+  });
+
+  el('dev-jump').addEventListener('click', () => {
+    const target = Number(sel.value);
+    const delta = (((target * DAYS_PER_SEKKI) - cal.dayOfYear) % DAYS_PER_YEAR + DAYS_PER_YEAR) % DAYS_PER_YEAR;
+    if (delta === 0) return;   // 既にその節気にいる
+    S.devAdvanceDays(delta);
+    location.reload();
+  });
+
+  el('dev-reset').addEventListener('click', () => {
+    S.devResetShift();
+    location.reload();
+  });
+}
 
 function setupTitleScreen() {
   const screen = el('title-screen');
@@ -467,4 +508,5 @@ function loop(now) {
 }
 
 setupTitleScreen();
+setupDevPanel();
 init();
